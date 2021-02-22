@@ -1,25 +1,95 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from 'axios';
+import { useEffect, Suspense, lazy } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { CookiesProvider } from 'react-cookie';
+import styled from 'styled-components';
 
+// components
+import FullPageLoading from './components/loading/FullPageLoading';
+// components - Home
+const HomeMain = lazy(() => import('./components/main_component/home/HomeMain'));
+// components - Introduce
+const IntroduceIntro1Main = lazy(() => import('./components/main_component/introduce/intro1/IntroduceIntro1Main'));
+const IntroduceIntro2Main = lazy(() => import('./components/main_component/introduce/intro2/IntroduceIntro2Main'));
+const IntroduceIntro3Main = lazy(() => import('./components/main_component/introduce/intro3/IntroduceIntro3Main'));
+// components - Foundation
+const FoundIntro1Main = lazy(()=>import('./components/main_component/found/intro1/FoundIntro1Main'));
+const FoundIntro2Main = lazy(()=>import('./components/main_component/found/intro2/FoundIntro2Main'));
+// components - Admin
+const LoginMain = lazy(() => import('./components/main_component/login/LoginMain'));
+const AdminHomeMain = lazy(()=>import('./components/main_component/admin/admin_home/AdminHomeMain'));
+const AdminCounselingMain = lazy(()=>import('./components/main_component/admin/admin_counseling/AdminCounselingMain'));
+const AdminProductMain = lazy(()=>import('./components/main_component/admin/admin_product/AdminProductMain'));
+
+const AppContainer = styled.div`
+    animation: fadein 1.5s;
+    -moz-animation: fadein 1.5s; /* Firefox */
+    -webkit-animation: fadein 1.5s; /* Safari and Chrome */
+    -o-animation: fadein 1.5s; /* Opera */
+    @keyframes fadein {
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
+    }
+    @-moz-keyframes fadein { /* Firefox */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
+    }
+    @-webkit-keyframes fadein { /* Safari and Chrome */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
+    }
+    @-o-keyframes fadein { /* Opera */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+`;
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    useEffect(() => {
+        axios.get('/api/token/get/csrf').then(res => {
+        })
+    }, [])
+    return (
+        <CookiesProvider>
+            <BrowserRouter>
+                <Suspense fallback={<FullPageLoading></FullPageLoading>}>
+                    <AppContainer>
+                        <Switch>
+                            {/* Home */}
+                            <Route exact path='/' component={HomeMain}></Route>
+                            {/* Introduce */}
+                            <Route exact path='/introduce/intro1' component={IntroduceIntro1Main}></Route>
+                            <Route exact path='/introduce/intro2' component={IntroduceIntro2Main}></Route>
+                            <Route exact path='/introduce/intro3' component={IntroduceIntro3Main}></Route>
+                            {/* Foundation */}
+                            <Route exact path='/found/intro1' component={FoundIntro1Main}></Route>
+                            <Route exact path='/found/intro2' component={FoundIntro2Main}></Route>
+                            {/* Admin */}
+                            <Route exact path='/login' component={LoginMain}></Route>
+                            <Route exact path='/admin' component={AdminHomeMain}></Route>
+                            <Route exact path='/admin/counseling' component={AdminCounselingMain}></Route>
+                            <Route exact path='/admin/product' component={AdminProductMain}></Route>
+                        </Switch>
+                    </AppContainer>
+                </Suspense>
+            </BrowserRouter>
+        </CookiesProvider>
+    );
 }
 
 export default App;
