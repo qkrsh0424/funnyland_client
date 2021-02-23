@@ -20,9 +20,9 @@ const Container = styled.div`
 const TextEl = styled.div`
     color: white;
     font-size:19px;
-    font-weight:500;
+    font-weight:700;
     @media only screen and (max-width: 768px){
-        font-size:11px;
+        font-size:13px;
     }
 `;
 
@@ -37,7 +37,7 @@ const ButtonEl = styled.button`
         background:#f8bac9;
     }
     @media only screen and (max-width: 768px){
-        font-size:11px;
+        font-size:16px;
     }
 `;
 const NavbarBottomFixed = (props) =>{
@@ -46,7 +46,7 @@ const NavbarBottomFixed = (props) =>{
     } = props;
     return(
         <Container id='i_bottom_fixed_nav'>
-            <div className="row">
+            {/* <div className="row">
                 <div className="col-6 text-center">
                     <TextEl className="text-center">성공적인 오락실 창업은</TextEl>
                     <TextEl className="text-center"><b className='text-strong'>퍼니랜드</b>와 함께</TextEl>
@@ -54,11 +54,20 @@ const NavbarBottomFixed = (props) =>{
                     
                 </div>
                 <div className="col-6 text-center">
-                    <TextEl><b className='text-strong'>무료창업상담</b> : <b>02-2272-1244</b></TextEl>
+                    <TextEl className='text-center'><b className='text-strong'>무료창업상담</b> : <b>02-2272-1244</b></TextEl>
                     <ButtonEl type="button" className="btn btn-sm" style={{borderColor:'white', background:'#ee5470'}} onClick={()=>mainHandleDialogControl().open()}>문의하기</ButtonEl>
                     <ButtonEl type="button" className="btn btn-sm btn-outline-warning" style={{borderColor:'white', background:'#f7734a', color:'white'}}>Tel.</ButtonEl>
                 </div>
-                
+            </div> */}
+            <div className='clearfix'>
+                <div className='float-right'>
+                    <ButtonEl type="button" className="btn btn-sm" style={{borderColor:'white', background:'#ee5470'}} onClick={()=>mainHandleDialogControl().open()}>문의하기</ButtonEl>
+                    <ButtonEl type="button" className="btn btn-sm btn-outline-warning" style={{borderColor:'white', background:'#f7734a', color:'white'}}>Tel.</ButtonEl>
+                </div>
+                <div>
+                    <TextEl className="text-center">성공적인 오락실 창업은 <b className='text-strong'>퍼니랜드</b>와 함께 시작해 보세요.</TextEl>
+                    <TextEl className='text-center'><b className='text-strong'>무료창업상담</b> : <b>02-2272-1244</b></TextEl>
+                </div>
             </div>
         </Container>
     )

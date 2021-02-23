@@ -17,7 +17,7 @@ const ContainerTitle = styled.div`
 
     @media only screen and (max-width:768px){
         padding:0;
-        font-size: 30px;
+        font-size: 26px;
     }
 `;
 
@@ -129,8 +129,8 @@ const OpenStore = (props) => {
     };
     return (
         <Container>
-            <ContainerTitle><span style={{color:'#ee5470', fontWeight:'900', fontSize:'52px'}}>OPEN</span> 매장 안내</ContainerTitle>
-            <ContainerSubTitle>전국 <span style={{color:'#ee5470', fontWeight:'1100', fontSize:'28px'}}>퍼니랜드</span> 가맹점들을 확인해 보세요</ContainerSubTitle>
+            <ContainerTitle><span style={{color:'#ee5470', fontWeight:'800'}}>OPEN</span> 매장 안내</ContainerTitle>
+            <ContainerSubTitle>전국 <span style={{color:'#ee5470', fontWeight:'800'}}>퍼니랜드</span> 가맹점들을 확인해 보세요</ContainerSubTitle>
             <SliderContainer>
                 <Slider {...settings}>
                     {props.banners.map(r=>{
@@ -173,7 +173,7 @@ const OpenStore = (props) => {
                 </Slider>
             </SliderContainer>
             <div className="text-center">
-                <ButtonEl type="button" className="btn btn-lg">오픈매장안내 바로가기</ButtonEl>
+                <ButtonEl type="button" className="btn">오픈매장안내 바로가기</ButtonEl>
             </div>
         </Container>
     );

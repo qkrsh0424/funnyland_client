@@ -1,7 +1,51 @@
-import styled from 'styled-components';
+import {useEffect, useRef, useState} from 'react';
+import styled,{css, keyframes} from 'styled-components';
 import YouTube from 'react-youtube';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+const floatingPlayerTitleAnimation = ()=>{
+    return keyframes`
+        50% {
+            opacity:1;
+            transform: skew(-15deg) scale(1.2); 
+            /* transform: scale(1.1); */
+        }
+    `;
+}
+
 const Container = styled.div`
     padding-bottom: 20px;
+`;
+
+const ItemBox = styled.div`
+    position:relative;
+    min-height:150px;
+    padding-top:15px;
+`;
+
+const YoutubeBox = styled.div`
+    ${(props)=>props.floating_close==true || props.scroll_y >= props.offset_top-document.documentElement.clientHeight ? 
+        css `
+            position:relative;
+            @media only screen and (max-width: 768px){
+                width:100%;
+            }
+        ` : 
+        css `
+            position:fixed;
+            bottom:20%;
+            right:5%;
+            @media only screen and (max-width: 768px){
+                width:${`${document.documentElement.clientWidth-100}px`};
+                right:0;
+            }
+        `
+    }
+    
+    width:400px;
+    min-height:150px;
+    padding-top:15px;
+
     .youtube-player-box{
         position: relative;
         padding-bottom: 56.25%;
@@ -13,12 +57,29 @@ const Container = styled.div`
         top: 0;
         left: 0;
     }
-`;
 
-const ItemBox = styled.div`
-    position:relative;
-    min-height:150px;
-    padding-top:15px;
+    & .titleEl{
+        display:inline-block;
+        opacity:.5;
+        color:white;
+        font-size:15px;
+        padding-left: 20px;
+        animation: ${floatingPlayerTitleAnimation} 1.5s linear infinite;
+    }
+    & .funnyland-gradient{
+        background: linear-gradient(to right, #ee5470, #f8bac9);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        
+    }
+
+    & .workman-text{
+        color:red;
+        text-shadow: -1px 0 yellow, 0 1px yellow, 1px 0 yellow, 0 -1px yellow;
+        -moz-text-shadow: -1px 0 yellow, 0 1px yellow, 1px 0 yellow, 0 -1px yellow;
+        -webkit-text-shadow: -1px 0 yellow, 0 1px yellow, 1px 0 yellow, 0 -1px yellow;
+    }
+
 `;
 const ItemTitle = styled.div`
     position:absolute;
@@ -39,7 +100,6 @@ const ItemTitle = styled.div`
         background: linear-gradient(to right, #ee5470, #f8bac9);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        
     }
 
     & .workman-text{
@@ -73,10 +133,27 @@ const _onReady = (event) => {
     event.target.pauseVideo();
 }
 
-const YoutubePlayPart = () => {
+const YoutubePlayPart = (props) => {
+    const youtubeContainerRef = useRef();
+    const player = useRef();
+    const [myOffsetTop, setMyOffsetTop] = useState(0);
+    const [floatingClose, setFloatingClose] = useState(false);
+
+    useEffect(()=>{
+        setFloatingClose(false);
+    },[])
+    useEffect(()=>{
+        
+        setMyOffsetTop(youtubeContainerRef.current.offsetTop);
+    },[props.scrollY])
+
+    const handleFloatingClose = () =>{
+        player.current.getInternalPlayer().pauseVideo();
+        setFloatingClose(true);
+    }
     return (
         <>
-            <Container>
+            <Container ref={youtubeContainerRef}>
                 
                 <div className='container-fluid'>
                     <div className='row'>
@@ -85,9 +162,20 @@ const YoutubePlayPart = () => {
                                 <span className='titleEl'><b className='funnyland-gradient'>Funnyland</b> x <b className='workman-text'>Workman</b></span>
                             </ItemTitle>            
                         </ItemBox>
-                        <ItemBox className='col-sm-6'>
-                            <YouTube videoId="-F28Byn1bbU" opts={opts} onReady={_onReady} className='youtube-player-el' containerClassName='youtube-player-box' />
-                        </ItemBox>
+                        <YoutubeBox 
+                            className='col-sm-6'
+                            scroll_y={props.scrollY}
+                            offset_top={myOffsetTop}
+                            floating_close={floatingClose}
+                        >
+                            {props.scrollY && myOffsetTop && props.scrollY >= myOffsetTop-document.documentElement.clientHeight ? '' : 
+                                <div className='clearfix'>
+                                    <span className='titleEl'><b className='funnyland-gradient'>Funnyland</b> x <b className='workman-text'>Workman</b></span>
+                                    <button type='button' className='float-right' style={{border:'none', background:'none', color:'gray'}} onClick={()=>handleFloatingClose()}><FontAwesomeIcon icon={faTimesCircle}></FontAwesomeIcon></button>
+                                </div>
+                            }
+                            <YouTube ref={player} videoId="-F28Byn1bbU" opts={opts} onReady={_onReady} className='youtube-player-el' containerClassName='youtube-player-box' />
+                        </YoutubeBox>
                     </div>
                 </div>
             </Container>

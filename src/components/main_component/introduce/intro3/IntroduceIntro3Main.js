@@ -59,12 +59,32 @@ const MainTitle = styled.div`
     text-align:center;
     font-size:42px;
     font-weight:800;
+    @media only screen and (max-width:768px){
+        &{
+            font-size:35px;
+        }
+    }
+    @media only screen and (max-width:320px){
+        &{
+            font-size:28px;
+        }
+    }
 `;
 
 const MainTitleSub = styled.div`
     text-align:center;
     font-size:22px;
     font-weight:600;
+    @media only screen and (max-width:768px){
+        &{
+            font-size:20px;
+        }
+    }
+    @media only screen and (max-width:320px){
+        &{
+            font-size:18px;
+        }
+    }
 `;
 
 const ExplainEl = styled.div`
@@ -112,9 +132,9 @@ const IntroduceIntro3Main = () => {
             </MainTitleBox>
             <IntroduceBodyWrapper>
                 <IntroduceBodyContentWrapper>
-                    <h3 className="intro3-title">
+                    <h4 className="intro3-title">
                         퍼니랜드 본점
-                    </h3>
+                    </h4>
                     <div className='intro3-content-box'>
                         <h5>
                             <FontAwesomeIcon icon={faMapMarkedAlt} color='#ee5470'></FontAwesomeIcon>
@@ -152,9 +172,9 @@ const IntroduceIntro3Main = () => {
                     
                 </IntroduceBodyContentWrapper>
                 <IntroduceBodyContentWrapper>
-                    <h3 className="intro3-title">
+                    <h4 className="intro3-title">
                         게임토피아 유통 센터
-                    </h3>
+                    </h4>
                     <div className='intro3-content-box'>
                         <h5>
                             <FontAwesomeIcon icon={faMapMarkedAlt} color='#ee5470'></FontAwesomeIcon>

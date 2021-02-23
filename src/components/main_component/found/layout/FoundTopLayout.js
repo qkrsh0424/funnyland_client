@@ -31,9 +31,15 @@ const TopAreaTitle = styled.div`
     transform: translate(-50%, -50%);
     @media only screen and (max-width:768px){
         &{
-            font-size:22px;
+            font-size:33px;
         }
     }
+    @media only screen and (max-width:320px){
+        &{
+            font-size:28px;
+        }
+    }
+    
 `;
 
 const TopAreaNavgatorFiled = styled.div`
@@ -58,7 +64,16 @@ const TopAreaNavgatorFiled = styled.div`
     }
     @media only screen and (max-width:768px){
         &{
-            font-size:12px;
+            font-size:15px;
+        }
+        & span{
+            margin: 0 5px;
+        }
+    }
+
+    @media only screen and (max-width:320px){
+        &{
+            font-size:13px;
         }
         & span{
             margin: 0 5px;
@@ -114,7 +129,12 @@ const TopAreaSubNavItem = styled(Link)`
 
     @media only screen and (max-width:768px){
         &{
-            font-size:12px;
+            font-size:15px;
+        }
+    }
+    @media only screen and (max-width:320px){
+        &{
+            font-size:13px;
         }
     }
 `;

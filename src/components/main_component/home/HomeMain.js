@@ -18,20 +18,6 @@ import { handleScrollToTop } from '../../../handler/ScrollHandler';
 import { bannerDataConnect } from '../../data_connect/BannerDataConnect';
 
 const MainContainer = styled.div`
-    .youtube-player{
-        width:100%;
-        height:auto;
-    }
-
-    .youtube-player-el{
-        width:100%;
-    }
-
-    @media only screen and (max-width:768px){
-        .youtube-player-el{
-            /* width:100%; */
-        }   
-    }
 `;
 
 const LineBreaker1 = styled.div`
@@ -42,7 +28,28 @@ const LineBreaker1 = styled.div`
     /* background-color: #ee5470; */
 `;
 
+// Scroll을 움직이면 h1의 스타일을 변화해주기 위한 함수.
+const useScroll = () => {
+    // state를 생성합니다.
+    const [state, setState] = useState({
+        x: 0,
+        y: 0
+    });
+    // scrll의 값을 가져와 state를 갱신합니다.
+    const onScroll = () => {
+        setState({ y: window.scrollY, x: window.scrollX });
+    };
+    useEffect(() => {
+        // scroll 이벤트를 만들어줍니다. 스크롤을 움직일때 마다 
+        // onScroll 함수가 실행됩니다.
+        window.addEventListener("scroll", onScroll);
+        return () => window.removeEventListener("scroll", onScroll);
+    },[]);
+    return state.y;
+};
+
 const HomeMain = () => {
+    const scrollY = useScroll();
     const [dialogOpen, setDialogOpen] = useState(false);
     const [banners, setBanners] = useState([]);
     useEffect(() => {
@@ -78,7 +85,9 @@ const HomeMain = () => {
     }
     return (
         <MainContainer>
-            <NavbarDynamic></NavbarDynamic>
+            <NavbarDynamic
+                scrollY = {scrollY}
+            ></NavbarDynamic>
             <BannerCarouselFullSize
                 banners={banners}
             ></BannerCarouselFullSize>
@@ -88,7 +97,9 @@ const HomeMain = () => {
             ></OpenStore>
             <ProductList></ProductList>
             <LineBreaker1></LineBreaker1>
-            <YoutubePlayPart></YoutubePlayPart>
+            <YoutubePlayPart
+                scrollY = {scrollY}
+            ></YoutubePlayPart>
             <FooterDefault></FooterDefault>
             <NavbarBottomFixed
                 mainHandleDialogControl={mainHandleDialogControl}

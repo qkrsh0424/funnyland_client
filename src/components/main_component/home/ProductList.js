@@ -25,7 +25,7 @@ const ProductListTitle = styled.div`
 
     @media only screen and (max-width:768px){
         padding:0;
-        font-size: 30px;
+        font-size: 26px;
     }
 `;
 
@@ -245,7 +245,7 @@ const ProductList = () => {
                     })}
                 </ProductListContainer>
                 <div className="text-center">
-                    <ButtonEl type="button" className="btn btn-lg">제품 더보기</ButtonEl>
+                    <ButtonEl type="button" className="btn">제품 더보기</ButtonEl>
                 </div>
             </div>
         </Container>

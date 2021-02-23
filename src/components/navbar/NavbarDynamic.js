@@ -29,6 +29,12 @@ const NavBrandTop = styled(Link)`
         &:hover{
             color:white;
         }
+        img{
+            height:50px;
+            @media only screen and (max-width:320px){
+                height:30px;
+            }
+        }
     `;
 
 const NavItemEl = styled(Link)`
@@ -41,6 +47,11 @@ const NavItemEl = styled(Link)`
         &:hover{
             color:#ee5470 !important;
             border-bottom:1px solid #ee5470;
+        }
+        
+
+        @media only screen and (max-width:320px){
+            font-size:14px;
         }
     `;
 
@@ -111,19 +122,18 @@ const NavbarDynamic = (props) => {
         <div>
             <NavContainer
                 mobile_nav_open={mobileNavOpen}
-                scroll_y={scrollY}
+                scroll_y={props.scrollY? props.scrollY : scrollY}
                 className={`navbar navbar-expand-lg`}
             >
                 <NavBrandTop
                     className='navbar-brand mx-auto'
                     to="/"
                 >
-                    <img src="/images/funnyland/logo/funnyland_logo1.png" width="auto" height="50" className="d-inline-block align-top" alt="" loading="lazy" />
-                    {/* <span style={{marginLeft:'10px'}}>메인 타이틀</span> */}
+                    <img src="/images/funnyland/logo/funnyland_logo1.png" width="auto" height="30" className="d-inline-block align-top" alt="" loading="lazy" />
                 </NavBrandTop>
                 <NavbarMobileToggleBtn
                     mobile_nav_open={mobileNavOpen}
-                    scroll_y={scrollY}
+                    scroll_y={props.scrollY? props.scrollY : scrollY}
                     className={`navbar-toggler`}
                     type="button"
                     onClick={hamburgClick}
@@ -144,7 +154,7 @@ const NavbarDynamic = (props) => {
                                     <li className="nav-item" key={r.id}>
                                         <NavItemEl
                                             mobile_nav_open={mobileNavOpen ? 1 : 0}
-                                            scroll_y={scrollY}
+                                            scroll_y={props.scrollY? props.scrollY : scrollY}
                                             className={`navbar-brand`}
                                             to={r.url}
                                         >
@@ -157,7 +167,7 @@ const NavbarDynamic = (props) => {
                         }
                         <NavItemEl
                             mobile_nav_open={mobileNavOpen ? 1 : 0}
-                            scroll_y={scrollY}
+                            scroll_y={props.scrollY? props.scrollY : scrollY}
                             className={`navbar-brand`}
                             to={'/admin'}
                         >

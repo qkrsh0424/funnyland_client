@@ -31,12 +31,18 @@ const TopAreaTitle = styled.div`
     transform: translate(-50%, -50%);
     @media only screen and (max-width:768px){
         &{
-            font-size:22px;
+            font-size:33px;
+        }
+    }
+    @media only screen and (max-width:320px){
+        &{
+            font-size:28px;
         }
     }
 `;
 
 const TopAreaNavgatorFiled = styled.div`
+    width:100%;
     color: #ffffffb3;
     font-size:20px;
     font-weight:600;
@@ -57,7 +63,16 @@ const TopAreaNavgatorFiled = styled.div`
     }
     @media only screen and (max-width:768px){
         &{
-            font-size:12px;
+            font-size:15px;
+        }
+        & span{
+            margin: 0 5px;
+        }
+    }
+
+    @media only screen and (max-width:320px){
+        &{
+            font-size:13px;
         }
         & span{
             margin: 0 5px;
@@ -82,7 +97,7 @@ const TopAreaImageWrapper = styled.div`
 
 const TopAreaSubNavWrapper = styled.div`
     position: absolute;
-    width:80%;
+    width:90%;
     display:grid;
     grid-template-columns:repeat(3,1fr);
     grid-auto-rows: minmax(auto, auto);
@@ -103,7 +118,7 @@ const TopAreaSubNavItem = styled(Link)`
     border-bottom-right-radius: 0;
     font-size:18px;
     color:white;
-    font-weight:600;
+    font-weight:700;
     cursor: pointer;
     &:hover{
         color:white;
@@ -113,7 +128,12 @@ const TopAreaSubNavItem = styled(Link)`
 
     @media only screen and (max-width:768px){
         &{
-            font-size:12px;
+            font-size:15px;
+        }
+    }
+    @media only screen and (max-width:320px){
+        &{
+            font-size:13px;
         }
     }
 `;

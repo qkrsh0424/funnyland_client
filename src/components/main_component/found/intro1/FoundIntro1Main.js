@@ -21,18 +21,48 @@ const MainTitle = styled.div`
     text-align:center;
     font-size:42px;
     font-weight:800;
+    @media only screen and (max-width:768px){
+        &{
+            font-size:35px;
+        }
+    }
+    @media only screen and (max-width:320px){
+        &{
+            font-size:28px;
+        }
+    }
 `;
 
 const MainTitleSub = styled.div`
     text-align:center;
     font-size:22px;
     font-weight:600;
+    @media only screen and (max-width:768px){
+        &{
+            font-size:20px;
+        }
+    }
+    @media only screen and (max-width:320px){
+        &{
+            font-size:18px;
+        }
+    }
 `;
 
 const ExplainEl = styled.div`
     text-align:center;
     font-size:22px;
     font-weight:600;
+    @media only screen and (max-width:768px){
+        &{
+            font-size:20px;
+        }
+    }
+    @media only screen and (max-width:320px){
+        &{
+            font-size:18px;
+        }
+    }
 `;
 const LineBreaker1 = styled.div`
     width: 55px;
