@@ -28,7 +28,7 @@ const BannerCarouselFullSize = (props) => {
     return (
         <Container>
             <Carousel
-                autoPlay={false}
+                autoPlay={true}
                 interval={4000}
                 infiniteLoop={true}
                 dynamicHeight={true}
