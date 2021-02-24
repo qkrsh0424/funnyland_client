@@ -38,7 +38,7 @@ const NavBrandTop = styled(Link)`
     `;
 
 const NavItemEl = styled(Link)`
-        color:${(props) => props.mobile_nav_open | props.scroll_y >= 60 ? '#808080' : '#f1f1f1'};
+        color:${(props) => props.mobile_nav_open | props.scroll_y >= 60 ? '#333' : '#f1f1f1'};
         font-size:17px;
         font-weight:600;
         padding-left : 10px;
@@ -56,7 +56,7 @@ const NavItemEl = styled(Link)`
     `;
 
 const NavbarMobileToggleBtn = styled.button`
-        color:${(props) => props.mobile_nav_open | props.scroll_y >= 60 ? '#808080' : '#f1f1f1'};
+        color:${(props) => props.mobile_nav_open | props.scroll_y >= 60 ? '#333' : '#f1f1f1'};
 `;
 
 const NavbarDynamic = (props) => {
@@ -85,7 +85,7 @@ const NavbarDynamic = (props) => {
             id: 'navLink4',
             name: '제품안내',
             icon: <FontAwesomeIcon icon={faGamepad}></FontAwesomeIcon>,
-            url: '#'
+            url: '/product/list'
         },
         {
             id: 'navLink5',

@@ -162,10 +162,16 @@ const AdminCounselingMain = ({match,location,history}) =>{
                                         {itemIndex}-{r.id}
                                     </span>
                                     {r.counselingType=='counseling'?
-                                        <span style={{padding:'0 5px', color:'blue'}}>가맹상담</span>
+                                        <span style={{padding:'0 5px', color:'#6060d4'}}>가맹상담</span>
                                     :''}
                                     {r.counselingType=='purchase'?
-                                        <span style={{padding:'0 5px', color:'green'}}>상품상담</span>
+                                        <span style={{padding:'0 5px', color:'#29b529'}}>상품상담</span>
+                                    :''}
+                                    {r.counselingType=='closed'?
+                                        <span style={{padding:'0 5px', color:'#e25555'}}>폐업상담</span>
+                                    :''}
+                                    {r.counselingType=='renewal'?
+                                        <span style={{padding:'0 5px', color:'#c31ec3'}}>리뉴얼상담</span>
                                     :''}
                                     <span style={{padding:'0 5px'}}>
                                         <AdminCheckBtnProp 

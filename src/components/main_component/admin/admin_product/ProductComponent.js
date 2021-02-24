@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import queryString from 'query-string';
+
+// components
+import ProductPageableComponent from './ProductPageableComponent';
 
 const Container = styled.div`
 
@@ -78,6 +82,8 @@ const ControlLink = styled.a`
     }
 `;
 const ProductComponent = (props) => {
+    // console.log(queryString.parse(window.location.search).categoryId?queryString.parse(window.location.search).categoryId:'')
+    const query = queryString.parse(window.location.search);
     return (
         <>
             <Container>
@@ -87,7 +93,30 @@ const ProductComponent = (props) => {
                             <TopPartTitle className='float-left'>상품 목록</TopPartTitle>
                             <TopPartAddProduct type='button' className='float-right btn btn-outline-primary' onClick={() => props.handleAddProductModalControl().open()}>상품 추가</TopPartAddProduct>
                         </TopPart>
+
                         <BodyPart>
+                            <div className='pt-3 pb-3'>
+                                <p>카테고리별 조회</p>
+                                <div className='form-row'>
+                                    <div className="col">
+                                        <select className="form-control" name='categoryId' value={query.categoryId ? query.categoryId : ''} onChange={(e)=>props.handleProductControl().categoryOnChange(e)} required>
+                                            <option value='' hidden>--카테고리 선택--</option>
+                                            {props.categoryList ? props.categoryList.data.map(r => {
+                                                return (
+                                                    <option value={r.id} key={r.id}>{r.categoryName}</option>
+                                                );
+                                            })
+                                                :
+                                                <></>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div className="col">
+                                        <button type='button' className='btn btn-outline-success' onClick={()=>props.handleProductControl().searchAll()}>전체조회</button>
+                                    </div>
+                                </div>
+
+                            </div>
                             {props.productList ?
                                 <TableBox className='table-responsive'>
                                     <table className="table table-sm text-center" style={{ tableLayout: 'fixed' }}>
@@ -103,9 +132,10 @@ const ProductComponent = (props) => {
                                         </thead>
                                         <tbody>
                                             {props.productList.map((r, index) => {
+                                                let itemIndex = props.productPage.displaySize*(props.productPage.curr-1)+index+1;
                                                 return (
                                                     <tr key={r.product.id}>
-                                                        <TableTh scope="row">{index + 1}</TableTh>
+                                                        <TableTh scope="row">{itemIndex}</TableTh>
                                                         <TableTd>{r.product.name}</TableTd>
                                                         <TableTd><ImageEl src={r.product.imageUrl}></ImageEl></TableTd>
                                                         <TableTd>{r.category.categoryName}</TableTd>
@@ -147,7 +177,7 @@ const ProductComponent = (props) => {
                                                                     type='button'
                                                                     className='btn btn-sm'
                                                                     color_prop={'#dd8080'}
-                                                                    onClick={()=>props.handleProductControl().deleteOne(r.product.id)}
+                                                                    onClick={() => props.handleProductControl().deleteOne(r.product.id)}
                                                                 >삭제</ControlBtn>
                                                             }
 
@@ -165,6 +195,12 @@ const ProductComponent = (props) => {
                         </BodyPart>
                     </ListWrapper>
                 </ListContainer>
+                {props.productPage && 
+                    <ProductPageableComponent
+                        pageData={props.productPage}
+                    ></ProductPageableComponent>
+                }
+                
             </Container>
         </>
     );

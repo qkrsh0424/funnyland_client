@@ -21,28 +21,28 @@ const AddCategoryModal = (props) => {
             <Dialog
                 fullWidth={true}
                 open={props.modalOpen}
-                onClose={()=>props.handleModalControl().close()}
+                onClose={() => props.handleModalControl().close()}
             >
                 <DialogTitle className='text-center'>{"카테고리 추가"}</DialogTitle>
-                <form onSubmit={(e)=>props.handleModalControl().submit(e)}>
+                <form onSubmit={(e) => props.handleModalControl().submit(e)}>
                     <DialogContent>
                         <div className="form-group">
                             <label>카테고리</label>
-                            <input type="text" className="form-control" name='categoryName' value={props.addCategoryData.categoryName} onChange={(e)=>props.handleModalControl().addCategoryDataOnChange(e)} placeholder="등록하실 카테고리명을 지정해주세요." required="required" />
+                            <input type="text" className="form-control" name='categoryName' value={props.addCategoryData.categoryName} onChange={(e) => props.handleModalControl().addCategoryDataOnChange(e)} placeholder="등록하실 카테고리명을 지정해주세요." required="required" />
                         </div>
                         <div className="form-group">
                             <label>카테고리 우선도</label>
-                            <input type="number" className="form-control" name='priority' value={props.addCategoryData.priority} onChange={(e)=>props.handleModalControl().addCategoryDataOnChange(e)} placeholder="카테고리 우선도를 지정해주세요. 허용치(1~9999)" min={1} max={9999} required="required" />
+                            <input type="number" className="form-control" name='priority' value={props.addCategoryData.priority} onChange={(e) => props.handleModalControl().addCategoryDataOnChange(e)} placeholder="카테고리 우선도를 지정해주세요. 허용치(1~9999)" min={1} max={9999} required="required" />
                             <small className="form-text text-muted">카테고리의 우선도를 지정합니다. 1~9999까지의 숫자만 허용합니다. 숫자가 낮을수록 우선도 높음.</small>
                         </div>
                     </DialogContent>
                     <DialogActions>
-                        <Button type='button' color="secondary" onClick={()=>props.handleModalControl().close()}>
+                        <Button type='button' color="secondary" onClick={() => props.handleModalControl().close()}>
                             취소
-                        </Button>
+                    </Button>
                         <Button type='submit' color="primary">
                             카테고리 등록
-                        </Button>
+                    </Button>
                     </DialogActions>
                 </form>
 

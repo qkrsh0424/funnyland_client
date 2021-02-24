@@ -100,6 +100,8 @@ const ApplyFormModal = (props) => {
                         <select className="form-control" defaultValue={counselingType} onChange={(e)=>thisHandleValueOnChange().changeCounselingType(e)}>
                             <option value='counseling'>창업상담</option>
                             <option value='purchase'>상품구매상담</option>
+                            <option value='closed'>폐업상담</option>
+                            <option value='renewal'>매장리뉴얼상담</option>
                         </select>
                         {/* <input type="text" value={applierName} onChange={(e) => thisHandleValueOnChange().changeCounselingType(e)} className="form-control" placeholder="이름을 입력해주세요." required="required" /> */}
                     </div>

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faTimes} from '@fortawesome/free-solid-svg-icons';
+import {faTimes, faHammer} from '@fortawesome/free-solid-svg-icons';
 const Container = styled.div`
 
 `;
@@ -65,7 +65,8 @@ const CategoryComponent = (props) =>{
                                 props.categoryList.data.map(r=>{
                                     return(
                                         <ItemEl key={r.id}>
-                                            {r.categoryName}
+                                            {r.categoryName}(p:{r.priority})
+                                            <ItemDeleteBtn type='button' onClick={()=>props.handleFixModalControl().open(r.id)}><FontAwesomeIcon icon={faHammer}></FontAwesomeIcon></ItemDeleteBtn>
                                             <ItemDeleteBtn type='button' onClick={()=>props.handleCategoryControl().deleteOne(r.id)}><FontAwesomeIcon icon={faTimes}></FontAwesomeIcon></ItemDeleteBtn>
                                         </ItemEl>
                                     );

@@ -15,6 +15,9 @@ const IntroduceIntro3Main = lazy(() => import('./components/main_component/intro
 // components - Foundation
 const FoundIntro1Main = lazy(()=>import('./components/main_component/found/intro1/FoundIntro1Main'));
 const FoundIntro2Main = lazy(()=>import('./components/main_component/found/intro2/FoundIntro2Main'));
+// components - Product
+const ProductListMain = lazy(()=>import('./components/main_component/product/list/ProductListMain'));
+
 // components - Admin
 const LoginMain = lazy(() => import('./components/main_component/login/LoginMain'));
 const AdminHomeMain = lazy(()=>import('./components/main_component/admin/admin_home/AdminHomeMain'));
@@ -79,6 +82,8 @@ function App() {
                             {/* Foundation */}
                             <Route exact path='/found/intro1' component={FoundIntro1Main}></Route>
                             <Route exact path='/found/intro2' component={FoundIntro2Main}></Route>
+                            {/* Product */}
+                            <Route exact path='/product/list' component={ProductListMain}></Route>
                             {/* Admin */}
                             <Route exact path='/login' component={LoginMain}></Route>
                             <Route exact path='/admin' component={AdminHomeMain}></Route>

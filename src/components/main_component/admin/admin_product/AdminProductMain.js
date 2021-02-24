@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import axios from 'axios';
 import styled from 'styled-components';
+import queryString from 'query-string';
 
 // data connect
 import { productDataConnect } from '../../../data_connect/ProductDataConnect';
@@ -13,6 +14,7 @@ import { handleScrollToTop } from '../../../../handler/ScrollHandler';
 import AdminNav from '../admin_nav/AdminNav';
 import CategoryComponent from './CategoryComponent';
 import AddCategoryModal from './AddCategoryModal';
+import FixCategoryModal from './FixCategoryModal';
 import ProductComponent from './ProductComponent';
 import AddProductModal from './AddProductModal';
 import UpdateProductModal from './UpdateProductModal';
@@ -52,13 +54,17 @@ const AdminProductMain = ({ history, match, location }) => {
 
     const [categoryList, setCategoryList] = useState(null);
     const [productList, setProductList] = useState(null);
+    const [productPage, setProductPage] = useState(null);
 
     const [addCategoryModalOpen, setAddCategoryModalOpen] = useState(false);
-    const [addCategoryName, setAddCategoryName] = useState('');
-    const [addCategoryData,setAddCategoryData] = useState({
-        categoryName:'',
-        priority:9999
+    const [addCategoryName, setAddCategoryName] = useState(null);
+    const [addCategoryData, setAddCategoryData] = useState({
+        categoryName: '',
+        priority: 9999
     })
+
+    const [fixCategoryModalOpen, setFixCategoryModalOpen] = useState(false);
+    const [fixCategoryData, setFixCategoryData] = useState(null)
 
     const [addProductModalOpen, setAddProductModalOpen] = useState(false);
     const [addProductItemData, setAddProductItemData] = useState({
@@ -112,6 +118,7 @@ const AdminProductMain = ({ history, match, location }) => {
                         if (data && data.message == 'success') {
                             // console.log(data);
                             setProductList(data.data);
+                            setProductPage(data.page);
                         }
                     })
             },
@@ -125,7 +132,7 @@ const AdminProductMain = ({ history, match, location }) => {
                         }
                     });
             },
-            updateProductOne: async function(jsonData){
+            updateProductOne: async function (jsonData) {
                 await productDataConnect().updateProductOne(jsonData)
                     .then(data => {
                         if (data) {
@@ -143,6 +150,16 @@ const AdminProductMain = ({ history, match, location }) => {
                         }
                     })
             },
+            updateCategoryOne: async function (jsonData) {
+                await productDataConnect().updateCategoryOne(jsonData)
+                    .then(data => {
+                        if (data) {
+                            if (data.message == 'success') {
+                                alert('카테고리가 수정되었습니다.');
+                            }
+                        }
+                    })
+            }
         }
     }
 
@@ -172,14 +189,41 @@ const AdminProductMain = ({ history, match, location }) => {
                 handleAddCategoryModalControl().close();
 
             },
-            addCategoryDataOnChange: function(e){
-                setAddCategoryData({...addCategoryData, [e.target.name]:e.target.value})
+            addCategoryDataOnChange: function (e) {
+                setAddCategoryData({ ...addCategoryData, [e.target.name]: e.target.value })
             },
             modalInputClear: function () {
                 setAddCategoryData({
-                    categoryName:'',
-                    priority:9999
+                    categoryName: '',
+                    priority: 9999
                 })
+            }
+        }
+    }
+
+    const handleFixCategoryModalControl = () => {
+        return {
+            open: function (id) {
+                let data = categoryList.data.filter(r => r.id == id)[0];
+                setFixCategoryData(data);
+                setFixCategoryModalOpen(true);
+            },
+            close: function () {
+                setFixCategoryModalOpen(false);
+                handleFixCategoryModalControl().modalInputClear();
+            },
+            submit: async function (e) {
+                e.preventDefault();
+                await __handleDataConnect().updateCategoryOne(fixCategoryData);
+                await __handleDataConnect().getProductCategoryList();
+                handleFixCategoryModalControl().close();
+
+            },
+            categoryDataOnChange: function (e) {
+                setFixCategoryData({ ...fixCategoryData, [e.target.name]: e.target.value })
+            },
+            modalInputClear: function () {
+                setFixCategoryData(null);
             }
         }
     }
@@ -187,13 +231,13 @@ const AdminProductMain = ({ history, match, location }) => {
     const handleCategoryControl = () => {
         return {
             deleteOne: async function (id) {
-                if(window.confirm('정말로 삭제하시겠습니까?')){
+                if (window.confirm('정말로 삭제하시겠습니까?')) {
                     let jsonData = categoryList.data.filter(r => r.id == id)[0];
                     await __handleDataConnect().deleteProductCategoryOne(jsonData);
-                }else{
+                } else {
                     return;
                 }
-                
+
             }
         }
     }
@@ -204,6 +248,18 @@ const AdminProductMain = ({ history, match, location }) => {
                 let jsonData = productList.filter(r => r.product.id == id)[0].product;
                 await __handleDataConnect().deleteProductOne(jsonData);
                 await __handleDataConnect().getProductList();
+            },
+            categoryOnChange: async function (e) {
+                let query = queryString.parse(window.location.search);
+
+                let pageIndex = query.pageIndex;
+                let categoryId = e.target.value;
+                let queryData = queryString.stringify({ categoryId: categoryId });
+                let newUrl = `/admin/product?${queryData}`;
+                history.push(newUrl);
+            },
+            searchAll: async function () {
+                history.push('/admin/product');
             }
         }
     }
@@ -292,7 +348,7 @@ const AdminProductMain = ({ history, match, location }) => {
                 setUpdateProductModalOpen(false);
                 setUpdateProductItemData(null);
             },
-            submit: async function(e){
+            submit: async function (e) {
                 e.preventDefault();
                 await __handleDataConnect().updateProductOne(updateProductItemData);
                 await __handleDataConnect().getProductList();
@@ -337,29 +393,67 @@ const AdminProductMain = ({ history, match, location }) => {
             <>
                 <Container>
                     <AdminNav></AdminNav>
-                    <CategoryComponent
-                        categoryList={categoryList}
+                    {categoryList ?
+                        <CategoryComponent
+                            categoryList={categoryList}
 
-                        handleModalControl={handleAddCategoryModalControl}
-                        handleCategoryControl={handleCategoryControl}
-                    ></CategoryComponent>
-                    <ProductComponent
-                        productList={productList}
-                        updateProductModalOpen = {updateProductModalOpen}
+                            handleModalControl={handleAddCategoryModalControl}
+                            handleCategoryControl={handleCategoryControl}
+                            handleFixModalControl={handleFixCategoryModalControl}
+                        ></CategoryComponent>
+                        :
+                        <>
+                            <div className='text-center'>
+                                <div>카테고리 리스트 로딩중...</div>
+                                <div className="spinner-border" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div>
+                            </div>
 
-                        handleProductControl={handleProductControl}
-                        handleAddProductModalControl={handleAddProductModalControl}
-                        handleUpdateProductModalControl={handleUpdateProductModalControl}
-                    >
+                        </>
+                    }
 
-                    </ProductComponent>
+
+                    {categoryList && productList && productPage ?
+                        <ProductComponent
+                            categoryList={categoryList}
+                            productList={productList}
+                            productPage={productPage}
+                            updateProductModalOpen={updateProductModalOpen}
+
+                            handleProductControl={handleProductControl}
+                            handleAddProductModalControl={handleAddProductModalControl}
+                            handleUpdateProductModalControl={handleUpdateProductModalControl}
+                        >
+                        </ProductComponent>
+                        :
+                        <>
+                            <div className='text-center'>
+                                <div>상품 목록 로딩중...</div>
+                                <div className="spinner-border" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div>
+                            </div>
+
+                        </>
+                    }
+
+
+
                     <AddCategoryModal
                         modalOpen={addCategoryModalOpen}
                         addCategoryData={addCategoryData}
                         addCategoryName={addCategoryName}
 
+
                         handleModalControl={handleAddCategoryModalControl}
                     ></AddCategoryModal>
+                    <FixCategoryModal
+                        modalOpen={fixCategoryModalOpen}
+                        fixCategoryData={fixCategoryData}
+
+                        handleModalControl={handleFixCategoryModalControl}
+                    ></FixCategoryModal>
                     <AddProductModal
                         addProductFieldRef={addProductFieldRef}
                         imageUploaderRef={addProductImageUploaderRef}
