@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 const Container = styled.div`
     /* overflow:hidden; */
     /* margin:8px; */
-    background: 
-        white;
+    background-image: url(/images/sample/best_bg.jpg);
+    /* background: 
+        white; */
         /* linear-gradient(336deg, #a0a0a0, #101010a0 70.71%); */
         /* linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%); */
         /* linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%), */
@@ -17,20 +19,22 @@ const ProductListContainer = styled.div`
 `;
 
 const ProductListTitle = styled.div`
-    /* color: white; */
+    color: white;
     text-align:center;
-    font-size: 40px;
+    /* font-size: 40px; */
+    font-size: 50px;
     font-weight:600;
     padding:15px;
 
     @media only screen and (max-width:768px){
         padding:0;
-        font-size: 26px;
+        /* font-size: 26px; */
+        font-size: 32px;
     }
 `;
 
 const ContainerSubTitle = styled.div`
-    /* color: white; */
+    color: white;
     text-align:center;
     font-size: 20px;
     font-weight:600;
@@ -108,8 +112,8 @@ const ProductEl = styled.div`
     bottom: 0;
     right: 0;
     /* background: linear-gradient(to bottom right, #ee5470, #f8bac9); */
-    
-    box-shadow: rgb(0 0 0 / 25%) 0px 5px 15px;
+    box-shadow: rgb(255 255 255 / 25%) 0px 5px 15px;
+    /* box-shadow: rgb(0 0 0 / 25%) 0px 5px 15px; */
     border-radius:15px;
     transition: .5s;
     &:hover {
@@ -134,7 +138,7 @@ const ProductWrapper = styled.div`
     padding-bottom:8px;
 `;
 
-const ButtonEl = styled.button`
+const ButtonEl = styled(Link)`
     font-weight:600;
     color:white;
     background-color:#f7734a;
@@ -245,7 +249,7 @@ const ProductList = () => {
                     })}
                 </ProductListContainer>
                 <div className="text-center">
-                    <ButtonEl type="button" className="btn">제품 더보기</ButtonEl>
+                    <ButtonEl className="btn" to={'/product/list'}>제품 더보기</ButtonEl>
                 </div>
             </div>
         </Container>

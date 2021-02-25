@@ -92,11 +92,11 @@ const HomeMain = () => {
                 banners={banners}
             ></BannerCarouselFullSize>
 
+            <ProductList></ProductList>
             <OpenStore
                 banners={banners}
             ></OpenStore>
-            <ProductList></ProductList>
-            <LineBreaker1></LineBreaker1>
+            {/* <LineBreaker1></LineBreaker1> */}
             <YoutubePlayPart
                 scrollY = {scrollY}
             ></YoutubePlayPart>

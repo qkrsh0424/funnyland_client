@@ -42,7 +42,17 @@ const ImageEl = styled.img`
     }
 `;
 const custom_config = {
-    extraPlugins: [MyCustomUploadAdapterPlugin]
+    extraPlugins: [MyCustomUploadAdapterPlugin],
+    toolbar: {
+        items: [
+            'heading', '|',
+            'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
+            'outdent', 'indent', '|',
+            'imageUpload', 'blockQuote', '|',
+            'undo', 'redo'
+        ],
+        shouldNotGroupWhenFull: true
+    }
 }
 const AddProductModal = (props) => {
     useEffect(() => {

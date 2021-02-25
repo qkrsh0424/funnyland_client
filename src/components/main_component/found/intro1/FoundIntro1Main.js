@@ -128,6 +128,22 @@ const ProcessDescBox = styled.div`
         font-size:12px;
     }
 `;
+
+const LogoImage = styled.img`
+    max-height:65px;
+    @media only screen and (max-width:992px){
+        max-height:45px;
+    }
+    @media only screen and (max-width:768px){
+        max-height:40px;
+    }
+    @media only screen and (max-width:576px){
+        max-height:35px;
+    }
+    @media only screen and (max-width:320px){
+        max-height:24px;
+    }
+`;
 const FoundIntro1Main = () =>{
     useEffect(()=>{
         handleScrollToTop();
@@ -165,82 +181,82 @@ const FoundIntro1Main = () =>{
                     <LineBreaker2></LineBreaker2>
                     <ProcessContainer className='container'>
                         <ProcessWrapper>
-                            <ProcessBox>
+                            <ProcessBox style={{backgroundColor:'#ee547000'}}>
                                 <ProcessContent>
                                     <div>
-                                        <img src='/images/funnyland/icon/icon_step1.png'></img>
+                                        <LogoImage src='/images/funnyland/icon/icon_step1_2.png'></LogoImage>
                                     </div>
                                     <ProcessTitleBox>01. 문의</ProcessTitleBox>
                                     <ProcessDescBox>가맹점 개설 의뢰</ProcessDescBox>
                                 </ProcessContent>
                             </ProcessBox>
-                            <ProcessBox>
+                            <ProcessBox style={{backgroundColor:'#eec4e006'}}>
                                 <ProcessContent>
                                     <div>
-                                        <img src='/images/funnyland/icon/icon_step2.png'></img>
+                                        <LogoImage src='/images/funnyland/icon/icon_step2.png'></LogoImage>
                                     </div>
                                     <ProcessTitleBox>02. 상담</ProcessTitleBox>
                                     <ProcessDescBox>희망지역 및 규모에 맞는 운영형태 선정</ProcessDescBox>
                                 </ProcessContent>
                             </ProcessBox>
-                            <ProcessBox>
+                            <ProcessBox style={{backgroundColor:'#eeb4d006'}}>
                                 <ProcessContent>
                                     <div>
-                                        <img src='/images/funnyland/icon/icon_step3.png'></img>
+                                        <LogoImage src='/images/funnyland/icon/icon_step3.png'></LogoImage>
                                     </div>
                                     <ProcessTitleBox>03. 상권분석, 점포계약</ProcessTitleBox>
                                     <ProcessDescBox>상권조사와 입지분석을 통한 점포 선점</ProcessDescBox>
                                 </ProcessContent>
                             </ProcessBox>
-                            <ProcessBox>
+                            <ProcessBox style={{backgroundColor:'#eea4c010'}}>
                                 <ProcessContent>
                                     <div>
-                                        <img src='/images/funnyland/icon/icon_step4.png'></img>
+                                        <LogoImage src='/images/funnyland/icon/icon_step4.png'></LogoImage>
                                     </div>
                                     <ProcessTitleBox>04. 계약 체결</ProcessTitleBox>
                                     <ProcessDescBox>가맹 세부사항 협의 및 계약 체결</ProcessDescBox>
                                 </ProcessContent>
                             </ProcessBox>
-                            <ProcessBox>
+                            <ProcessBox style={{backgroundColor:'#ee94b014'}}>
                                 <ProcessContent>
                                     <div>
-                                        <img src='/images/funnyland/icon/icon_step5.png'></img>
+                                        <LogoImage src='/images/funnyland/icon/icon_step5.png'></LogoImage>
                                     </div>
                                     <ProcessTitleBox>05. 인테리어 시공</ProcessTitleBox>
                                     <ProcessDescBox>설계도면 검토 및 확정 인테리어 공사 및 감리</ProcessDescBox>
                                 </ProcessContent>
                             </ProcessBox>
-                            <ProcessBox>
+                            <ProcessBox style={{backgroundColor:'#ee84a018'}}>
                                 <ProcessContent>
                                     <div>
-                                        <img src='/images/funnyland/icon/icon_step6.png'></img>
+                                        <LogoImage src='/images/funnyland/icon/icon_step6.png'></LogoImage>
                                     </div>
                                     <ProcessTitleBox>06. 인허가 준비</ProcessTitleBox>
                                     <ProcessDescBox>영업을 위한 각종 인허가 및 서류발급 완비</ProcessDescBox>
                                 </ProcessContent>
                             </ProcessBox>
-                            <ProcessBox>
+                            <ProcessBox style={{backgroundColor:'#ee749019'}}>
                                 <ProcessContent>
                                     <div>
-                                        <img src='/images/funnyland/icon/icon_step7.png'></img>
+                                        <LogoImage src='/images/funnyland/icon/icon_step7.png'></LogoImage>
                                     </div>
                                     <ProcessTitleBox>07. 교육</ProcessTitleBox>
                                     <ProcessDescBox>가맹점주 교육을 통한 매장 운영 매뉴얼 및 서비스 교육</ProcessDescBox>
                                 </ProcessContent>
                             </ProcessBox>
-                            <ProcessBox>
+                            <ProcessBox style={{backgroundColor:'#ee648023'}}>
                                 <ProcessContent>
                                     <div>
-                                        <img src='/images/funnyland/icon/icon_step8.png'></img>
+                                        <LogoImage src='/images/funnyland/icon/icon_step8.png'></LogoImage>
                                     </div>
                                     <ProcessTitleBox>08. 최종점검</ProcessTitleBox>
                                     <ProcessDescBox>오픈매니저 파견하에 설비 및 물품 입고, 최종 마무리 </ProcessDescBox>
                                 </ProcessContent>
                             </ProcessBox>
-                            <ProcessBox style={{backgroundColor:'#ee547020'}}>
+                            <ProcessBox style={{backgroundColor:'#ee547030'}}>
                                 <ProcessContent>
                                     <div>
-                                        <img src='/images/funnyland/icon/icon_step9.png'></img>
+                                        <LogoImage src='/images/funnyland/logo/logo3.png'></LogoImage>
                                     </div>
                                     <ProcessTitleBox>09. 그랜드 오픈</ProcessTitleBox>
                                     <ProcessDescBox>매장 그랜드 오픈</ProcessDescBox>

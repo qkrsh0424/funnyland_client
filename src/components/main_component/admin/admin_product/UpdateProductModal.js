@@ -15,6 +15,9 @@ const Container = styled.div`
         min-height:300px !important;
         max-height:600px !important;
     }
+    .ck-content blockquote .table:first-child {
+        margin-top: calc( 1em + 16px );
+        }
 `;
 
 const Wrapper = styled.div`
@@ -42,30 +45,59 @@ const ImageEl = styled.img`
     }
 `;
 const custom_config = {
-    extraPlugins: [MyCustomUploadAdapterPlugin]
+    extraPlugins: [MyCustomUploadAdapterPlugin],
+    // removePlugins: ['Table','TableToolbar']
+    // toolbar: {
+    //     items: [
+    //         'heading', '|',
+    //         'fontfamily', 'fontsize', '|',
+    //         'alignment', '|',
+    //         'fontColor', 'fontBackgroundColor', '|',
+    //         'bold', 'italic', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
+    //         'link', '|',
+    //         'outdent', 'indent', '|',
+    //         'bulletedList', 'numberedList', 'todoList', '|',
+    //         'code', 'codeBlock', '|',
+    //         // 'insertTable', '|',
+    //         'imageUpload', 'blockQuote', '|',
+    //         'undo', 'redo'
+    //     ],
+    //     shouldNotGroupWhenFull: true
+    // }
+    toolbar: {
+        items: [
+            'heading', '|',
+            'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
+            'outdent', 'indent', '|',
+            'imageUpload', 'blockQuote', '|',
+            'undo', 'redo'
+        ],
+        shouldNotGroupWhenFull: true
+    }
 }
 
-const UpdateProductModal = (props) =>{
+const UpdateProductModal = (props) => {
+    // console.log(ClassicEditor.builtinPlugins.map( plugin => plugin.pluginName ));
     useEffect(() => {
-        function propFetch(){
+        function propFetch() {
             if (props.modalOpen) {
                 handleScrollToMe();
-                
+
             }
         }
         propFetch();
     }, [props.modalOpen])
 
-    const handleScrollToMe = () =>{
+    const handleScrollToMe = () => {
         props.updateProductFieldRef.current.scrollIntoView({ behavior: 'smooth' });
     }
 
-    return(
+    return (
         <>
-            {props.modalOpen && props.updateProductItemData?
+            {props.modalOpen && props.updateProductItemData ?
                 <Container className='container-fluid' ref={props.updateProductFieldRef}>
                     <Wrapper>
-                        <DialogTitle className='clearfix'>{"상품 수정"}<button className='float-right btn btn-large btn-outline-danger' onClick={()=>props.handleModalControl().close()}>닫기</button></DialogTitle>
+                        <DialogTitle className='clearfix'>{"상품 수정"}<button className='float-right btn btn-large btn-outline-danger' onClick={() => props.handleModalControl().close()}>닫기</button></DialogTitle>
                         <form onSubmit={(e) => props.handleModalControl().submit(e)}>
                             <div className="form-group">
                                 <label>상품 카테고리 선택</label>
@@ -113,6 +145,7 @@ const UpdateProductModal = (props) =>{
                                 onReady={editor => {
                                     // You can store the "editor" and use when it is needed.
                                     // console.log('Editor is ready to use!', editor);
+                                    console.log(editor)
                                 }}
                                 // onChange={(event, editor) => {
                                 //     const data = editor.getData();
@@ -120,7 +153,7 @@ const UpdateProductModal = (props) =>{
                                 // }}
                                 onChange={(event, editor) => {
                                     const data = editor.getData();
-                                    // console.log({ event, editor, data });
+                                    console.log({ event, editor, data });
                                     props.handleEditorControl().onChange(data);
                                 }}
 

@@ -26,6 +26,7 @@ const NavContainer = styled.nav`
 
 const NavBrandTop = styled(Link)`
         color: white;
+        
         &:hover{
             color:white;
         }
@@ -125,11 +126,19 @@ const NavbarDynamic = (props) => {
                 scroll_y={props.scrollY? props.scrollY : scrollY}
                 className={`navbar navbar-expand-lg`}
             >
+                {/* 모바일 로고 센터를 위한 요소 */}
+                <button
+                    className={`navbar-toggler`}
+                    style={{color:'#00000000', background:'none'}}
+                >
+                    <FontAwesomeIcon icon={faBars}></FontAwesomeIcon>
+                </button>
+
                 <NavBrandTop
                     className='navbar-brand mx-auto'
                     to="/"
                 >
-                    <img src="/images/funnyland/logo/funnyland_logo1.png" width="auto" height="30" className="d-inline-block align-top" alt="" loading="lazy" />
+                    <img src="/images/funnyland/logo/logo3.png" width="auto" height="30" className="d-inline-block align-top" alt="" loading="lazy" />
                 </NavBrandTop>
                 <NavbarMobileToggleBtn
                     mobile_nav_open={mobileNavOpen}

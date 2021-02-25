@@ -3,21 +3,25 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 const Container = styled.div`
-    background-image: url(/images/sample/best_bg.jpg);
+    /* background-image: url(/images/sample/best_bg.jpg); */
+    background:#f1f1f1;
     padding:50px 0;
+    /* border-top:1px dashed #ee5470; */
     
 `;
 
 const ContainerTitle = styled.div`
-    color: white;
+    /* color: white; */
     text-align:center;
-    font-size: 40px;
+    /* font-size: 40px; */
+    font-size: 50px;
     font-weight:600;
     padding:15px;
 
     @media only screen and (max-width:768px){
         padding:0;
-        font-size: 26px;
+        /* font-size: 26px; */
+        font-size: 32px;
     }
 `;
 
@@ -46,7 +50,7 @@ const SliderContainer = styled.div`
     }
 
     & .slick-dots li button:before{
-        color: white;
+        color: #333;
     }
 
     & .slick-slide {
@@ -62,10 +66,12 @@ const CardEl = styled.div`
     display: inline-block;
     overflow:hidden;
     border-radius:15px;
-    border:1px solid white;
+    border:1px solid #a0a0a0;
     height: 400px;
     background-color:#f1f1f1;
-    box-shadow: rgb(255 255 255 / 25%) 0px 5px 15px;
+    /* box-shadow: rgb(255 255 255 / 25%) 0px 5px 15px; */
+    /* box-shadow: rgb(0 0 0 / 8%) 0px 0.125rem 0.25rem; */
+    box-shadow: rgb(0 0 0 / 8%) 0.3rem 0.3rem 0.3rem;
     @media only screen and (max-width:768px){
         height:30vh;
     }
@@ -130,7 +136,7 @@ const OpenStore = (props) => {
     return (
         <Container>
             <ContainerTitle><span style={{color:'#ee5470', fontWeight:'800'}}>OPEN</span> 매장 안내</ContainerTitle>
-            <ContainerSubTitle>전국 <span style={{color:'#ee5470', fontWeight:'800'}}>퍼니랜드</span> 가맹점들을 확인해 보세요</ContainerSubTitle>
+            {/* <ContainerSubTitle>전국 <span style={{color:'#ee5470', fontWeight:'800'}}>퍼니랜드</span> 가맹점들을 확인해 보세요</ContainerSubTitle> */}
             <SliderContainer>
                 <Slider {...settings}>
                     {props.banners.map(r=>{

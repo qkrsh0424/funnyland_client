@@ -124,6 +124,85 @@ const IntroduceIntro2Main = () => {
                 </IntroduceBodyTitle>
                 <IntroduceBodyContentWrapper>
                     <CompanyHistoryPresent
+                        historyYear={'2020'}
+                        historys={[
+                            'CGV 부산 센텀시티120평 규모 게임장 개설.',
+                            'CGV 수원광교 70평 규모 게임장 개설.',
+                            'CGV 일산고양 60평 규모 게임장 개설.',
+                            'CGV 인천학익 50평 규모 게임장 개설.',
+                        ]}
+                        lineBreak={true}
+                    ></CompanyHistoryPresent>
+                    <CompanyHistoryPresent
+                        historyYear={'2019'}
+                        historys={[
+                            '홍대 퍼니랜드 직영 게임장으로 재오픈 및 운영.',
+                            'CGV 등촌 70평 규모 게임장 개설.',
+                            'CGV 부산동래,계양,연수,부천 게임장 개설.',
+                            'CGV 광주금남로 60평 규모 게임장 개설.',
+                        ]}
+                        lineBreak={true}
+                    ></CompanyHistoryPresent>
+                    <CompanyHistoryPresent
+                        historyYear={'2018'}
+                        historys={[
+                            'CGV 구리,울산,평촌 게임장 개설.',
+                            'CGV 의정부 150평 규모 게임장 개설.',
+                            'CGV 대전 100평 규모 게임장 개설.',
+                            'CGV 수유리 70평 규모 게임장 개설.',
+                        ]}
+                        lineBreak={true}
+                    ></CompanyHistoryPresent>
+                    <CompanyHistoryPresent
+                        historyYear={'2017'}
+                        historys={[
+                            '신촌 지플렉스 게임장 개설 및 유지보수 업무 제휴.',
+                            '범계 100평 규모 퍼니랜드 게임장 개설 및 운영.',
+                            '대명 양양 솔비치&리조트 게임장 확장 이전 오픈.',
+                            '부평 120평 규모 퍼니랜드 게임장 개설 및 운영.',
+                        ]}
+                        lineBreak={true}
+                    ></CompanyHistoryPresent>
+                    <CompanyHistoryPresent
+                        historyYear={'2016'}
+                        historys={[
+                            '대명 솔비치&리조트 게임장 개설.',
+                            '홍대 퍼니랜드 게임장 개설 및 운영.',
+                            '대명리조트 삼척 게임장 개설.',
+                            '화정 100평 규모 퍼니랜드 게임장 개설.',
+                            '강남 퍼니랜드 게임장 개설 및 운영.',
+                            '강남 원플레이 게임장 개설 및 운영.',
+                        ]}
+                        lineBreak={true}
+                    ></CompanyHistoryPresent>
+                    <CompanyHistoryPresent
+                        historyYear={'2015'}
+                        historys={[
+                            '용인 롯데시네마 게임장 개설 및 운영.',
+                            '화정 80평 규모 게임장 리모델링 및 게임기기 임대.',
+                        ]}
+                        lineBreak={true}
+                    ></CompanyHistoryPresent>
+                    <CompanyHistoryPresent
+                        historyYear={'2014'}
+                        historys={[
+                            '당진CGV 80평 규모 게임장 개설 및 게임기 임대.',
+                            '서산 롯데시네마 60평 규모 게임장 개설 및 게임기 임대.',
+                            '안양 노리존 230평 규모 게임장 개설 및 게임기 임대.',
+                        ]}
+                        lineBreak={true}
+                    ></CompanyHistoryPresent>
+                    <CompanyHistoryPresent
+                        historyYear={'2013'}
+                        historys={[
+                            '대명리조트 거제지점 게임장 개설.',
+                            '대명리조트 변산, 대명리조트 경주 게임기 판매 및 유지보수 업무 제휴.',
+                            '몰디브 100평 규모 게임장 수출 및 개설.',
+                            '강남 롯데시네마 게임장 개설 및 운영.',
+                        ]}
+                        lineBreak={true}
+                    ></CompanyHistoryPresent>
+                    <CompanyHistoryPresent
                         historyYear={'2012'}
                         historys={[
                             '장원레져스포츠 야구 연습장 서울, 경기 총판 계약.',

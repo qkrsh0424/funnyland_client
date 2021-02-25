@@ -23,7 +23,7 @@ const TopAreaWrapper = styled.div`
 const TopAreaTitle = styled.div`
     color: white;
     font-size:45px;
-    font-weight:800;
+    font-weight:900;
     z-index:1;
     position: absolute;
     top: 50%;
@@ -90,9 +90,9 @@ const TopAreaImageWrapper = styled.div`
         height:100%;
         object-fit:cover;
         /* Safari 6.0 - 9.0 */
-        -webkit-filter: blur(3px); 
-        filter: blur(3px);
-        transform: scale(1.05)
+        -webkit-filter: blur(10px); 
+        filter: blur(10px);
+        transform: scale(1.1);
     }
 `;
 

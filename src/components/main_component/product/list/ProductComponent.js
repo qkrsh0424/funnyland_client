@@ -180,7 +180,7 @@ const ProductComponent = (props) => {
                 <ProductListWrapper className='container'>
                     {props.productList && props.productList.map(r => {
                         return (
-                            <ProductWrapper key={r.product.id}>
+                            <ProductWrapper key={r.product.id} to={`/product/detail?productId=${r.product.id}`}>
                                 <ProductImageBox>
                                     <ProductImageEl>
                                         <ProductImage src={r.product.imageUrl}></ProductImage>

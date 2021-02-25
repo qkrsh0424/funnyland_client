@@ -147,7 +147,7 @@ const IntroduceIntro3Main = () => {
                             <FontAwesomeIcon icon={faPhoneAlt} color='#ee5470'></FontAwesomeIcon>
                             <span style={{marginLeft:'8px'}}>전화번호</span>
                         </h5>
-                        <div style={{paddingLeft:'16px', fontWeight:'600'}}>02-2272-1244</div>
+                        <div style={{paddingLeft:'16px', fontWeight:'600'}}>02-332-9074</div>
                     </div>
                     <div style={{border:'4px double #f1f1f1'}}>
                         <LoadScript
@@ -180,14 +180,14 @@ const IntroduceIntro3Main = () => {
                             <FontAwesomeIcon icon={faMapMarkedAlt} color='#ee5470'></FontAwesomeIcon>
                             <span style={{marginLeft:'8px'}}>주소</span>
                         </h5>
-                        <div style={{paddingLeft:'16px', fontWeight:'600'}}>서울특별시 중구 천계천로 160(산림동) 대림상가 2F 다열 265호</div>
+                        <div style={{paddingLeft:'16px', fontWeight:'600'}}>서울특별시 중구 을지로 157 대림상가 2F 다열 265호</div>
                     </div>
                     <div className='intro3-content-box'>
                         <h5>
                             <FontAwesomeIcon icon={faPhoneAlt} color='#ee5470'></FontAwesomeIcon>
                             <span style={{marginLeft:'8px'}}>전화번호 / 팩스</span>
                         </h5>
-                        <div style={{paddingLeft:'16px', fontWeight:'600'}}>02-2272-1244 / 02-2272-1244</div>
+                        <div style={{paddingLeft:'16px', fontWeight:'600'}}>02-2272-1244 / 02-2274-1244</div>
                     </div>
                     <div style={{border:'4px double #f1f1f1'}}>
                         <LoadScript

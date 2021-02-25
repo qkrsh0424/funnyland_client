@@ -139,7 +139,7 @@ const IntroduceIntro1Main = () => {
             <IntroduceBodyWrapper>
                 <IntroduceBodyContentWrapper>
                     <ContentImageWrapper>
-                        <ContentImageEl src='/images/funnyland/bg/funnyland-bg3.jpg'></ContentImageEl>
+                        <ContentImageEl src='/images/funnyland/bg/funnyland-bg4.jpeg'></ContentImageEl>
                     </ContentImageWrapper>
                     <LineBreaker1></LineBreaker1>
                     <ContentTextWrapper>

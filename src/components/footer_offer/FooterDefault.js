@@ -22,10 +22,10 @@ const CopyrightText = styled.div`
 `;
 const FooterDefault = () =>{
     const [companyInfo, setCompanyInfo] = useState({
-        name:'주식회사 게임토피아',
+        name:'게임토피아',
         president: '조정준',
-        bussinessNo:'xxx-xx-xxxxx',
-        address:'서울특별시 중구 청계천로 160(산림동) 대림상가 2F 다열 265호',
+        bussinessNo:'104-06-23141',
+        address:'서울특별시 중구 을지로 157 대림상가 2F 다열 265호',
         tel:'02-2272-1244',
         fax:'02-2274-1244',
         mobile:'010-5381-9104',
