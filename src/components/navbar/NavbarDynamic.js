@@ -80,7 +80,7 @@ const NavbarDynamic = (props) => {
             id: 'navLink3',
             name: '오픈매장안내',
             icon: <FontAwesomeIcon icon={faStore}></FontAwesomeIcon>,
-            url: '#'
+            url: '/store/list'
         },
         {
             id: 'navLink4',

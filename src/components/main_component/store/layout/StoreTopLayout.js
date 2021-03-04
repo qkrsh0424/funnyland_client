@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {Link} from 'react-router-dom';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
     faHome,
     faCaretRight,
@@ -13,12 +13,14 @@ const TopAreaWrapper = styled.div`
     text-align: center;
     width:100%;
     height:60vh;
+    min-height:250px;
     @media only screen and (max-width:768px){
         &{
             height: 35vh;
         }
     }
 `;
+
 const TopAreaTitle = styled.div`
     color: white;
     font-size:45px;
@@ -30,14 +32,15 @@ const TopAreaTitle = styled.div`
     transform: translate(-50%, -50%);
     @media only screen and (max-width:768px){
         &{
-            font-size:33px;
+            font-size:30px;
         }
     }
     @media only screen and (max-width:320px){
         &{
-            font-size:28px;
+            font-size:25px;
         }
     }
+    
 `;
 
 const TopAreaNavgatorFiled = styled.div`
@@ -98,7 +101,7 @@ const TopAreaSubNavWrapper = styled.div`
     position: absolute;
     width:80%;
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:repeat(1,1fr);
     grid-auto-rows: minmax(auto, auto);
     grid-gap:5px;
     bottom:0;
@@ -107,8 +110,8 @@ const TopAreaSubNavWrapper = styled.div`
 `;
 
 const TopAreaSubNavItem = styled(Link)`
-    /* background-color: ${(props) => props.link_active && props.link_active ? '#e88a3e' : '#ffffff40'}; */
-    background-color: ${(props) => props.link_active && props.link_active ? '#ee5470' : '#ffffff40'};
+    /* background-color: ${(props)=>props.link_active && props.link_active ? '#e88a3e' : '#ffffff40'}; */
+    background-color: ${(props)=>props.link_active && props.link_active ? '#ee5470' : '#ffffff40'};
     padding:10px 0;
     border:1px solid #ffffff80;
     border-bottom:none;
@@ -137,35 +140,29 @@ const TopAreaSubNavItem = styled(Link)`
     }
 `;
 
-const FoundTopLayout = (props) => {
+const StoreTopLayout = (props) => {
     return (
         <Container>
             <TopAreaWrapper>
-                <TopAreaTitle>창업안내</TopAreaTitle>
+                <TopAreaTitle>오픈매장안내</TopAreaTitle>
                 <TopAreaNavgatorFiled>
-
+                
                     <Link to='/'><FontAwesomeIcon icon={faHome}></FontAwesomeIcon></Link>
                     <span><FontAwesomeIcon icon={faChevronRight}></FontAwesomeIcon></span>
-                    창업안내
+                    오픈매장안내
                     <span><FontAwesomeIcon icon={faChevronRight}></FontAwesomeIcon></span>
                     {props.title}
-
+                    
                 </TopAreaNavgatorFiled>
                 <TopAreaImageWrapper>
                     <img src='/images/funnyland/bg/funnyland-bg1.png'></img>
                 </TopAreaImageWrapper>
                 <TopAreaSubNavWrapper>
                     <TopAreaSubNavItem
-                        link_active={props.linkPage == 'intro1' ? 1 : 0}
-                        to='/found/intro1'
+                        link_active={props.linkPage=='list'?1:0}
+                        to='/store/list'
                     >
-                        창업 절차 안내
-                    </TopAreaSubNavItem>
-                    <TopAreaSubNavItem
-                        link_active={props.linkPage == 'intro2' ? 1 : 0}
-                        to='/found/intro2'
-                    >
-                        창업상담신청
+                        매장안내
                     </TopAreaSubNavItem>
                 </TopAreaSubNavWrapper>
             </TopAreaWrapper>
@@ -173,4 +170,4 @@ const FoundTopLayout = (props) => {
     );
 }
 
-export default FoundTopLayout;
+export default StoreTopLayout;

@@ -106,10 +106,11 @@ const ProductImage = styled.img`
 `;
 
 const ProductContentBox = styled.div`
-
+    /* padding:2px 0; */
 `;
 
 const ProductContentTitle = styled.div`
+/* padding:2px 0; */
     font-size:18px;
     font-weight:700;
     @media only screen and (max-width:768px){
@@ -161,11 +162,6 @@ const ProductWrapper = styled(Link)`
     }
 `;
 const ProductComponent = (props) => {
-    const [product, setProduct] = useState({
-        id: 1,
-        image: '/images/funnyland/product/cart_product.png',
-        title: '마리오카트2 DX'
-    });
     return (
         <>
             <Container>
@@ -187,6 +183,13 @@ const ProductComponent = (props) => {
                                     </ProductImageEl>
                                 </ProductImageBox>
                                 <ProductContentBox>
+                                    <ProductContentTitle>
+                                        {r.product.newChecked ? <span className="badge badge-primary" style={{ marginRight: '5px' }}>NEW</span> : <></>}
+                                        {r.product.hitChecked ? <span className="badge badge-danger" style={{ marginRight: '5px' }}>HIT</span> : <></>}
+                                        {r.product.eventChecked ? <span className="badge badge-info" style={{ marginRight: '5px' }}>EVENT</span> : <></>}
+                                    </ProductContentTitle>
+                                </ProductContentBox>
+                                <ProductContentBox>
                                     <ProductContentTitle>{r.product.name}</ProductContentTitle>
                                 </ProductContentBox>
                             </ProductWrapper>
@@ -194,7 +197,7 @@ const ProductComponent = (props) => {
                     })}
                 </ProductListWrapper>
                 <PageableComponent
-                    pageData = {props.productPage}
+                    pageData={props.productPage}
                 ></PageableComponent>
             </Container>
         </>

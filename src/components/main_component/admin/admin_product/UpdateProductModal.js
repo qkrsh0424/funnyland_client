@@ -113,13 +113,27 @@ const UpdateProductModal = (props) => {
                                     }
                                 </select>
                             </div>
-                            <div className="form-group">
+                            {/* <div className="form-group">
                                 <label>상품 노출 우선도 (1~9999 숫자만 입력) 숫자가 낮을수록 우선도 높음</label>
                                 <input type="number" name='priority' value={props.updateProductItemData.priority} onChange={(e) => props.handleModalControl().onValueChange(e)} className="form-control" min="0" max="9999" required />
-                            </div>
+                            </div> */}
                             <div className="form-group">
                                 <label>상품명</label>
                                 <input type="text" className="form-control" name='name' value={props.updateProductItemData.name} onChange={(e) => props.handleModalControl().onValueChange(e)} required />
+                            </div>
+                            <div className='form-group'>
+                                <div className="form-check form-check-inline">
+                                    <input className="form-check-input" type="checkbox" name='newChecked' checked={props.updateProductItemData.newChecked} onChange={(e) => props.handleModalControl().onValueCheckedChange(e)}/>
+                                    <label className="form-check-label">신상품</label>
+                                </div>
+                                <div className="form-check form-check-inline">
+                                    <input className="form-check-input" type="checkbox" name='hitChecked' checked={props.updateProductItemData.hitChecked} onChange={(e) => props.handleModalControl().onValueCheckedChange(e)}/>
+                                    <label className="form-check-label">히트상품</label>
+                                </div>
+                                <div className="form-check form-check-inline">
+                                    <input className="form-check-input" type="checkbox" name='eventChecked' checked={props.updateProductItemData.eventChecked} onChange={(e) => props.handleModalControl().onValueCheckedChange(e)}/>
+                                    <label className="form-check-label">이벤트렌탈</label>
+                                </div>
                             </div>
                             <div className="form-group">
                                 <label>대표이미지 (권장 비율 1:1)</label>
@@ -145,7 +159,7 @@ const UpdateProductModal = (props) => {
                                 onReady={editor => {
                                     // You can store the "editor" and use when it is needed.
                                     // console.log('Editor is ready to use!', editor);
-                                    console.log(editor)
+                                    // console.log(editor)
                                 }}
                                 // onChange={(event, editor) => {
                                 //     const data = editor.getData();
@@ -228,7 +242,6 @@ class MyUploadAdapter {
         const xhr = this.xhr;
         const loader = this.loader;
         const genericErrorText = 'Couldn\'t upload file:' + ` ${loader.file.name}.`;
-
         xhr.addEventListener('error', () => reject(genericErrorText));
         xhr.addEventListener('abort', () => reject());
         xhr.addEventListener('load', () => {
@@ -243,6 +256,7 @@ class MyUploadAdapter {
             resolve({
                 default: response.imageUrl
             });
+            alert('이미지 업로드 완료됨.');
         });
 
         if (xhr.upload) {

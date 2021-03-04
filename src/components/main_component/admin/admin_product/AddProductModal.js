@@ -56,7 +56,7 @@ const custom_config = {
 }
 const AddProductModal = (props) => {
     useEffect(() => {
-        function propFetch(){
+        function propFetch() {
             if (props.modalOpen) {
                 handleScrollToMe();
             }
@@ -64,7 +64,7 @@ const AddProductModal = (props) => {
         propFetch();
     }, [props.modalOpen])
 
-    const handleScrollToMe = () =>{
+    const handleScrollToMe = () => {
         props.addProductFieldRef.current.scrollIntoView({ behavior: 'smooth' });
     }
     return (
@@ -72,7 +72,7 @@ const AddProductModal = (props) => {
             {props.modalOpen ?
                 <Container className='container-fluid' ref={props.addProductFieldRef}>
                     <Wrapper>
-                        <DialogTitle className='clearfix'>{"상품 추가"}<button className='float-right btn btn-large btn-outline-danger' onClick={()=>props.handleModalControl().close()}>닫기</button></DialogTitle>
+                        <DialogTitle className='clearfix'>{"상품 추가"}<button className='float-right btn btn-large btn-outline-danger' onClick={() => props.handleModalControl().close()}>닫기</button></DialogTitle>
                         <form onSubmit={(e) => props.handleModalControl().submit(e)}>
                             <div className="form-group">
                                 <label>상품 카테고리 선택</label>
@@ -88,13 +88,27 @@ const AddProductModal = (props) => {
                                     }
                                 </select>
                             </div>
-                            <div className="form-group">
+                            {/* <div className="form-group">
                                 <label>상품 노출 우선도 (1~9999 숫자만 입력) 숫자가 낮을수록 우선도 높음</label>
                                 <input type="number" name='priority' value={props.addProductItemData.priority} onChange={(e) => props.handleModalControl().onValueChange(e)} className="form-control" min="0" max="9999" required />
-                            </div>
+                            </div> */}
                             <div className="form-group">
                                 <label>상품명</label>
                                 <input type="text" className="form-control" name='name' value={props.addProductItemData.name} onChange={(e) => props.handleModalControl().onValueChange(e)} required />
+                            </div>
+                            <div className='form-group'>
+                                <div className="form-check form-check-inline">
+                                    <input className="form-check-input" type="checkbox" name='newChecked' checked={props.addProductItemData.newChecked} onChange={(e) => props.handleModalControl().onValueCheckedChange(e)}/>
+                                    <label className="form-check-label">신상품</label>
+                                </div>
+                                <div className="form-check form-check-inline">
+                                    <input className="form-check-input" type="checkbox" name='hitChecked' checked={props.addProductItemData.hitChecked} onChange={(e) => props.handleModalControl().onValueCheckedChange(e)}/>
+                                    <label className="form-check-label">히트상품</label>
+                                </div>
+                                <div className="form-check form-check-inline">
+                                    <input className="form-check-input" type="checkbox" name='eventChecked' checked={props.addProductItemData.eventChecked} onChange={(e) => props.handleModalControl().onValueCheckedChange(e)}/>
+                                    <label className="form-check-label">이벤트렌탈</label>
+                                </div>
                             </div>
                             <div className="form-group">
                                 <label>대표이미지 (권장 비율 1:1)</label>
@@ -217,6 +231,7 @@ class MyUploadAdapter {
             resolve({
                 default: response.imageUrl
             });
+            alert('이미지 업로드 완료됨.');
         });
 
         if (xhr.upload) {

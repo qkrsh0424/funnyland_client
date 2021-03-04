@@ -34,11 +34,16 @@ const YoutubeBox = styled.div`
         ` :
         css`
             position:fixed;
-            bottom:15%;
-            right:2%;
+            bottom:88px;
+            right:13px;
             @media only screen and (max-width: 768px){
                 width:${`${document.documentElement.clientWidth - 100}px`};
-                bottom:15%;
+                bottom:74px;
+                right:0;
+            }
+            @media only screen and (max-width: 320px){
+                width:${`${document.documentElement.clientWidth - 100}px`};
+                bottom:64px;
                 right:0;
             }
         `
@@ -182,6 +187,30 @@ const ItemTitle = styled.div`
     
 `;
 
+const VideoBottomTitle = styled.div`
+    margin:8px;
+    padding:8px;
+    text-align:center;
+    font-weight:600;
+    /* border-top:1px solid #f1f1f1; */
+    border-bottom:1px solid #f1f1f1;
+`;
+
+const ContainerTitle = styled.div`
+    /* color: white; */
+    text-align:center;
+    /* font-size: 40px; */
+    font-size: 50px;
+    font-weight:600;
+    padding:40px;
+
+    @media only screen and (max-width:768px){
+        /* padding:0; */
+        /* font-size: 26px; */
+        font-size: 32px;
+    }
+`;
+
 const opts = {
     width: '100%',
     height: '100%',
@@ -217,7 +246,7 @@ const YoutubePlayPart = (props) => {
     return (
         <>
             <Container ref={youtubeContainerRef}>
-
+                <ContainerTitle><span style={{color:'#ee5470', fontWeight:'800'}}>VIDEOS</span></ContainerTitle>
                 <div className='container-fluid'>
                     <div className='row'>
                         {/* <ItemBox className='col-sm-6'>
@@ -225,25 +254,53 @@ const YoutubePlayPart = (props) => {
                                 <span className='titleEl'><b className='funnyland-gradient'>Funnyland</b> x <b className='workman-text'>Workman</b></span>
                             </ItemTitle>            
                         </ItemBox> */}
-                        <VideoPlayerBox
-                            className='col-sm-6'
-                        >
-                            <YouTube ref={player} videoId="-F28Byn1bbU" opts={opts} onReady={_onReady} className='youtube-player-el' containerClassName='youtube-player-box' />
-                        </VideoPlayerBox>
-                        <YoutubeBox
-                            className='col-sm-6'
-                            scroll_y={props.scrollY}
-                            offset_top={myOffsetTop}
-                            floating_close={floatingClose}
-                        >
-                            {props.scrollY && myOffsetTop && props.scrollY >= myOffsetTop - document.documentElement.clientHeight ? '' :
-                                <div className='clearfix'>
-                                    <span className='titleEl'><b className='funnyland-gradient'>Funnyland</b> x <b className='workman-text'>Workman</b></span>
-                                    <button type='button' className='float-right' style={{ border: 'none', background: 'none', color: 'gray' }} onClick={() => handleFloatingClose()}><FontAwesomeIcon icon={faTimesCircle}></FontAwesomeIcon></button>
-                                </div>
+                        {props.videoList.map(r => {
+                            if (r.videoDisplay == 1) {
+                                return (
+                                    <YoutubeBox
+                                        key={r.videoId}
+                                        className='col-sm-6'
+                                        scroll_y={props.scrollY}
+                                        offset_top={myOffsetTop}
+                                        floating_close={floatingClose}
+                                    >
+                                        {props.scrollY && myOffsetTop && props.scrollY >= myOffsetTop - document.documentElement.clientHeight ? '' :
+                                            <div className='clearfix'>
+                                                <span className='titleEl'><b className='funnyland-gradient'>Funnyland</b> x {r.videoName}</span>
+                                                <button type='button' className='float-right' style={{ border: 'none', background: 'none', color: 'gray', fontSize:'25px' }} onClick={() => handleFloatingClose()}><FontAwesomeIcon icon={faTimesCircle}></FontAwesomeIcon></button>
+                                            </div>
+                                        }
+                                        <YouTube 
+                                            ref={player} 
+                                            // videoId="-F28Byn1bbU" 
+                                            videoId={r.videoKey}
+                                            opts={opts} onReady={_onReady} className='youtube-player-el' containerClassName='youtube-player-box' />
+                                            {props.scrollY && myOffsetTop && props.scrollY >= myOffsetTop - document.documentElement.clientHeight ? 
+                                                <VideoBottomTitle>{r.videoName}</VideoBottomTitle>
+                                                :
+                                                ''
+                                            }
+                                            
+                                    </YoutubeBox>
+                                );
+                            } else {
+                                return (
+                                    <VideoPlayerBox
+                                        key={r.videoId}
+                                        className='col-sm-6'
+                                    >
+                                        <YouTube 
+                                            ref={player} 
+                                            // videoId="-F28Byn1bbU" 
+                                            videoId={r.videoKey}
+                                            opts={opts} onReady={_onReady} className='youtube-player-el' containerClassName='youtube-player-box' />
+                                            <VideoBottomTitle>{r.videoName}</VideoBottomTitle>
+                                    </VideoPlayerBox>
+                                )
                             }
-                            <YouTube ref={player} videoId="-F28Byn1bbU" opts={opts} onReady={_onReady} className='youtube-player-el' containerClassName='youtube-player-box' />
-                        </YoutubeBox>
+                        })}
+
+
                     </div>
                 </div>
             </Container>

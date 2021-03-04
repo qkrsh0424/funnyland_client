@@ -16,6 +16,9 @@ import { handleScrollToTop } from '../../../handler/ScrollHandler';
 
 // dataConnect
 import { bannerDataConnect } from '../../data_connect/BannerDataConnect';
+import { videoDataConnect } from '../../data_connect/VideoDataConnect';
+import { productDataConnect } from '../../data_connect/ProductDataConnect';
+import { storeDataConnect } from '../../data_connect/StoreDataConnect';
 
 const MainContainer = styled.div`
 `;
@@ -44,7 +47,7 @@ const useScroll = () => {
         // onScroll 함수가 실행됩니다.
         window.addEventListener("scroll", onScroll);
         return () => window.removeEventListener("scroll", onScroll);
-    },[]);
+    }, []);
     return state.y;
 };
 
@@ -52,6 +55,12 @@ const HomeMain = () => {
     const scrollY = useScroll();
     const [dialogOpen, setDialogOpen] = useState(false);
     const [banners, setBanners] = useState([]);
+    const [videoList, setVideoList] = useState(null);
+    const [productNewList, setProductNewList] = useState(null);
+    const [productHitList, setProductHitList] = useState(null);
+    const [productEventList, setProductEventList] = useState(null);
+    const [storeList, setStoreList] = useState(null);
+
     useEffect(() => {
         handleScrollToTop();
     }, []);
@@ -59,6 +68,11 @@ const HomeMain = () => {
     useEffect(() => {
         async function loadInit() {
             await loadDataConnect().loadBannerList();
+            await loadDataConnect().getVideoList();
+            await loadDataConnect().getProductList().new();
+            await loadDataConnect().getProductList().hit();
+            await loadDataConnect().getProductList().event();
+            await loadDataConnect().getStoreList();
         }
         loadInit();
     }, [])
@@ -69,6 +83,54 @@ const HomeMain = () => {
                 await bannerDataConnect().searchBanners()
                     .then(data => {
                         setBanners(data.data);
+                    })
+            },
+            getVideoList: async function () {
+                await videoDataConnect().searchVideoAll()
+                    .then(data => {
+                        if (data && data.message == 'success') {
+                            setVideoList(data.data);
+                        }
+                    })
+            },
+            getProductList: function () {
+                return {
+                    all: async function () {
+
+                    },
+                    new: async function () {
+                        await productDataConnect().searchProductAllByCondition(true, false, false)
+                            .then(data => {
+                                if (data && data.message == 'success') {
+                                    setProductNewList(data.data);
+                                }
+                            });
+                    },
+                    hit: async function () {
+                        await productDataConnect().searchProductAllByCondition(false, true, false)
+                            .then(data => {
+                                if (data && data.message == 'success') {
+                                    setProductHitList(data.data);
+                                }
+                            });
+                    },
+                    event: async function () {
+                        await productDataConnect().searchProductAllByCondition(false, false, true)
+                            .then(data => {
+                                if (data && data.message == 'success') {
+                                    setProductEventList(data.data);
+                                }
+                            });
+                    }
+                }
+            },
+            getStoreList: async function () {
+                await storeDataConnect().searchStoreAll()
+                    .then(data => {
+                        if (data && data.message == 'success') {
+                            // console.log(data);
+                            setStoreList(data.data);
+                        }
                     })
             }
         }
@@ -86,20 +148,40 @@ const HomeMain = () => {
     return (
         <MainContainer>
             <NavbarDynamic
-                scrollY = {scrollY}
+                scrollY={scrollY}
             ></NavbarDynamic>
             <BannerCarouselFullSize
                 banners={banners}
             ></BannerCarouselFullSize>
 
-            <ProductList></ProductList>
-            <OpenStore
-                banners={banners}
-            ></OpenStore>
+            {productNewList && productHitList && productEventList ?
+                <ProductList
+                    productNewList={productNewList}
+                    productHitList={productHitList}
+                    productEventList={productEventList}
+                ></ProductList>
+                :
+                <></>
+            }
+            {storeList ?
+                <OpenStore
+                    banners={banners}
+                    storeList = {storeList}
+                ></OpenStore>
+                :
+                <></>
+            }
+
             {/* <LineBreaker1></LineBreaker1> */}
-            <YoutubePlayPart
-                scrollY = {scrollY}
-            ></YoutubePlayPart>
+            {videoList ?
+                <YoutubePlayPart
+                    scrollY={scrollY}
+                    videoList={videoList}
+                ></YoutubePlayPart>
+                :
+                <></>
+            }
+
             <FooterDefault></FooterDefault>
             <NavbarBottomFixed
                 mainHandleDialogControl={mainHandleDialogControl}

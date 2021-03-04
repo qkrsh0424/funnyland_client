@@ -18,12 +18,18 @@ const FoundIntro2Main = lazy(()=>import('./components/main_component/found/intro
 // components - Product
 const ProductListMain = lazy(()=>import('./components/main_component/product/list/ProductListMain'));
 const ProductDetailMain = lazy(()=>import('./components/main_component/product/detail/ProductDetailMain'));
+const ProductCounselMain = lazy(()=>import('./components/main_component/product/counsel/ProductCounselMain'));
+
+// components - Store
+const StoreListMain = lazy(()=>import('./components/main_component/store/list/StoreListMain'));
+const StoreDetailMain = lazy(()=>import('./components/main_component/store/detail/StoreDetailMain'));
 
 // components - Admin
 const LoginMain = lazy(() => import('./components/main_component/login/LoginMain'));
 const AdminHomeMain = lazy(()=>import('./components/main_component/admin/admin_home/AdminHomeMain'));
 const AdminCounselingMain = lazy(()=>import('./components/main_component/admin/admin_counseling/AdminCounselingMain'));
 const AdminProductMain = lazy(()=>import('./components/main_component/admin/admin_product/AdminProductMain'));
+const AdminStoreMain = lazy(()=>import('./components/main_component/admin/admin_store/AdminStoreMain'));
 
 const AppContainer = styled.div`
     animation: fadein 1.5s;
@@ -86,12 +92,17 @@ function App() {
                             {/* Product */}
                             <Route exact path='/product/list' component={ProductListMain}></Route>
                             <Route exact path='/product/detail' component={ProductDetailMain}></Route>
+                            <Route exact path='/product/counsel' component={ProductCounselMain}></Route>
+                            {/* Store */}
+                            <Route exact path='/store/list' component={StoreListMain}></Route>
+                            <Route exact path='/store/detail' component={StoreDetailMain}></Route>
 
                             {/* Admin */}
                             <Route exact path='/login' component={LoginMain}></Route>
                             <Route exact path='/admin' component={AdminHomeMain}></Route>
                             <Route exact path='/admin/counseling' component={AdminCounselingMain}></Route>
                             <Route exact path='/admin/product' component={AdminProductMain}></Route>
+                            <Route exact path='/admin/store' component={AdminStoreMain}></Route>
                         </Switch>
                     </AppContainer>
                 </Suspense>

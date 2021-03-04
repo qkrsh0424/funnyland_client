@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
-import {Link} from 'react-router-dom';
+import { propTypes } from 'react-bootstrap/esm/Image';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 const Container = styled.div`
     /* overflow:hidden; */
     /* margin:8px; */
-    background-image: url(/images/sample/best_bg.jpg);
+    background-image: 
+        linear-gradient(#202020f0, #202020f0),
+        url(/images/funnyland/bg/funnyland-bg5.jpeg);
+    background-size:cover;
     /* background: 
         white; */
         /* linear-gradient(336deg, #a0a0a0, #101010a0 70.71%); */
@@ -81,7 +85,7 @@ const ProductDescTitle = styled.div`
         font-size: 11px;
     }
 `;
-const ProductUrlBtn = styled.button`
+const ProductUrlBtn = styled(Link)`
     transition: transform .5s;
     margin:8px;
     /* border:2px solid white;
@@ -151,7 +155,7 @@ const ButtonEl = styled(Link)`
         box-shadow: 0 0 31px rgba(33,33,33,.4);
     }
 `;
-const ProductList = () => {
+const ProductList = (props) => {
     const [products, setProducts] = useState([
         {
             id: 1,
@@ -218,15 +222,15 @@ const ProductList = () => {
             image: '/images/funnyland/product/initialDZORO.png',
             title: '게임기 이름 게임기 이름'
         },
-        
+
     ]);
     return (
         <Container>
-            <ProductListTitle><span style={{borderLeft:'5px solid #ee5470', paddingLeft:'20px'}}>제품 안내</span></ProductListTitle>
+            <ProductListTitle><span style={{ borderLeft: '5px solid #ee5470', paddingLeft: '20px' }}>제품 안내</span></ProductListTitle>
             <ContainerSubTitle>퍼니랜드x게임토피아가 공급하는 훌륭한 제품들을</ContainerSubTitle>
             <ContainerSubTitle>지금 바로 확인해보세요</ContainerSubTitle>
             <div style={{ padding: '15px' }}>
-                <ProductListContainer className='row'>
+                {/* <ProductListContainer className='row'>
                     {products && products.map((product,index) => {
                         if(index<12){
                             return (
@@ -247,7 +251,91 @@ const ProductList = () => {
                         }
                         
                     })}
-                </ProductListContainer>
+                </ProductListContainer> */}
+                <div>
+                    <ProductListContainer className='row'>
+                        <h3 className='col-12 text-center'>
+                            <p style={{ color: 'white', fontSize: '18px' }}><span style={{ color: '#ee5470' }}>NEW</span> PRODUCT</p>
+                            <p style={{ color: 'white',fontWeight:'800'}}>퍼니랜드 신상품</p>
+                        </h3>
+                        {props.productNewList && props.productNewList.map((r, index) => {
+                            if (index < 6) {
+                                return (
+                                    <ProductWrapper className='col-6 col-sm-4 col-lg-2' key={r.product.id}>
+                                        <ProductBox>
+                                            <ProductEl>
+                                                <ProductImage src={r.product.imageUrl} />
+                                                <ProductDescBox>
+                                                    <ProductDescTitle>{r.product.name}</ProductDescTitle>
+                                                    <div>
+                                                        <ProductUrlBtn className="btn btn-sm" to={`/product/detail?productId=${r.product.id}`}>자세히</ProductUrlBtn>
+                                                    </div>
+                                                </ProductDescBox>
+                                            </ProductEl>
+                                        </ProductBox>
+                                    </ProductWrapper>
+                                )
+                            }
+
+                        })}
+                    </ProductListContainer>
+                </div>
+                <div>
+                    <ProductListContainer className='row'>
+                        <h3 className='col-12 text-center'>
+                            <p style={{ color: 'white', fontSize: '18px' }}><span style={{ color: '#ee5470' }}>HIT</span> PRODUCT</p>
+                            <p style={{ color: 'white',fontWeight:'800'}}>퍼니랜드 히트상품</p>
+                        </h3>
+                        {props.productHitList && props.productHitList.map((r, index) => {
+                            if (index < 6) {
+                                return (
+                                    <ProductWrapper className='col-6 col-sm-4 col-lg-2' key={r.product.id}>
+                                        <ProductBox>
+                                            <ProductEl>
+                                                <ProductImage src={r.product.imageUrl} />
+                                                <ProductDescBox>
+                                                    <ProductDescTitle>{r.product.name}</ProductDescTitle>
+                                                    <div>
+                                                        <ProductUrlBtn className="btn btn-sm" to={`/product/detail?productId=${r.product.id}`}>자세히</ProductUrlBtn>
+                                                    </div>
+                                                </ProductDescBox>
+                                            </ProductEl>
+                                        </ProductBox>
+                                    </ProductWrapper>
+                                )
+                            }
+
+                        })}
+                    </ProductListContainer>
+                </div>
+                <div>
+                    <ProductListContainer className='row'>
+                        <h3 className='col-12 text-center'>
+                            <p style={{ color: 'white', fontSize: '18px' }}><span style={{ color: '#ee5470' }}>EVENT</span> PRODUCT</p>
+                            <p style={{ color: 'white',fontWeight:'800'}}>퍼니랜드 이벤트렌탈</p>
+                        </h3>
+                        {props.productEventList && props.productEventList.map((r, index) => {
+                            if (index < 6) {
+                                return (
+                                    <ProductWrapper className='col-6 col-sm-4 col-lg-2' key={r.product.id}>
+                                        <ProductBox>
+                                            <ProductEl>
+                                                <ProductImage src={r.product.imageUrl} />
+                                                <ProductDescBox>
+                                                    <ProductDescTitle>{r.product.name}</ProductDescTitle>
+                                                    <div>
+                                                        <ProductUrlBtn className="btn btn-sm" to={`/product/detail?productId=${r.product.id}`}>자세히</ProductUrlBtn>
+                                                    </div>
+                                                </ProductDescBox>
+                                            </ProductEl>
+                                        </ProductBox>
+                                    </ProductWrapper>
+                                )
+                            }
+
+                        })}
+                    </ProductListContainer>
+                </div>
                 <div className="text-center">
                     <ButtonEl className="btn" to={'/product/list'}>제품 더보기</ButtonEl>
                 </div>

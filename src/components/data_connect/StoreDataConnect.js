@@ -1,10 +1,11 @@
 import axios from 'axios';
 import queryString from 'query-string';
 import { getCookie } from '../../handler/CookieHandler';
-const productDataConnect = () => {
+
+const storeDataConnect = () => {
     return {
-        searchProductCategoryAll: async function () {
-            return await axios.get('/api/search/product_category/all', {})
+        searchStoreAreaAll: async function () {
+            return await axios.get('/api/search/store_area/all', {})
                 .then(res => {
                     if (res && res.data) {
                         return res.data
@@ -25,8 +26,8 @@ const productDataConnect = () => {
                     }
                 })
         },
-        insertProductCategoryOne: async function (data) {
-            return await axios.post('/api/insert/product_category/one', data, {
+        insertStoreAreaOne: async function (data) {
+            return await axios.post('/api/insert/store_area/one', data, {
                 headers: {
                     'X-XSRF-TOKEN': getCookie('XSTO')
                 }
@@ -56,8 +57,160 @@ const productDataConnect = () => {
                     }
                 })
         },
-        deleteProductCategoryOne: async function (data) {
-            return await axios.post('/api/delete/product_category/one', data, {
+        deleteStoreAreaOne: async function (data) {
+            return await axios.post('/api/delete/store_area/one', data, {
+                headers: {
+                    'X-XSRF-TOKEN': getCookie('XSTO')
+                }
+            })
+                .then(res => {
+                    if (res && res.data) {
+                        return res.data
+                    } else {
+                        return null;
+                    }
+                })
+                .catch(err => {
+                    if (err) {
+                        let res = err.response;
+                        if (res.status == 401) {
+                            alert('로그인 세션이 만료되었습니다. \nError code : 401, session expired');
+                            window.location.href = '/login';
+                        } else if (res.status == 403) {
+                            alert('접근 권한이 없습니다. \nError code : 403, access denied');
+                        } else if (res.status == 405) {
+                            alert('Errer code : 405, not allowed');
+                        } else if (res.status == 500) {
+                            alert('Errer code : 500, Internal Server Error');
+                        } else {
+                            alert('undefined error');
+                        }
+                    }
+                });
+        },
+        updateStoreAreaOne: async function (data) {
+            return await axios.post('/api/update/store_area/one', data, {
+                headers: {
+                    'X-XSRF-TOKEN': getCookie('XSTO')
+                }
+            })
+                .then(res => {
+                    if (res && res.data) {
+                        return res.data
+                    } else {
+                        return null;
+                    }
+                })
+                .catch(err => {
+                    if (err) {
+                        let res = err.response;
+                        if (res.status == 401) {
+                            alert('로그인 세션이 만료되었습니다. \nError code : 401, session expired');
+                            window.location.href = '/login';
+                        } else if (res.status == 403) {
+                            alert('접근 권한이 없습니다. \nError code : 403, access denied');
+                        } else if (res.status == 405) {
+                            alert('Errer code : 405, not allowed');
+                        } else if (res.status == 500) {
+                            alert('Errer code : 500, Internal Server Error');
+                        } else {
+                            alert('undefined error');
+                        }
+                    }
+                })
+        },
+        searchStoreAll: async function (areaName, pageIndex) {
+            return await axios.get('/api/search/store/all', {
+                params: {
+                    areaName: areaName ? areaName : '',
+                    pageIndex: pageIndex ? pageIndex : 0 
+                }
+            })
+                .then(res => {
+                    if (res && res.data) {
+                        return res.data
+                    } else {
+                        return null;
+                    }
+                })
+                .catch(err => {
+                    if (err) {
+                        let res = err.response;
+                        if (res.status == 405) {
+                            alert('Errer code : 405, not allowed');
+                        } else if (res.status == 500) {
+                            alert('Errer code : 500, Internal Server Error');
+                        } else {
+                            alert('undefined error');
+                        }
+                    }
+                })
+        },
+        insertStoreOne: async function (data) {
+            return await axios.post('/api/insert/store/one', data, {
+                headers: {
+                    'X-XSRF-TOKEN': getCookie('XSTO')
+                }
+            })
+                .then(res => {
+                    if (res && res.data) {
+                        return res.data
+                    } else {
+                        return null;
+                    }
+                })
+                .catch(err => {
+                    if (err) {
+                        let res = err.response;
+                        if (res.status == 401) {
+                            alert('로그인 세션이 만료되었습니다. \nError code : 401, session expired');
+                            window.location.href = '/login';
+                        } else if (res.status == 403) {
+                            alert('접근 권한이 없습니다. \nError code : 403, access denied');
+                        } else if (res.status == 405) {
+                            alert('Errer code : 405, not allowed');
+                        } else if (res.status == 500) {
+                            alert('Errer code : 500, Internal Server Error');
+                        } else {
+                            alert('undefined error');
+                        }
+                    }
+                })
+        },
+        updateStoreOne: async function (data) {
+            // console.log(data);
+            return await axios.post('/api/update/store/one', data, {
+                headers: {
+                    'X-XSRF-TOKEN': getCookie('XSTO')
+                }
+            })
+                .then(res => {
+                    if (res && res.data) {
+                        return res.data
+                    } else {
+                        return null;
+                    }
+                })
+                .catch(err => {
+                    if (err) {
+                        let res = err.response;
+                        if (res.status == 401) {
+                            alert('로그인 세션이 만료되었습니다. \nError code : 401, session expired');
+                            window.location.href = '/login';
+                        } else if (res.status == 403) {
+                            alert('접근 권한이 없습니다. \nError code : 403, access denied');
+                        } else if (res.status == 405) {
+                            alert('Errer code : 405, not allowed');
+                        } else if (res.status == 500) {
+                            alert('Errer code : 500, Internal Server Error');
+                        } else {
+                            alert('undefined error');
+                        }
+                    }
+                })
+        },
+        deleteStoreOne: async function (data) {
+            return await axios.post('/api/delete/store/one', data, {
                 headers: {
                     'X-XSRF-TOKEN': getCookie('XSTO')
                 }
@@ -99,203 +252,10 @@ const productDataConnect = () => {
                     console.log(error.response);
                 });
         },
-        searchProductAll: async function () {
-            let query = queryString.parse(window.location.search);
-
-            return await axios.get('/api/search/product/all', {
-                params: {
-                    categoryId: query.categoryId,
-                    pageIndex: query.pageIndex ? query.pageIndex - 1 : 0,
-                    newChecked:query.newChecked && query.newChecked=='true' ? true : false,
-                    hitChecked:query.hitChecked && query.hitChecked=='true'? true : false,
-                    eventChecked:query.eventChecked && query.eventChecked=='true' ? true : false,
-                }
-            })
-                .then(res => {
-                    if (res && res.data) {
-                        // console.log(res.data);
-                        return res.data
-                    } else {
-                        return null;
-                    }
-                })
-                .catch(err => {
-                    if (err) {
-                        let res = err.response;
-                        if (res.status == 405) {
-                            alert('Errer code : 405, not allowed');
-                        } else if (res.status == 500) {
-                            alert('Errer code : 500, Internal Server Error');
-                        } else {
-                            alert('undefined error');
-                        }
-                    }
-                })
-        },
-        /**
-         * 
-         * @param {boolean} newChecked 
-         * @param {boolean} hitChecked 
-         * @param {boolean} eventChecked 
-         */
-        searchProductAllByCondition: async function (newChecked, hitChecked, eventChecked) {
-
-            return await axios.get('/api/search/product/all', {
-                params: {
-                    newChecked:newChecked ? true : false,
-                    hitChecked:hitChecked ? true : false,
-                    eventChecked:eventChecked ? true : false,
-                }
-            })
-                .then(res => {
-                    if (res && res.data) {
-                        // console.log(res.data);
-                        return res.data
-                    } else {
-                        return null;
-                    }
-                })
-                .catch(err => {
-                    if (err) {
-                        let res = err.response;
-                        if (res.status == 405) {
-                            alert('Errer code : 405, not allowed');
-                        } else if (res.status == 500) {
-                            alert('Errer code : 500, Internal Server Error');
-                        } else {
-                            alert('undefined error');
-                        }
-                    }
-                })
-        },
-        insertProductOne: async function (data) {
-            return await axios.post('/api/insert/product/one', data, {
-                headers: {
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
-            })
-                .then(res => {
-                    if (res && res.data) {
-                        return res.data
-                    } else {
-                        return null;
-                    }
-                })
-                .catch(err => {
-                    if (err) {
-                        let res = err.response;
-                        if (res.status == 401) {
-                            alert('로그인 세션이 만료되었습니다. \nError code : 401, session expired');
-                            window.location.href = '/login';
-                        } else if (res.status == 403) {
-                            alert('접근 권한이 없습니다. \nError code : 403, access denied');
-                        } else if (res.status == 405) {
-                            alert('Errer code : 405, not allowed');
-                        } else if (res.status == 500) {
-                            alert('Errer code : 500, Internal Server Error');
-                        } else {
-                            alert('undefined error');
-                        }
-                    }
-                })
-        },
-        updateProductOne: async function (data) {
-            return await axios.post('/api/update/product/one', data, {
-                headers: {
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
-            })
-                .then(res => {
-                    if (res && res.data) {
-                        return res.data
-                    } else {
-                        return null;
-                    }
-                })
-                .catch(err => {
-                    if (err) {
-                        let res = err.response;
-                        if (res.status == 401) {
-                            alert('로그인 세션이 만료되었습니다. \nError code : 401, session expired');
-                            window.location.href = '/login';
-                        } else if (res.status == 403) {
-                            alert('접근 권한이 없습니다. \nError code : 403, access denied');
-                        } else if (res.status == 405) {
-                            alert('Errer code : 405, not allowed');
-                        } else if (res.status == 500) {
-                            alert('Errer code : 500, Internal Server Error');
-                        } else {
-                            alert('undefined error');
-                        }
-                    }
-                })
-        },
-        deleteProductOne: async function (data) {
-            return await axios.post('/api/delete/product/one', data, {
-                headers: {
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
-            })
-                .then(res => {
-                    if (res && res.data) {
-                        return res.data
-                    } else {
-                        return null;
-                    }
-                })
-                .catch(err => {
-                    if (err) {
-                        let res = err.response;
-                        if (res.status == 401) {
-                            alert('로그인 세션이 만료되었습니다. \nError code : 401, session expired');
-                            window.location.href = '/login';
-                        } else if (res.status == 403) {
-                            alert('접근 권한이 없습니다. \nError code : 403, access denied');
-                        } else if (res.status == 405) {
-                            alert('Errer code : 405, not allowed');
-                        } else if (res.status == 500) {
-                            alert('Errer code : 500, Internal Server Error');
-                        } else {
-                            alert('undefined error');
-                        }
-                    }
-                });
-        },
-        updateCategoryOne: async function (data) {
-            return await axios.post('/api/update/category/one', data, {
-                headers: {
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
-            })
-                .then(res => {
-                    if (res && res.data) {
-                        return res.data
-                    } else {
-                        return null;
-                    }
-                })
-                .catch(err => {
-                    if (err) {
-                        let res = err.response;
-                        if (res.status == 401) {
-                            alert('로그인 세션이 만료되었습니다. \nError code : 401, session expired');
-                            window.location.href = '/login';
-                        } else if (res.status == 403) {
-                            alert('접근 권한이 없습니다. \nError code : 403, access denied');
-                        } else if (res.status == 405) {
-                            alert('Errer code : 405, not allowed');
-                        } else if (res.status == 500) {
-                            alert('Errer code : 500, Internal Server Error');
-                        } else {
-                            alert('undefined error');
-                        }
-                    }
-                })
-        },
-        searchProductOne: async function (productId) {
-            return await axios.get('/api/search/product/one', {
-                params: {
-                    productId:productId
+        searchStoreOne: async function (storeId) {
+            return await axios.get('/api/search/store/one', {
+                params:{
+                    storeId:storeId
                 }
             })
                 .then(res => {
@@ -321,6 +281,4 @@ const productDataConnect = () => {
     }
 }
 
-export {
-    productDataConnect
-}
+export { storeDataConnect }

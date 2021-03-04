@@ -13,15 +13,15 @@ const Container = styled.div`
     & .text-strong{
         /* color:#f8bac9; */
         color:#ee5470;
-        text-shadow: 
+        /* text-shadow: 
             -1px 0 #ffffff, 0 1px #ffffff, 1px 0 #ffffff, 0 -1px #ffffff,
             -1.5px 0 #ee5470, 0 1.5px #ee5470, 1.5px 0 #ee5470, 0 -1.5px #ee5470;
         -moz-text-shadow: 
-            -1px 0 #ffffff, 0 1px #ffffff, 1px 0 #ffffff, 0 -1px #ffffff;
-            /* -1px 2px #ee5470, 2px 1px #ee5470, 1px 2px #ee5470, 2px -1px #ee5470; */
+            -1px 0 #ffffff, 0 1px #ffffff, 1px 0 #ffffff, 0 -1px #ffffff,
+            -1px 2px #ee5470, 2px 1px #ee5470, 1px 2px #ee5470, 2px -1px #ee5470;
         -webkit-text-shadow: 
-            -1px 0 #ffffff, 0 1px #ffffff, 1px 0 #ffffff, 0 -1px #ffffff;
-            /* -1px 2px #ee5470, 2px 1px #ee5470, 1px 2px #ee5470, 2px -1px #ee5470; */
+            -1px 0 #ffffff, 0 1px #ffffff, 1px 0 #ffffff, 0 -1px #ffffff,
+            -1px 2px #ee5470, 2px 1px #ee5470, 1px 2px #ee5470, 2px -1px #ee5470; */
     }
 `;
 

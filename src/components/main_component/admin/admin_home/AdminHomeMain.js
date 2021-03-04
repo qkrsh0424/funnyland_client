@@ -4,11 +4,18 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { getCookie } from '../../../../handler/CookieHandler';
 import { uuidv4 } from '../../../../handler/MyHandlers';
+
+// data connector
+import { bannerDataConnect } from '../../../data_connect/BannerDataConnect';
+import { videoDataConnect } from '../../../data_connect/VideoDataConnect';
+
 // components
 import AdminNav from '../admin_nav/AdminNav';
 import AdminBannerManage from './AdminBannerManage';
-// data connector
-import { bannerDataConnect } from '../../../data_connect/BannerDataConnect';
+import AdminVideoManage from './AdminVideoManage';
+import AddVideoModal from './AddVideoModal';
+
+
 
 const Container = styled.div`
 overflow:hidden;
@@ -29,7 +36,7 @@ const FullPageLoadingSpinner = styled.div`
     transform:translate(-50%,-50%);
 `;
 
-const AdminHomeMain = ({history}) => {
+const AdminHomeMain = ({ history }) => {
     // Login Check Start
     const [isLoged, setIsLoged] = useState(false);
     useEffect(() => {
@@ -38,7 +45,7 @@ const AdminHomeMain = ({history}) => {
         }
         effectInit();
     }, []);
-    
+
     const handleCheckLoged = async () => {
         await axios.get('/api/auth/check/loged')
             .then(res => {
@@ -54,16 +61,16 @@ const AdminHomeMain = ({history}) => {
 
     const [bannerListLoading, setBannerListLoading] = useState(true);
     const [bannerList, setBannerList] = useState([]);
-    useEffect(()=>{
-        
+    useEffect(() => {
+
         async function effectInit() {
-            if(isLoged==false){
+            if (isLoged == false) {
                 return;
             }
             await handleGetBanners();
         }
         effectInit();
-    },[isLoged])
+    }, [isLoged])
 
     const [uploadFile, setUploadFile] = useState([]);
     const [fullPageLoading, setFullPageLoading] = useState(false);
@@ -84,19 +91,19 @@ const AdminHomeMain = ({history}) => {
             })
     }
 
-    const handleGetBanners = async () =>{
+    const handleGetBanners = async () => {
         await bannerDataConnect().searchBanners()
-        .then(data=>{
-            if(data.message=='success'){
-                setBannerList(data.data);
-            }
-        })
+            .then(data => {
+                if (data.message == 'success') {
+                    setBannerList(data.data);
+                }
+            })
         setBannerListLoading(false);
     }
 
     const handleBannerImage = () => {
         return {
-            uploaderOpen: function(){
+            uploaderOpen: function () {
                 document.getElementById('i_banner_uploadfile').click();
             },
             upToServer: async function (event) {
@@ -127,91 +134,179 @@ const AdminHomeMain = ({history}) => {
                 setUploadFile(uploadFile.filter(r => r.uuid != uuid));
             },
             submitBanner: async function () {
-                if(uploadFile.length==0){
+                if (uploadFile.length == 0) {
                     return;
                 }
                 setFullPageLoading(true);
                 await bannerDataConnect().insertBanners(uploadFile)
-                .then(data=>{
-                    setUploadFile([]);
-                });
+                    .then(data => {
+                        setUploadFile([]);
+                    });
                 await handleGetBanners();
                 setFullPageLoading(false);
             },
-            moveLeft: async function(index){
-                if(index <= 0){
+            moveLeft: async function (index) {
+                if (index <= 0) {
                     return;
                 }
                 setFullPageLoading(true);
                 let newList = bannerList;
                 let curr = bannerList[index];
-                let prev = bannerList[index-1];
-                
+                let prev = bannerList[index - 1];
+
                 newList[index] = prev;
-                newList[index-1] = curr;
-                newList.forEach((r,index)=>{
+                newList[index - 1] = curr;
+                newList.forEach((r, index) => {
                     r.order = index;
                 })
                 setBannerList(newList);
                 await bannerDataConnect().updateBanners(bannerList)
-                .then(data=>{
-                    console.log(data);
-                    if(data.message=='success'){
-                        handleGetBanners();
-                        setBannerListLoading(false);
-                    }else{
-                        alert('undefined error');
-                    }
-                });
+                    .then(data => {
+                        console.log(data);
+                        if (data.message == 'success') {
+                            handleGetBanners();
+                            setBannerListLoading(false);
+                        } else {
+                            alert('undefined error');
+                        }
+                    });
                 setFullPageLoading(false);
             },
-            moveRight: async function(index){
-                if(index >= bannerList.length-1){
+            moveRight: async function (index) {
+                if (index >= bannerList.length - 1) {
                     return;
                 }
                 setFullPageLoading(true);
                 let newList = bannerList;
                 let curr = bannerList[index];
-                let next = bannerList[index+1];
-                
+                let next = bannerList[index + 1];
+
                 newList[index] = next;
-                newList[index+1] = curr;
-                newList.forEach((r,index)=>{
+                newList[index + 1] = curr;
+                newList.forEach((r, index) => {
                     r.order = index;
                 })
                 setBannerList(newList);
                 await bannerDataConnect().updateBanners(bannerList)
-                .then(data=>{
-                    if(data.message=='success'){
-                        handleGetBanners();
-                        setBannerListLoading(false);
-                    }else{
-                        alert('undefined error');
-                    }
-                });
+                    .then(data => {
+                        if (data.message == 'success') {
+                            handleGetBanners();
+                            setBannerListLoading(false);
+                        } else {
+                            alert('undefined error');
+                        }
+                    });
                 setFullPageLoading(false);
             },
-            deleteBanner: async function(id){
+            deleteBanner: async function (id) {
                 setFullPageLoading(true);
-                let banner = bannerList.filter(r=>r.id==id)[0];
+                let banner = bannerList.filter(r => r.id == id)[0];
                 await bannerDataConnect().deleteBanner(banner)
-                .then(data=>{
-                    // console.log(data);
-                })
+                    .then(data => {
+                        // console.log(data);
+                    })
                 await handleGetBanners();
                 setFullPageLoading(false);
             }
         }
     }
 
-    const testConsole = () =>{
+    const testConsole = () => {
         console.log(bannerList);
+    }
+
+    const [videoList, setVideoList] = useState(null);
+    const [addVideoModalOpen, setAddVideoModalOpen] = useState(false);
+    const [addVideoData, setAddVideoData] = useState(null);
+
+    useEffect(() => {
+        async function fetchInit() {
+            await __handleVideoDataConnect().getVideoList();
+        }
+        fetchInit();
+    }, [])
+    const __handleVideoDataConnect = () => {
+        return {
+            getVideoList: async function () {
+                await videoDataConnect().searchVideoAll()
+                    .then(data => {
+                        if (data && data.message == 'success') {
+                            setVideoList(data.data);
+                        }
+                    });
+            },
+            insertVideoOne: async function () {
+                let data = addVideoData;
+                await videoDataConnect().insertVideoOne(data);
+            },
+            updateVideoDisplay: async function(data){
+                await videoDataConnect().updateVideoDisplay(data);
+            },
+            deleteVideoOne: async function(data){
+                await videoDataConnect().deleteVideoOne(data)
+                    .then(data=>{
+                        if (data && data.message == 'success') {
+                            alert('삭제되었습니다.');
+                        }else{
+                            alert('error');
+                        }
+                    })
+            }
+        }
+    }
+
+    const handleVideoEventControl = () => {
+        return {
+            addVideoModalOpen: function () {
+                setAddVideoData({
+                    videoName: '',
+                    videoType: 'TYPE_YOUTUBE',
+                    videoUrl: '',
+                    videoKey: ''
+                })
+                setAddVideoModalOpen(true);
+            },
+            addVideoModalClose: function () {
+                setAddVideoData(null);
+                setAddVideoModalOpen(true);
+            },
+            addVideoDataOnValueChange: function (e) {
+                setAddVideoData({ ...addVideoData, [e.target.name]: e.target.value })
+            },
+            addVideoDataSubmit: async function (e) {
+                e.preventDefault();
+                await __handleVideoDataConnect().insertVideoOne();
+                await __handleVideoDataConnect().getVideoList();
+                this.addVideoModalClose();
+            },
+            setVideoDisplay: function(){
+                return{
+                    view: async function(videoId){
+                        let selectedVideo = videoList.filter(r=>r.videoId==videoId)[0];
+                        selectedVideo.videoDisplay = 1;
+                        await __handleVideoDataConnect().updateVideoDisplay(selectedVideo);
+                        await __handleVideoDataConnect().getVideoList();
+                    },
+                    hide: async function(videoId){
+                        let selectedVideo = videoList.filter(r=>r.videoId==videoId)[0];
+                        selectedVideo.videoDisplay = 0;
+                        await __handleVideoDataConnect().updateVideoDisplay(selectedVideo);
+                        await __handleVideoDataConnect().getVideoList();
+                    }
+                }
+            },
+            deleteVideo: async function(videoId){
+                let selectedVideo = videoList.filter(r=>r.videoId==videoId)[0];
+                await __handleVideoDataConnect().deleteVideoOne(selectedVideo);
+                await __handleVideoDataConnect().getVideoList();
+            }
+        }
     }
     return (
         isLoged ?
             (
                 <Container>
-                    {fullPageLoading ? 
+                    {fullPageLoading ?
                         <FullPageLoading>
                             <FullPageLoadingSpinner>
                                 <div className="spinner-border" role="status">
@@ -227,12 +322,37 @@ const AdminHomeMain = ({history}) => {
                     <AdminBannerManage
                         uploadFile={uploadFile}
                         bannerListLoading={bannerListLoading}
-                        bannerList = {bannerList}
+                        bannerList={bannerList}
 
                         handleBannerImage={handleBannerImage}
                     >
-
                     </AdminBannerManage>
+
+                    {videoList ?
+                        <AdminVideoManage
+                            videoList = {videoList}
+
+                            handleVideoEventControl={handleVideoEventControl}
+                        >
+
+                        </AdminVideoManage>
+                        :
+                        <></>
+                    }
+
+                    {addVideoModalOpen && addVideoData ?
+                        <AddVideoModal
+                            modalOpen={addVideoModalOpen}
+                            addVideoData={addVideoData}
+
+                            handleVideoEventControl={handleVideoEventControl}
+                        >
+
+                        </AddVideoModal>
+                        :
+                        <></>
+                    }
+
                 </Container>
             ) :
             (

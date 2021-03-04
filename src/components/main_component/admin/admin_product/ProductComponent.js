@@ -99,7 +99,7 @@ const ProductComponent = (props) => {
                                 <p>카테고리별 조회</p>
                                 <div className='form-row'>
                                     <div className="col">
-                                        <select className="form-control" name='categoryId' value={query.categoryId ? query.categoryId : ''} onChange={(e)=>props.handleProductControl().categoryOnChange(e)} required>
+                                        <select className="form-control" name='categoryId' value={query.categoryId ? query.categoryId : ''} onChange={(e) => props.handleProductControl().categoryOnChange(e)} required>
                                             <option value='' hidden>--카테고리 선택--</option>
                                             {props.categoryList ? props.categoryList.data.map(r => {
                                                 return (
@@ -112,10 +112,23 @@ const ProductComponent = (props) => {
                                         </select>
                                     </div>
                                     <div className="col">
-                                        <button type='button' className='btn btn-outline-success' onClick={()=>props.handleProductControl().searchAll()}>전체조회</button>
+                                        <button type='button' className='btn btn-outline-success' onClick={() => props.handleProductControl().searchAll()}>전체조회</button>
                                     </div>
                                 </div>
-
+                                <div className='form-group'>
+                                    <div className="form-check form-check-inline">
+                                        <input className="form-check-input" type="checkbox" name='newChecked' checked={query.newChecked && query.newChecked=='true' ? true : false} onChange={(e)=>props.handleProductControl().newCheckedOnChange(e)}/>
+                                        <label className="form-check-label">신상품</label>
+                                    </div>
+                                    <div className="form-check form-check-inline">
+                                        <input className="form-check-input" type="checkbox" name='hitChecked' checked={query.hitChecked && query.hitChecked=='true' ? true : false} onChange={(e)=>props.handleProductControl().hitCheckedOnChange(e)}/>
+                                        <label className="form-check-label">히트상품</label>
+                                    </div>
+                                    <div className="form-check form-check-inline">
+                                        <input className="form-check-input" type="checkbox" name='eventChecked' checked={query.eventChecked && query.eventChecked=='true' ? true : false} onChange={(e)=>props.handleProductControl().eventCheckedOnChange(e)}/>
+                                        <label className="form-check-label">이벤트렌탈</label>
+                                    </div>
+                                </div>
                             </div>
                             {props.productList ?
                                 <TableBox className='table-responsive'>
@@ -126,23 +139,27 @@ const ProductComponent = (props) => {
                                                 <th scope="col" width='200'>상품명</th>
                                                 <th scope="col" width='150'>이미지</th>
                                                 <th scope="col" width='150'>카테고리</th>
-                                                <th scope="col" width='100'>우선순위</th>
+                                                <th scope="col" width='100'>이벤트 뱃지</th>
                                                 <th scope="col" width='200'>컨트롤</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {props.productList.map((r, index) => {
-                                                let itemIndex = props.productPage.displaySize*(props.productPage.curr-1)+index+1;
+                                                let itemIndex = props.productPage.displaySize * (props.productPage.curr - 1) + index + 1;
                                                 return (
                                                     <tr key={r.product.id}>
                                                         <TableTh scope="row">{itemIndex}</TableTh>
                                                         <TableTd>{r.product.name}</TableTd>
                                                         <TableTd><ImageEl src={r.product.imageUrl}></ImageEl></TableTd>
                                                         <TableTd>{r.category.categoryName}</TableTd>
-                                                        <TableTd>{r.product.priority}</TableTd>
+                                                        <TableTd>
+                                                            {r.product.newChecked ? <span className="badge badge-primary" style={{ marginRight: '5px' }}>NEW</span> : <></>}
+                                                            {r.product.hitChecked ? <span className="badge badge-danger" style={{ marginRight: '5px' }}>HIT</span> : <></>}
+                                                            {r.product.eventChecked ? <span className="badge badge-info" style={{ marginRight: '5px' }}>EVENT</span> : <></>}
+                                                        </TableTd>
                                                         <TableTd>
                                                             <ControlLink
-                                                                href={'/'}
+                                                                href={`/product/detail?productId=${r.product.id}`}
                                                                 color_prop={'#80dd80'}
                                                                 className='btn btn-sm'
                                                                 target='_blank'
@@ -195,12 +212,12 @@ const ProductComponent = (props) => {
                         </BodyPart>
                     </ListWrapper>
                 </ListContainer>
-                {props.productPage && 
+                {props.productPage &&
                     <ProductPageableComponent
                         pageData={props.productPage}
                     ></ProductPageableComponent>
                 }
-                
+
             </Container>
         </>
     );

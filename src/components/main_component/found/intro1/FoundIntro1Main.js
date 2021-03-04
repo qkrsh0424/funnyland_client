@@ -100,7 +100,7 @@ const ProcessBox = styled.div`
     text-align:center;
     min-height:250px;
     padding:8px;
-    border:3px solid #f8bac9;
+    border:4px solid #f8bac9;
     border-radius:10px;
     @media only screen and (max-width:768px){
         min-height:150px;
@@ -181,7 +181,7 @@ const FoundIntro1Main = () =>{
                     <LineBreaker2></LineBreaker2>
                     <ProcessContainer className='container'>
                         <ProcessWrapper>
-                            <ProcessBox style={{backgroundColor:'#ee547000'}}>
+                            <ProcessBox style={{borderColor:'#ee547050'}}>
                                 <ProcessContent>
                                     <div>
                                         <LogoImage src='/images/funnyland/icon/icon_step1_2.png'></LogoImage>
@@ -190,7 +190,7 @@ const FoundIntro1Main = () =>{
                                     <ProcessDescBox>가맹점 개설 의뢰</ProcessDescBox>
                                 </ProcessContent>
                             </ProcessBox>
-                            <ProcessBox style={{backgroundColor:'#eec4e006'}}>
+                            <ProcessBox style={{borderColor:'#ee547060'}}>
                                 <ProcessContent>
                                     <div>
                                         <LogoImage src='/images/funnyland/icon/icon_step2.png'></LogoImage>
@@ -199,7 +199,7 @@ const FoundIntro1Main = () =>{
                                     <ProcessDescBox>희망지역 및 규모에 맞는 운영형태 선정</ProcessDescBox>
                                 </ProcessContent>
                             </ProcessBox>
-                            <ProcessBox style={{backgroundColor:'#eeb4d006'}}>
+                            <ProcessBox style={{borderColor:'#ee547070'}}>
                                 <ProcessContent>
                                     <div>
                                         <LogoImage src='/images/funnyland/icon/icon_step3.png'></LogoImage>
@@ -208,7 +208,7 @@ const FoundIntro1Main = () =>{
                                     <ProcessDescBox>상권조사와 입지분석을 통한 점포 선점</ProcessDescBox>
                                 </ProcessContent>
                             </ProcessBox>
-                            <ProcessBox style={{backgroundColor:'#eea4c010'}}>
+                            <ProcessBox style={{borderColor:'#ee547080'}}>
                                 <ProcessContent>
                                     <div>
                                         <LogoImage src='/images/funnyland/icon/icon_step4.png'></LogoImage>
@@ -217,7 +217,7 @@ const FoundIntro1Main = () =>{
                                     <ProcessDescBox>가맹 세부사항 협의 및 계약 체결</ProcessDescBox>
                                 </ProcessContent>
                             </ProcessBox>
-                            <ProcessBox style={{backgroundColor:'#ee94b014'}}>
+                            <ProcessBox style={{borderColor:'#ee547090'}}>
                                 <ProcessContent>
                                     <div>
                                         <LogoImage src='/images/funnyland/icon/icon_step5.png'></LogoImage>
@@ -226,7 +226,7 @@ const FoundIntro1Main = () =>{
                                     <ProcessDescBox>설계도면 검토 및 확정 인테리어 공사 및 감리</ProcessDescBox>
                                 </ProcessContent>
                             </ProcessBox>
-                            <ProcessBox style={{backgroundColor:'#ee84a018'}}>
+                            <ProcessBox style={{borderColor:'#ee5470a0'}}>
                                 <ProcessContent>
                                     <div>
                                         <LogoImage src='/images/funnyland/icon/icon_step6.png'></LogoImage>
@@ -235,7 +235,7 @@ const FoundIntro1Main = () =>{
                                     <ProcessDescBox>영업을 위한 각종 인허가 및 서류발급 완비</ProcessDescBox>
                                 </ProcessContent>
                             </ProcessBox>
-                            <ProcessBox style={{backgroundColor:'#ee749019'}}>
+                            <ProcessBox style={{borderColor:'#ee5470b0'}}>
                                 <ProcessContent>
                                     <div>
                                         <LogoImage src='/images/funnyland/icon/icon_step7.png'></LogoImage>
@@ -244,7 +244,7 @@ const FoundIntro1Main = () =>{
                                     <ProcessDescBox>가맹점주 교육을 통한 매장 운영 매뉴얼 및 서비스 교육</ProcessDescBox>
                                 </ProcessContent>
                             </ProcessBox>
-                            <ProcessBox style={{backgroundColor:'#ee648023'}}>
+                            <ProcessBox style={{borderColor:'#ee5470c0'}}>
                                 <ProcessContent>
                                     <div>
                                         <LogoImage src='/images/funnyland/icon/icon_step8.png'></LogoImage>
@@ -253,7 +253,7 @@ const FoundIntro1Main = () =>{
                                     <ProcessDescBox>오픈매니저 파견하에 설비 및 물품 입고, 최종 마무리 </ProcessDescBox>
                                 </ProcessContent>
                             </ProcessBox>
-                            <ProcessBox style={{backgroundColor:'#ee547030'}}>
+                            <ProcessBox style={{borderColor:'#ee5470'}}>
                                 <ProcessContent>
                                     <div>
                                         <LogoImage src='/images/funnyland/logo/logo3.png'></LogoImage>

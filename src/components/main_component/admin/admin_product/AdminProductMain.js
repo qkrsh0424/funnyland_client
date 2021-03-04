@@ -23,6 +23,7 @@ const Container = styled.div`
     margin-bottom:150px;
 `;
 const AdminProductMain = ({ history, match, location }) => {
+    let query = queryString.parse(window.location.search);
     // Login Check Start
     const [isLoged, setIsLoged] = useState(false);
     useEffect(() => {
@@ -74,6 +75,9 @@ const AdminProductMain = ({ history, match, location }) => {
         introduce: '',
         summary: '',
         editorData: '',
+        newChecked:false,
+        hitChecked:false,
+        eventChecked:false,
         imageUrl: '/images/sample/imageNo.png'
     });
 
@@ -116,7 +120,7 @@ const AdminProductMain = ({ history, match, location }) => {
                 await productDataConnect().searchProductAll()
                     .then(data => {
                         if (data && data.message == 'success') {
-                            // console.log(data);
+                            console.log(data);
                             setProductList(data.data);
                             setProductPage(data.page);
                         }
@@ -128,6 +132,8 @@ const AdminProductMain = ({ history, match, location }) => {
                         if (data) {
                             if (data.message == 'success') {
                                 alert('상품이 등록되었습니다.');
+                            }else{
+                                alert('error')
                             }
                         }
                     });
@@ -250,14 +256,47 @@ const AdminProductMain = ({ history, match, location }) => {
                 await __handleDataConnect().getProductList();
             },
             categoryOnChange: async function (e) {
-                let query = queryString.parse(window.location.search);
-
-                let pageIndex = query.pageIndex;
+                
                 let categoryId = e.target.value;
-                let queryData = queryString.stringify({ categoryId: categoryId });
+                
+                let queryData = queryString.stringify({...query, categoryId: categoryId });
                 let newUrl = `/admin/product?${queryData}`;
                 history.push(newUrl);
             },
+            newCheckedOnChange: async function(e){
+                
+                if(e.target.checked){
+                    query.newChecked=true;
+                }else{
+                    delete query.newChecked;
+                }
+                let queryData = queryString.stringify({...query});
+                let newUrl = `/admin/product?${queryData}`;
+                history.push(newUrl);
+            },
+            hitCheckedOnChange: async function(e){
+                
+                if(e.target.checked){
+                    query.hitChecked=true;
+                }else{
+                    delete query.hitChecked;
+                }
+                let queryData = queryString.stringify({...query});
+                let newUrl = `/admin/product?${queryData}`;
+                history.push(newUrl);
+            },
+            eventCheckedOnChange: async function(e){
+                
+                if(e.target.checked){
+                    query.eventChecked=true;
+                }else{
+                    delete query.eventChecked;
+                }
+                let queryData = queryString.stringify({...query});
+                let newUrl = `/admin/product?${queryData}`;
+                history.push(newUrl);
+            },
+
             searchAll: async function () {
                 history.push('/admin/product');
             }
@@ -283,9 +322,14 @@ const AdminProductMain = ({ history, match, location }) => {
                     introduce: addProductItemData.introduce,
                     summary: addProductItemData.summary,
                     desc: addProductItemData.editorData,
-                    imageUrl: addProductItemData.imageUrl
+                    imageUrl: addProductItemData.imageUrl,
+                    newChecked: addProductItemData.newChecked,
+                    hitChecked: addProductItemData.hitChecked,
+                    eventChecked: addProductItemData.eventChecked
                 }
+                // console.log(jsonData);
                 await __handleDataConnect().insertProductOne(jsonData);
+                await __handleDataConnect().getProductList();
                 handleAddProductModalControl().close();
 
             },
@@ -297,11 +341,18 @@ const AdminProductMain = ({ history, match, location }) => {
                     introduce: '',
                     summary: '',
                     editorData: '',
-                    imageUrl: '/images/sample/imageNo.png'
+                    imageUrl: '/images/sample/imageNo.png',
+                    newChecked:false,
+                    hitChecked:false,
+                    eventChecked:false
                 });
             },
             onValueChange: function (e) {
                 setAddProductItemData({ ...addProductItemData, [e.target.name]: e.target.value })
+            },
+            onValueCheckedChange: function(e){
+                // console.log(e.target.checked);
+                setAddProductItemData({...addProductItemData,[e.target.name]: e.target.checked})
             },
             imageUploadToS3: async function (event) {
                 //빈파일이 아닌 경우 함수 진행
@@ -356,6 +407,10 @@ const AdminProductMain = ({ history, match, location }) => {
             },
             onValueChange: function (e) {
                 setUpdateProductItemData({ ...updateProductItemData, [e.target.name]: e.target.value })
+            },
+            onValueCheckedChange: function(e){
+                // console.log(e.target.checked);
+                setUpdateProductItemData({...updateProductItemData,[e.target.name]: e.target.checked})
             },
             imageUploadToS3: async function (event) {
                 //빈파일이 아닌 경우 함수 진행

@@ -33,6 +33,9 @@ const FooterDefault = () =>{
     });
     return(
         <Container>
+            <div className='text-center' style={{}}>
+                <img src='/images/funnyland/logo/logo3.png' style={{width:'200px'}}></img>
+            </div>
             <CompanyDetailText>업체명: {companyInfo.name} | 대표: {companyInfo.president} | 사업자번호: {companyInfo.bussinessNo}</CompanyDetailText>
             <CompanyDetailText>주소: {companyInfo.address}</CompanyDetailText>
             <CompanyDetailText>TEL: {companyInfo.tel} | FAX: {companyInfo.fax}</CompanyDetailText>

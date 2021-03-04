@@ -35,7 +35,7 @@ const AdminNav = () =>{
                         <Link className="nav-link" to='/admin/counseling'>상담신청 관리</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to='/'>매장 안내 관리</Link>
+                        <Link className="nav-link" to='/admin/store'>매장 안내 관리</Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to='/admin/product'>상품 안내 관리</Link>
