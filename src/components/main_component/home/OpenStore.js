@@ -1,14 +1,15 @@
+import {useRef} from 'react';
 import styled from 'styled-components';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 const Container = styled.div`
 
     background-image: 
-        linear-gradient(#eeeeeef0, #eeeeeef0),
+        linear-gradient(#eeeeeed0, #eeeeeed0),
         url(/images/funnyland/bg/funnyland-bg6.jpeg);
     /* background:#f1f1f1; */
     background-size:cover;
@@ -162,10 +163,10 @@ const ContentIconEl = styled(Link)`
 const CardEl = styled.div`
     /* display: inline-block; */
     overflow:hidden;
-    border-radius:15px;
+    border-radius:3px;
     border:1px solid #a0a0a0;
     /* height: 400px; */
-    background-color:#e0e0e080;
+    background-color:#ffffffcc;
     /* box-shadow: rgb(255 255 255 / 25%) 0px 5px 15px; */
     /* box-shadow: rgb(0 0 0 / 8%) 0px 0.125rem 0.25rem; */
     box-shadow: rgb(0 0 0 / 8%) 0.3rem 0.3rem 0.3rem;
@@ -174,10 +175,16 @@ const CardEl = styled.div`
     } */
 
     .slick-center &{
-        border: 3px solid #ee5470;
+        border: 2px solid #ee5470;
         transform: scale(1.05);
     }
+    .slick-current &{
+        border: 2px solid #ee5470;
+    }
 
+    .mySlider2 .slick-center &{
+        border: 1px solid #ee5470;
+    }
     &:hover{
         & ${TitleBox}{
             color:#ee5470;
@@ -190,8 +197,11 @@ const CardEl = styled.div`
 
 
 const OpenStore = (props) => {
+    let slider1 = useRef();
+    let slider2 = useRef();
+
     var settings = {
-        dots: true,
+        dots: false,
         infinite: true,
         speed: 500,
         slidesToShow: 3,
@@ -200,6 +210,7 @@ const OpenStore = (props) => {
         centerMode: true,
         pauseOnHover: false,
         focusOnSelect: true,
+        asNavFor: slider2.current,
         responsive: [
             {
                 breakpoint: 992,
@@ -207,7 +218,36 @@ const OpenStore = (props) => {
                     arrows: false,
                     centerMode: false,
                     slidesToShow: 2,
-                    slidesToScroll: 2,
+                    slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    arrows: false,
+                    centerMode: false,
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                }
+            }
+        ]
+    };
+
+    var settings2 = {
+        slidesToShow: props.storeList.length >= 6 ? 6 : props.storeList.length,
+        slidesToScroll: 1,
+        asNavFor: slider1.current,
+        // dots: true,
+        centerMode: true,
+        focusOnSelect: true,
+        responsive: [
+            {
+                breakpoint: 992,
+                settings: {
+                    arrows: false,
+                    centerMode: true,
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
                 }
             },
             {
@@ -215,7 +255,7 @@ const OpenStore = (props) => {
                 settings: {
                     arrows: false,
                     centerMode: true,
-                    slidesToShow: 1,
+                    slidesToShow: 2,
                     slidesToScroll: 1,
                 }
             }
@@ -226,7 +266,10 @@ const OpenStore = (props) => {
             <ContainerTitle><span style={{ color: '#ee5470', fontWeight: '800' }}>OPEN</span> 매장 안내</ContainerTitle>
             {/* <ContainerSubTitle>전국 <span style={{color:'#ee5470', fontWeight:'800'}}>퍼니랜드</span> 가맹점들을 확인해 보세요</ContainerSubTitle> */}
             <SliderContainer>
-                <Slider {...settings}>
+                <Slider 
+                    ref={slider1}
+                    {...settings}
+                >
                     {props.storeList.map((r, index) => {
                         if (index < 10) {
                             return (
@@ -250,36 +293,26 @@ const OpenStore = (props) => {
                         }
 
                     })}
-                    {/* <CardEl>
-                            <CardImg src="/images/sample/banner1.png" />
-                        </CardEl>
-                        <CardEl>
-                            <CardImg src="/images/sample/banner1.png" />
-                        </CardEl>
-                        <CardEl>
-                            <CardImg src="/images/sample/banner1.png" />
-                        </CardEl>
-                        <CardEl>
-                            <CardImg src="/images/sample/banner1.png" />
-                        </CardEl>
-                        <CardEl>
-                            <CardImg src="/images/sample/banner1.png" />
-                        </CardEl>
-                        <CardEl>
-                            <CardImg src="/images/sample/banner1.png" />
-                        </CardEl>
-                        <CardEl>
-                            <CardImg src="/images/sample/banner1.png" />
-                        </CardEl>
-                        <CardEl>
-                            <CardImg src="/images/sample/banner1.png" />
-                        </CardEl>
-                        <CardEl>
-                            <CardImg src="/images/sample/banner1.png" />
-                        </CardEl>
-                        <CardEl>
-                            <CardImg src="/images/sample/banner1.png" />
-                        </CardEl> */}
+                </Slider>
+                <Slider 
+                    className='mySlider2'
+                    ref={slider2}
+                    {...settings2}
+                >
+                    {props.storeList.map((r, index) => {
+                        if (index < 10) {
+                            return (
+                                <CardEl key={r.storeId}>
+                                    <ImageWrapper>
+                                        <ImageBox>
+                                            <ImageEl src={r.storeImageUrl}></ImageEl>
+                                        </ImageBox>
+                                    </ImageWrapper>
+                                </CardEl>
+                            );
+                        }
+
+                    })}
                 </Slider>
             </SliderContainer>
             <div className="text-center">

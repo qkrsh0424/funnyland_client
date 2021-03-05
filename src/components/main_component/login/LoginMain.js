@@ -31,7 +31,7 @@ const LoginMain = ({history}) =>{
         await axios.get('/api/auth/check/loged')
         .then(res=>{
             if(res.data.message == 'success' ){
-                history.push('/admin')
+                history.replace('/admin')
                 return;
             }else{
                 setNotLoged(false);
@@ -52,7 +52,7 @@ const LoginMain = ({history}) =>{
             }
         )
         .then(res=>{
-            history.push('/admin')
+            history.replace('/admin')
         })
     }
 

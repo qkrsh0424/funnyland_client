@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import Alignment from '@ckeditor/ckeditor5-alignment';
 // material
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
@@ -132,6 +133,7 @@ const AddProductModal = (props) => {
                                 // data="<p>Hello from CKEditor 5!</p>"
                                 data={props.addProductItemData.editorData}
                                 onReady={editor => {
+                                    console.log(editor)
                                     // You can store the "editor" and use when it is needed.
                                     // console.log('Editor is ready to use!', editor);
                                 }}

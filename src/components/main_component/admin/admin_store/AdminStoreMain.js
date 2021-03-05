@@ -95,7 +95,7 @@ const AdminStoreMain = ({ history, match, location }) => {
                 await storeDataConnect().searchStoreAll(areaName, pageIndex)
                     .then(data => {
                         if (data && data.message == 'success') {
-                            console.log(data);
+                            // console.log(data);
                             setStoreList(data.data);
                             setStorePage(data.page);
                         }
