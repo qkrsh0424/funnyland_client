@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import CkeditorModules from '../../../modules/CkeditorModules';
+
 const Container = styled.div`
 
 `;

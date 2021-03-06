@@ -2,7 +2,38 @@ import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
+// NOTE: Use the editor from source (not a build)!
+import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+import CkeditorModules from '../../../modules/CkeditorModules';
+
+// import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment.js';
+// import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat.js';
+// import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote.js';
+// import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold.js';
+// import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder.js';
+// import CKFinderUploadAdapter from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter.js';
+// import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials.js';
+// import FontColor from '@ckeditor/ckeditor5-font/src/fontcolor.js';
+// import FontSize from '@ckeditor/ckeditor5-font/src/fontsize.js';
+// import Heading from '@ckeditor/ckeditor5-heading/src/heading.js';
+// import Image from '@ckeditor/ckeditor5-image/src/image.js';
+// import ImageCaption from '@ckeditor/ckeditor5-image/src/imagecaption.js';
+// import ImageResize from '@ckeditor/ckeditor5-image/src/imageresize.js';
+// import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle.js';
+// import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar.js';
+// import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload.js';
+// import Indent from '@ckeditor/ckeditor5-indent/src/indent.js';
+// import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic.js';
+// import Link from '@ckeditor/ckeditor5-link/src/link.js';
+// import List from '@ckeditor/ckeditor5-list/src/list.js';
+// import MediaEmbed from '@ckeditor/ckeditor5-media-embed/src/mediaembed.js';
+// import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph.js';
+// import PasteFromOffice from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice';
+// import Table from '@ckeditor/ckeditor5-table/src/table.js';
+// import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar.js';
+// import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformation.js';
+
 // material
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
@@ -44,37 +75,66 @@ const ImageEl = styled.img`
         width:90%;
     }
 `;
-const custom_config = {
+
+const editorConfiguration = {
+    // plugins: [
+    //     Heading,
+    //     Alignment,
+    //     Essentials,
+    //     Bold,
+    //     Italic,
+    //     Link,
+    //     List,
+    //     Paragraph,
+    //     Indent,
+    //     Autoformat,
+    //     BlockQuote,
+    //     CKFinder,
+    //     CKFinderUploadAdapter,
+    //     FontColor,
+    //     FontSize,
+    //     Image,
+    //     ImageCaption,
+    //     ImageResize,
+    //     ImageStyle,
+    //     ImageToolbar,
+    //     ImageUpload,
+    //     MediaEmbed,
+    //     PasteFromOffice,
+    //     Table,
+    //     TableToolbar,
+    //     TextTransformation
+    // ],
+    plugins: CkeditorModules,
+    toolbar: [
+        'heading', '|',
+        'bold', 'italic','fontSize','fontColor', 'link', 'bulletedList', 'numberedList', 'alignment', '|',
+        'indent', 'outdent', '|',
+        'imageUpload',
+        'blockQuote',
+        'insertTable',
+        'mediaEmbed',
+        'undo',
+        'redo'
+
+    ],
+    image:{
+        toolbar:[
+            'imageStyle:full',
+            'imageStyle:side',
+            '|',
+            'imageTextAlternative'
+        ]
+    },
+    table:{
+        contentToolbar:[
+            'tableColumn',
+            'tableRow',
+            'mergeTableCells'
+        ]
+    },
     extraPlugins: [MyCustomUploadAdapterPlugin],
-    // removePlugins: ['Table','TableToolbar']
-    // toolbar: {
-    //     items: [
-    //         'heading', '|',
-    //         'fontfamily', 'fontsize', '|',
-    //         'alignment', '|',
-    //         'fontColor', 'fontBackgroundColor', '|',
-    //         'bold', 'italic', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
-    //         'link', '|',
-    //         'outdent', 'indent', '|',
-    //         'bulletedList', 'numberedList', 'todoList', '|',
-    //         'code', 'codeBlock', '|',
-    //         // 'insertTable', '|',
-    //         'imageUpload', 'blockQuote', '|',
-    //         'undo', 'redo'
-    //     ],
-    //     shouldNotGroupWhenFull: true
-    // }
-    toolbar: {
-        items: [
-            'heading', '|',
-            'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
-            'outdent', 'indent', '|',
-            'imageUpload', 'blockQuote', '|',
-            'undo', 'redo'
-        ],
-        shouldNotGroupWhenFull: true
-    }
-}
+};
 
 const UpdateProductModal = (props) => {
     // console.log(ClassicEditor.builtinPlugins.map( plugin => plugin.pluginName ));
@@ -123,15 +183,15 @@ const UpdateProductModal = (props) => {
                             </div>
                             <div className='form-group'>
                                 <div className="form-check form-check-inline">
-                                    <input className="form-check-input" type="checkbox" name='newChecked' checked={props.updateProductItemData.newChecked} onChange={(e) => props.handleModalControl().onValueCheckedChange(e)}/>
+                                    <input className="form-check-input" type="checkbox" name='newChecked' checked={props.updateProductItemData.newChecked} onChange={(e) => props.handleModalControl().onValueCheckedChange(e)} />
                                     <label className="form-check-label">신상품</label>
                                 </div>
                                 <div className="form-check form-check-inline">
-                                    <input className="form-check-input" type="checkbox" name='hitChecked' checked={props.updateProductItemData.hitChecked} onChange={(e) => props.handleModalControl().onValueCheckedChange(e)}/>
+                                    <input className="form-check-input" type="checkbox" name='hitChecked' checked={props.updateProductItemData.hitChecked} onChange={(e) => props.handleModalControl().onValueCheckedChange(e)} />
                                     <label className="form-check-label">히트상품</label>
                                 </div>
                                 <div className="form-check form-check-inline">
-                                    <input className="form-check-input" type="checkbox" name='eventChecked' checked={props.updateProductItemData.eventChecked} onChange={(e) => props.handleModalControl().onValueCheckedChange(e)}/>
+                                    <input className="form-check-input" type="checkbox" name='eventChecked' checked={props.updateProductItemData.eventChecked} onChange={(e) => props.handleModalControl().onValueCheckedChange(e)} />
                                     <label className="form-check-label">이벤트렌탈</label>
                                 </div>
                             </div>
@@ -178,9 +238,28 @@ const UpdateProductModal = (props) => {
                                 onFocus={(event, editor) => {
                                     // console.log('Focus.', editor);
                                 }}
-                                config={custom_config}
+                                config={editorConfiguration}
 
                             />
+                            {/* <CKEditor
+                                editor={ClassicEditor}
+                                config={editorConfiguration}
+                                data="<p>Hello from CKEditor 5!</p>"
+                                onReady={editor => {
+                                    // You can store the "editor" and use when it is needed.
+                                    console.log('Editor is ready to use!', editor);
+                                }}
+                                onChange={(event, editor) => {
+                                    const data = editor.getData();
+                                    console.log({ event, editor, data });
+                                }}
+                                onBlur={(event, editor) => {
+                                    console.log('Blur.', editor);
+                                }}
+                                onFocus={(event, editor) => {
+                                    console.log('Focus.', editor);
+                                }}
+                            /> */}
                             <DialogActions>
                                 <Button type='button' color="secondary" onClick={() => props.handleModalControl().close()}>
                                     취소

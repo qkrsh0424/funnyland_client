@@ -1,6 +1,9 @@
 import styled from 'styled-components';
+
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+import CkeditorModules from '../../../modules/CkeditorModules';
+
 // material
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
@@ -8,6 +11,38 @@ import Button from '@material-ui/core/Button';
 // handler
 import { getCookie } from '../../../../handler/CookieHandler';
 import { useEffect } from 'react';
+
+const editorConfiguration = {
+    plugins: CkeditorModules,
+    toolbar: [
+        'heading', '|',
+        'bold', 'italic','fontSize','fontColor', 'link', 'bulletedList', 'numberedList', 'alignment', '|',
+        'indent', 'outdent', '|',
+        'imageUpload',
+        'blockQuote',
+        'insertTable',
+        'mediaEmbed',
+        'undo',
+        'redo'
+
+    ],
+    image:{
+        toolbar:[
+            'imageStyle:full',
+            'imageStyle:side',
+            '|',
+            'imageTextAlternative'
+        ]
+    },
+    table:{
+        contentToolbar:[
+            'tableColumn',
+            'tableRow',
+            'mergeTableCells'
+        ]
+    },
+    extraPlugins: [MyCustomUploadAdapterPlugin],
+};
 
 const Container = styled.div`
     .ck-content{
@@ -155,7 +190,7 @@ const FixStoreModal = (props) => {
                             onFocus={(event, editor) => {
                                 // console.log('Focus.', editor);
                             }}
-                            config={custom_config}
+                            config={editorConfiguration}
 
                         />
                         <DialogActions>

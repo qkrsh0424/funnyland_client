@@ -1,15 +1,50 @@
 import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-// import Alignment from '@ckeditor/ckeditor5-alignment';
+
 // material
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+// NOTE: Use the editor from source (not a build)!
+import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+import CkeditorModules from '../../../modules/CkeditorModules';
+
 // handler
 import { getCookie } from '../../../../handler/CookieHandler';
+
+const editorConfiguration = {
+    plugins: CkeditorModules,
+    toolbar: [
+        'heading', '|',
+        'bold', 'italic','fontSize','fontColor', 'link', 'bulletedList', 'numberedList', 'alignment', '|',
+        'indent', 'outdent', '|',
+        'imageUpload',
+        'blockQuote',
+        'insertTable',
+        'mediaEmbed',
+        'undo',
+        'redo'
+
+    ],
+    image:{
+        toolbar:[
+            'imageStyle:full',
+            'imageStyle:side',
+            '|',
+            'imageTextAlternative'
+        ]
+    },
+    table:{
+        contentToolbar:[
+            'tableColumn',
+            'tableRow',
+            'mergeTableCells'
+        ]
+    },
+    extraPlugins: [MyCustomUploadAdapterPlugin],
+};
 
 const Container = styled.div`
     .ck-content{
@@ -42,19 +77,7 @@ const ImageEl = styled.img`
         width:90%;
     }
 `;
-const custom_config = {
-    extraPlugins: [MyCustomUploadAdapterPlugin],
-    toolbar: {
-        items: [
-            'heading', '|',
-            'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
-            'outdent', 'indent', '|',
-            'imageUpload', 'blockQuote', '|',
-            'undo', 'redo'
-        ],
-        shouldNotGroupWhenFull: true
-    }
-}
+
 const AddProductModal = (props) => {
     useEffect(() => {
         function propFetch() {
@@ -99,15 +122,15 @@ const AddProductModal = (props) => {
                             </div>
                             <div className='form-group'>
                                 <div className="form-check form-check-inline">
-                                    <input className="form-check-input" type="checkbox" name='newChecked' checked={props.addProductItemData.newChecked} onChange={(e) => props.handleModalControl().onValueCheckedChange(e)}/>
+                                    <input className="form-check-input" type="checkbox" name='newChecked' checked={props.addProductItemData.newChecked} onChange={(e) => props.handleModalControl().onValueCheckedChange(e)} />
                                     <label className="form-check-label">신상품</label>
                                 </div>
                                 <div className="form-check form-check-inline">
-                                    <input className="form-check-input" type="checkbox" name='hitChecked' checked={props.addProductItemData.hitChecked} onChange={(e) => props.handleModalControl().onValueCheckedChange(e)}/>
+                                    <input className="form-check-input" type="checkbox" name='hitChecked' checked={props.addProductItemData.hitChecked} onChange={(e) => props.handleModalControl().onValueCheckedChange(e)} />
                                     <label className="form-check-label">히트상품</label>
                                 </div>
                                 <div className="form-check form-check-inline">
-                                    <input className="form-check-input" type="checkbox" name='eventChecked' checked={props.addProductItemData.eventChecked} onChange={(e) => props.handleModalControl().onValueCheckedChange(e)}/>
+                                    <input className="form-check-input" type="checkbox" name='eventChecked' checked={props.addProductItemData.eventChecked} onChange={(e) => props.handleModalControl().onValueCheckedChange(e)} />
                                     <label className="form-check-label">이벤트렌탈</label>
                                 </div>
                             </div>
@@ -154,9 +177,28 @@ const AddProductModal = (props) => {
                                 onFocus={(event, editor) => {
                                     // console.log('Focus.', editor);
                                 }}
-                                config={custom_config}
+                                config={editorConfiguration}
 
                             />
+                            {/* <CKEditor
+                                editor={ClassicEditor}
+                                config={editorConfiguration}
+                                data="<p>Hello from CKEditor 5!</p>"
+                                onReady={editor => {
+                                    // You can store the "editor" and use when it is needed.
+                                    console.log('Editor is ready to use!', editor);
+                                }}
+                                onChange={(event, editor) => {
+                                    const data = editor.getData();
+                                    console.log({ event, editor, data });
+                                }}
+                                onBlur={(event, editor) => {
+                                    console.log('Blur.', editor);
+                                }}
+                                onFocus={(event, editor) => {
+                                    console.log('Focus.', editor);
+                                }}
+                            /> */}
                             <DialogActions>
                                 <Button type='button' color="secondary" onClick={() => props.handleModalControl().close()}>
                                     취소
