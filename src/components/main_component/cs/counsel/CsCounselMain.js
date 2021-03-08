@@ -13,7 +13,7 @@ import NavbarDynamic from '../../../navbar/NavbarDynamic';
 import FooterDefault from '../../../footer_offer/FooterDefault';
 import NavbarBottomFixed from '../../../navbar/NavbarBottomFixed';
 import ApplyFormModal from '../../home/ApplyFormModal';
-import FoundTopLayout from '../layout/FoundTopLayout';
+import CsTopLayout from '../layout/CsTopLayout';
 // handler
 import { handleScrollToTop } from '../../../../handler/ScrollHandler';
 
@@ -154,7 +154,7 @@ const ApplicationDatePicker = styled(DatePicker)`
         border: 1px solid #f8bac9;
     }
 `;
-const FoundIntro2Main = () => {
+const CsCounselMain = () => {
     useEffect(() => {
         handleScrollToTop();
     }, []);
@@ -170,7 +170,7 @@ const FoundIntro2Main = () => {
             }
         }
     }
-    const [counselingType, setCounselingType] = useState('counseling');
+    const [counselingType, setCounselingType] = useState('');
     const [applierName, setApplierName] = useState('');
     const [applierPhone, setApplierPhone] = useState('');
     const [applierArea, setApplierArea] = useState('');
@@ -206,18 +206,18 @@ const FoundIntro2Main = () => {
     return (
         <>
             <NavbarDynamic></NavbarDynamic>
-            <FoundTopLayout
-                title={'창업상담신청'}
-                linkPage={'intro2'}
-            ></FoundTopLayout>
+            <CsTopLayout
+                title={'기타상담신청'}
+                linkPage={'counsel'}
+            ></CsTopLayout>
             {/* BODY START */}
             <>
                 <Container>
                     <MainTitleBox>
                         <MainTitle>
-                            FRANCHISE INQUIRY
+                            EXTRA INQUIRY
                         </MainTitle>
-                        <MainTitleSub>창업상담신청</MainTitleSub>
+                        <MainTitleSub>기타상담신청</MainTitleSub>
                         <LineBreaker1></LineBreaker1>
                     </MainTitleBox>
                     <ApplicationContainer className='container'>
@@ -228,9 +228,12 @@ const FoundIntro2Main = () => {
                             <div className='row'>
                                 <div className='col-sm-12 mt-2 mb-2'>
                                     <label className='pl-1'>상담구분 <span className='text-danger'>*</span></label>
-                                    <ApplicationSelect defaultValue={counselingType} onChange={(e)=>setCounselingType(e.target.value)} disabled>
+                                    <ApplicationSelect value={counselingType} onChange={(e)=>setCounselingType(e.target.value)} required>
+                                        <option value='' hidden>--선택--</option>
                                         <option value='counseling'>창업상담</option>
                                         <option value='purchase'>상품구매상담</option>
+                                        <option value='closed'>폐업상담</option>
+                                        <option value='renewal'>매장리뉴얼상담</option>
                                     </ApplicationSelect>
                                 </div>
                                 <div className='col-sm-6 mt-2 mb-2'>
@@ -241,10 +244,6 @@ const FoundIntro2Main = () => {
                                     <label className='pl-1'>연락처 <span className='text-danger'>*</span></label>
                                     <ApplicationInput type='text' name='applierPhone' placeholder="'-'를 제외한 연락처를 입력해주세요." value={applierPhone} onChange={(e)=>setApplierPhone(e.target.value)} required></ApplicationInput>
                                 </div>
-                                {/* <div className='col-12 mt-2 mb-2'>
-                                    <label className='pl-1'>주소</label>
-                                    <ApplicationInput type='text' name='address' placeholder='주소를 입력해주세요.' value={address} onChange={(e)=>setAddress(e.target.value)}></ApplicationInput>
-                                </div> */}
                                 <div className='col-sm-4 mt-2 mb-2'>
                                     <label className='pl-1'>희망지역 <span className='text-danger'>*</span></label>
                                     <ApplicationInput type='text' name='applierArea' placeholder='희망지역을 입력해주세요.' value={applierArea} onChange={(e)=>setApplierArea(e.target.value)} required></ApplicationInput>
@@ -293,4 +292,4 @@ const FoundIntro2Main = () => {
     );
 }
 
-export default FoundIntro2Main;
+export default CsCounselMain;

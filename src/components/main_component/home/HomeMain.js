@@ -11,6 +11,8 @@ import NavbarBottomFixed from '../../navbar/NavbarBottomFixed';
 import ApplyFormModal from './ApplyFormModal';
 import ProductList from './ProductList';
 import YoutubePlayPart from './YoutubePlayPart';
+import NoticeComponent from './NoticeComponent';
+
 // handler
 import { handleScrollToTop } from '../../../handler/ScrollHandler';
 
@@ -19,6 +21,7 @@ import { bannerDataConnect } from '../../data_connect/BannerDataConnect';
 import { videoDataConnect } from '../../data_connect/VideoDataConnect';
 import { productDataConnect } from '../../data_connect/ProductDataConnect';
 import { storeDataConnect } from '../../data_connect/StoreDataConnect';
+import { csDataConnect } from '../../data_connect/CsDataConnect';
 
 const MainContainer = styled.div`
 `;
@@ -60,6 +63,7 @@ const HomeMain = () => {
     const [productHitList, setProductHitList] = useState(null);
     const [productEventList, setProductEventList] = useState(null);
     const [storeList, setStoreList] = useState(null);
+    const [csList, setCsList] = useState(null);
 
     useEffect(() => {
         handleScrollToTop();
@@ -73,6 +77,7 @@ const HomeMain = () => {
             await loadDataConnect().getProductList().hit();
             await loadDataConnect().getProductList().event();
             await loadDataConnect().getStoreList();
+            await loadDataConnect().getCsList();
         }
         loadInit();
     }, [])
@@ -132,6 +137,14 @@ const HomeMain = () => {
                             setStoreList(data.data);
                         }
                     })
+            },
+            getCsList: async function () {
+                await csDataConnect().searchCsAll()
+                    .then(data => {
+                        if (data && data.message == 'success') {
+                            setCsList(data.data);
+                        }
+                    })
             }
         }
     }
@@ -166,7 +179,7 @@ const HomeMain = () => {
             {storeList ?
                 <OpenStore
                     banners={banners}
-                    storeList = {storeList}
+                    storeList={storeList}
                 ></OpenStore>
                 :
                 <></>
@@ -178,6 +191,13 @@ const HomeMain = () => {
                     scrollY={scrollY}
                     videoList={videoList}
                 ></YoutubePlayPart>
+                :
+                <></>
+            }
+            {csList ?
+                <NoticeComponent
+                    csList={csList}
+                ></NoticeComponent>
                 :
                 <></>
             }

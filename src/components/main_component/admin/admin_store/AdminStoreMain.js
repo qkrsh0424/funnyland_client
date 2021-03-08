@@ -110,7 +110,7 @@ const AdminStoreMain = ({ history, match, location }) => {
             updateStoreOne: async function (data) {
                 await storeDataConnect().updateStoreOne(data);
             },
-            imageUploadToS3: async function (event,type) {
+            imageUploadToS3: async function (event, type) {
                 //빈파일이 아닌 경우 함수 진행
                 if (event.target.files !== null) {
                     // setFullPageLoading(true);
@@ -121,12 +121,12 @@ const AdminStoreMain = ({ history, match, location }) => {
                     // axios 사용해서 백엔드에게 파일 보내기
                     await storeDataConnect().imageUploadToS3(fd).then(data => {
                         if (data.message == 'success') {
-                            if(type=='add'){
+                            if (type == 'add') {
                                 addStoreUploaderRef.current.value = ''
                                 setAddStoreData({ ...addStoreData, ['storeImageUrl']: data.imageUrl })
-                            }else if(type=='fix'){
+                            } else if (type == 'fix') {
                                 fixStoreUploaderRef.current.value = ''
-                                setFixStoreData({...fixStoreData, ['storeImageUrl']: data.imageUrl})
+                                setFixStoreData({ ...fixStoreData, ['storeImageUrl']: data.imageUrl })
                             }
                         }
                     });
@@ -204,7 +204,7 @@ const AdminStoreMain = ({ history, match, location }) => {
                     storeLat: 33.450701,
                     storeLng: 126.570667,
                     storeDesc: '',
-                    storeImageUrl:'/images/sample/imageNo.png'
+                    storeImageUrl: '/images/sample/imageNo.png'
                 });
                 setTimeout(() => {
                     modalRef.current.scrollIntoView();
@@ -237,9 +237,13 @@ const AdminStoreMain = ({ history, match, location }) => {
             },
             fixModalOpen: function (storeId) {
                 handleStoreEventControl().addModalClose();
+                handleStoreEventControl().fixModalClose();
                 let data = storeList.filter(r => r.storeId == storeId)[0];
-                setFixStoreData(data);
-                setFixStoreModalOpen(true);
+                setTimeout(() => {
+                    setFixStoreData(data);
+                    setFixStoreModalOpen(true);
+                }, 10)
+
                 setTimeout(() => {
                     modalRef.current.scrollIntoView();
                 }, 100);
@@ -272,7 +276,7 @@ const AdminStoreMain = ({ history, match, location }) => {
                     }
                 }
             },
-            imageUploadToS3: async function(e, type){
+            imageUploadToS3: async function (e, type) {
                 await __handleStoreDataConnect().imageUploadToS3(e, type);
             }
         }

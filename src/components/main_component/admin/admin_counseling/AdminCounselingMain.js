@@ -192,10 +192,10 @@ const AdminCounselingMain = ({match,location,history}) =>{
                                     </div>
                                     <div className='col-sm-4'>
                                         <ListTextField>희망지역 : {r.applierArea}</ListTextField>
-                                        <ListTextField>주소 : {r.address}</ListTextField>
+                                        {/* <ListTextField>주소 : {r.address}</ListTextField> */}
+                                        <ListTextField>점포층수 : {r.floor}</ListTextField>
                                     </div>
                                     <div className='col-sm-4'>
-                                        <ListTextField>점포층수 : {r.floor}</ListTextField>
                                         <ListTextField>오픈예정일 : {r.openDate == null? '' : dateToYYYYMMDD(r.openDate)}</ListTextField>
                                     </div>
                                     <div className='col-sm-12'>

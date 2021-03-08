@@ -316,7 +316,7 @@ const OpenStore = (props) => {
                 </Slider>
             </SliderContainer>
             <div className="text-center">
-                <ButtonEl type="button" className="btn" to={'/store/list'}>오픈매장안내 바로가기</ButtonEl>
+                <ButtonEl className="btn" to={'/store/list'}>오픈매장안내 바로가기</ButtonEl>
             </div>
         </Container>
     );

@@ -92,7 +92,7 @@ const NavbarDynamic = (props) => {
             id: 'navLink5',
             name: '고객센터',
             icon: <FontAwesomeIcon icon={faInfoCircle}></FontAwesomeIcon>,
-            url: '#'
+            url: '/cs/notice'
         }
     ]);
     const [scrollY, setScrollY] = useState(0);

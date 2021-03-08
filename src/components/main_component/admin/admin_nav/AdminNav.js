@@ -40,6 +40,9 @@ const AdminNav = () =>{
                     <li className="nav-item">
                         <Link className="nav-link" to='/admin/product'>상품 안내 관리</Link>
                     </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to='/admin/cs'>고객센터 관리</Link>
+                    </li>
                 </ul>
                 <form className="form-inline my-2 my-lg-0" onSubmit={(e) => handleLogoutSubmit(e)}>
                     <button type='submit' className='btn btn-outline-danger'>로그아웃</button>
