@@ -253,7 +253,7 @@ const FoundIntro1Main = () =>{
                                     <ProcessDescBox>오픈매니저 파견하에 설비 및 물품 입고, 최종 마무리 </ProcessDescBox>
                                 </ProcessContent>
                             </ProcessBox>
-                            <ProcessBox style={{borderColor:'#ee5470'}}>
+                            <ProcessBox style={{borderColor:'#ee5470', background:'#ee547030'}}>
                                 <ProcessContent>
                                     <div>
                                         <LogoImage src='/images/funnyland/logo/logo3.png'></LogoImage>

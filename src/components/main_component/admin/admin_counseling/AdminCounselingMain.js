@@ -164,6 +164,9 @@ const AdminCounselingMain = ({match,location,history}) =>{
                                     {r.counselingType=='counseling'?
                                         <span style={{padding:'0 5px', color:'#6060d4'}}>가맹상담</span>
                                     :''}
+                                    {r.counselingType=='rental'?
+                                        <span style={{padding:'0 5px', color:'#0d88f5'}}>임대상담</span>
+                                    :''}
                                     {r.counselingType=='purchase'?
                                         <span style={{padding:'0 5px', color:'#29b529'}}>상품상담</span>
                                     :''}

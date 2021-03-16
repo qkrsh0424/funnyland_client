@@ -77,7 +77,7 @@ const StoreListMain = ({ history, match, location }) => {
                 title={'매장안내'}
                 linkPage={'list'}
             ></StoreTopLayout>
-            <AreaNavComponent></AreaNavComponent>
+            {/* <AreaNavComponent></AreaNavComponent> */}
             {storeList && storePage ?
                 <StoreComponent
                     storeList={storeList}

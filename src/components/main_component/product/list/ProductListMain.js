@@ -14,6 +14,7 @@ import ProductTopLayout from '../layout/ProductTopLayout';
 import NavbarBottomFixed from '../../../navbar/NavbarBottomFixed';
 import ApplyFormModal from '../../home/ApplyFormModal';
 import CategoryNavComponent from './CategoryNavComponent';
+import CategoryNavComponent2 from './CategoryNavComponent2';
 import ProductComponent from './ProductComponent';
 
 
@@ -121,10 +122,10 @@ const ProductListMain = ({history,match,location}) => {
             {/* Body start */}
             <div ref={categoryNavRef}></div>
             {categoryList && selectedCategory ?
-                <CategoryNavComponent
+                <CategoryNavComponent2
                     categoryList={categoryList}
                     selectedCategory={selectedCategory}
-                ></CategoryNavComponent>
+                ></CategoryNavComponent2>
                 :
                 <></>
             }

@@ -171,7 +171,7 @@ const ProductComponent = (props) => {
                         </MainTitle>
                     <MainTitleSub>제품 안내</MainTitleSub>
                     <LineBreaker1></LineBreaker1>
-                    <ExplainEl>{props.selectedCategory.categoryName}</ExplainEl>
+                    {/* <ExplainEl>{props.selectedCategory.categoryName}</ExplainEl> */}
                 </MainTitleBox>
                 <ProductListWrapper className='container'>
                     {props.productList && props.productList.map(r => {

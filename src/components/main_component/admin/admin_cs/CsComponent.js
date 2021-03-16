@@ -116,7 +116,7 @@ const CsComponent = (props) => {
                                                     </TableTd>
                                                     <TableTd>
                                                         <ControlLink
-                                                            // href={`/product/detail?productId=${r.product.id}`}
+                                                            href={`/cs/detail?csId=${r.csId}`}
                                                             color_prop={'#80dd80'}
                                                             className='btn btn-sm'
                                                             target='_blank'

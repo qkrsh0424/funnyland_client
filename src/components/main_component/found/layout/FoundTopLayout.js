@@ -98,7 +98,7 @@ const TopAreaSubNavWrapper = styled.div`
     position: absolute;
     width:80%;
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:repeat(3,1fr);
     grid-auto-rows: minmax(auto, auto);
     grid-gap:5px;
     bottom:0;
@@ -162,10 +162,16 @@ const FoundTopLayout = (props) => {
                         창업 절차 안내
                     </TopAreaSubNavItem>
                     <TopAreaSubNavItem
+                        link_active={props.linkPage == 'intro3' ? 1 : 0}
+                        to='/found/intro3'
+                    >
+                        임대 절차 안내
+                    </TopAreaSubNavItem>
+                    <TopAreaSubNavItem
                         link_active={props.linkPage == 'intro2' ? 1 : 0}
                         to='/found/intro2'
                     >
-                        창업상담신청
+                        상담신청
                     </TopAreaSubNavItem>
                 </TopAreaSubNavWrapper>
             </TopAreaWrapper>

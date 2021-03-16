@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 // components
 import NavbarDynamic from '../../../navbar/NavbarDynamic';
 import IntroduceTopLayout from '../layout/IntroduceTopLayout';
+import IntroduceTopLayout2 from '../layout/IntroduceTopLayout2';
 import FooterDefault from '../../../footer_offer/FooterDefault';
 import NavbarBottomFixed from '../../../navbar/NavbarBottomFixed';
 import ApplyFormModal from '../../home/ApplyFormModal';
@@ -97,7 +98,11 @@ const ContentTextWrapper  =styled.div`
 `;
 
 const ContentTextEl = styled.div`
-
+    /* padding: 40px; */
+    font-size:22px;
+    font-weight:600;
+    line-height:2.5;
+    text-align:center;
 `;
 const LineBreaker1 = styled.div`
     width: 55px;
@@ -139,48 +144,15 @@ const IntroduceIntro1Main = () => {
             <IntroduceBodyWrapper>
                 <IntroduceBodyContentWrapper>
                     <ContentImageWrapper>
-                        <ContentImageEl src='/images/funnyland/bg/funnyland-bg4.jpeg'></ContentImageEl>
+                        <ContentImageEl src='/images/funnyland/bg/funnyland-bg4.jpg'></ContentImageEl>
                     </ContentImageWrapper>
                     <LineBreaker1></LineBreaker1>
                     <ContentTextWrapper>
                         <ContentTextEl>
-                            긴글이 얼마나 길어질지긴글이 얼마나 길어질지긴글이 얼마나 길어질지긴글이 얼마나 길어질지
-
-                            긴글이 얼마나 길어질지긴글이 얼마나 길어질지긴글이 얼마나 길어질지긴글이 얼마나 길어질지
-
-                            긴글이 얼마나 길어질지긴글이 얼마나 길어질지긴글이 얼마나 길어질지긴글이 얼마나 길어질지
-
-                            긴글이 얼마나 길어질지긴글이 얼마나 길어질지긴글이 얼마나 길어질지긴글이 얼마나 길어질지
-
-                            긴글이 얼마나 길어질지긴글이 얼마나 길어질지긴글이 얼마나 길어질지긴글이 얼마나 길어질지
-
-                            긴글이 얼마나 길어질지긴글이 얼마나 길어질지긴글이 얼마나 길어질지긴글이 얼마나 길어질지
-
-                            긴글이 얼마나 길어질지긴글이 얼마나 길어질지긴글이 얼마나 길어질지긴글이 얼마나 길어질지
-
-                            긴글이 얼마나 길어질지긴글이 얼마나 길어질지긴글이 얼마나 길어질지긴글이 얼마나 길어질지
-
-                            긴글이 얼마나 길어질지긴글이 얼마나 길어질지긴글이 얼마나 길어질지긴글이 얼마나 길어질지
-
-                            긴글이 얼마나 길어질지
-
-                            긴글이 얼마나 길어질지
-
-                            긴글이 얼마나 길어질지
-
-                            긴글이 얼마나 길어질지
-
-                            긴글이 얼마나 길어질지
-
-                            긴글이 얼마나 길어질지
-
-                            긴글이 얼마나 길어질지
-
-                            긴글이 얼마나 길어질지
-
-                            긴글이 얼마나 길어질지
-
-                            긴글이 얼마나 길어질지긴글이 얼마나 길어질지긴글이 얼마나 길어질
+                            게임산업 발전과 건전한 게임문화를 위해 항상 노력하며 다양한 컨텐츠와 우수한 제품 공급에 앞장서는 게임토피아 입니다. 20년간의 창업 노하우와 기술력을 바탕으로 성공적인 창업이 될 수 있도록 고객님의 눈높이에서 항상 최선을 다하겠습니다.
+                            <br/>
+                            <br/>
+                            감사합니다.
                         </ContentTextEl>
                     </ContentTextWrapper>
                     

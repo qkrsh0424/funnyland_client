@@ -145,7 +145,10 @@ class MyUploadAdapter {
         // CKEditor 5's FileLoader instance.
         this.loader = props;
         // URL where to send files.
+        // upload to s3
         this.url = `/api/fileupload/image`;
+        // upload to local
+        // this.url = `/api/fileupload/external/image`;
     }
 
     // Starts the upload process.

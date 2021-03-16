@@ -251,7 +251,7 @@ const ProductCounselMain = () => {
                                 </div>
                             </div>
                             <div className='mt-2 mb-2 form-check'>
-                                <p>개인정보 수집 동의 <span className='text-danger'>*</span></p>
+                                <p>개인정보 수집 동의 <span className='text-danger'>*</span> <a href='/policy/privacy' target='_blank'>보기</a></p>
                                 <input type="checkbox" checked={privacyAgreement} name='privacyAgreement' onChange={(e)=>setPrivacyAgreement(!privacyAgreement)} required></input>
                                 <label className='pl-3'>동의합니다.</label>
                             </div>

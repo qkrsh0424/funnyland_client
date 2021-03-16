@@ -99,6 +99,7 @@ const ApplyFormModal = (props) => {
                         <label htmlFor="i_counseling_type">상담구분</label>
                         <select className="form-control" defaultValue={counselingType} onChange={(e)=>thisHandleValueOnChange().changeCounselingType(e)}>
                             <option value='counseling'>창업상담</option>
+                            <option value='rental'>임대상담</option>
                             <option value='purchase'>상품구매상담</option>
                             <option value='closed'>폐업상담</option>
                             <option value='renewal'>매장리뉴얼상담</option>
@@ -120,7 +121,7 @@ const ApplyFormModal = (props) => {
                     <div className="form-check">
                         <input className="form-check-input" type="checkbox" checked={privacyAgreeChecked} onChange={(e)=>thisHandleValueOnChange().changePrivacyAreeChecked(e)} required/>
                         <label className="form-check-label">
-                            개인정보 수집 동의
+                            개인정보 수집 동의 <a href='/policy/privacy' target='_blank'>보기</a>
                         </label>
                     </div>
                 </DialogContent>

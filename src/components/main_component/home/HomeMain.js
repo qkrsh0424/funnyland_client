@@ -12,9 +12,11 @@ import ApplyFormModal from './ApplyFormModal';
 import ProductList from './ProductList';
 import YoutubePlayPart from './YoutubePlayPart';
 import NoticeComponent from './NoticeComponent';
+import PopupComponent from './PopupComponent';
 
 // handler
 import { handleScrollToTop } from '../../../handler/ScrollHandler';
+import { setCookie, getCookie } from '../../../handler/CookieHandler';
 
 // dataConnect
 import { bannerDataConnect } from '../../data_connect/BannerDataConnect';
@@ -22,8 +24,10 @@ import { videoDataConnect } from '../../data_connect/VideoDataConnect';
 import { productDataConnect } from '../../data_connect/ProductDataConnect';
 import { storeDataConnect } from '../../data_connect/StoreDataConnect';
 import { csDataConnect } from '../../data_connect/CsDataConnect';
+import { popupDataConnect } from '../../data_connect/PopupDataConnect';
 
 const MainContainer = styled.div`
+    /* position:relative; */
 `;
 
 const LineBreaker1 = styled.div`
@@ -64,6 +68,7 @@ const HomeMain = () => {
     const [productEventList, setProductEventList] = useState(null);
     const [storeList, setStoreList] = useState(null);
     const [csList, setCsList] = useState(null);
+    const [popupList, setPopupList] = useState(null);
 
     useEffect(() => {
         handleScrollToTop();
@@ -78,6 +83,7 @@ const HomeMain = () => {
             await loadDataConnect().getProductList().event();
             await loadDataConnect().getStoreList();
             await loadDataConnect().getCsList();
+            await loadDataConnect().getPopupList();
         }
         loadInit();
     }, [])
@@ -145,6 +151,23 @@ const HomeMain = () => {
                             setCsList(data.data);
                         }
                     })
+            },
+            getPopupList: async function () {
+                await popupDataConnect().searchPopupAll()
+                    .then(data => {
+                        if (data && data.message == 'success') {
+                            let popupData = data.data;
+                            let newPopupList = [];
+                            popupData.forEach(r => {
+                                let popupCookie = getCookie(`popup${r.popupId}`);
+                                if (popupCookie && popupCookie == 1) {
+                                }else{
+                                    newPopupList.push(r);
+                                }
+                            })
+                            setPopupList(newPopupList);
+                        }
+                    })
             }
         }
     }
@@ -163,10 +186,17 @@ const HomeMain = () => {
             <NavbarDynamic
                 scrollY={scrollY}
             ></NavbarDynamic>
+            {popupList ?
+                <PopupComponent
+                    popupList = {popupList}
+                ></PopupComponent>
+                :
+                <></>
+            }
+
             <BannerCarouselFullSize
                 banners={banners}
             ></BannerCarouselFullSize>
-
             {productNewList && productHitList && productEventList ?
                 <ProductList
                     productNewList={productNewList}

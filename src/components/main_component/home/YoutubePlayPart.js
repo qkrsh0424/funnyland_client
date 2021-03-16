@@ -3,6 +3,8 @@ import styled, { css, keyframes } from 'styled-components';
 import YouTube from 'react-youtube';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import {getCookie,setCookie} from '../../../handler/CookieHandler';
+
 const floatingPlayerTitleAnimation = () => {
     return keyframes`
         50% {
@@ -226,13 +228,19 @@ const _onReady = (event) => {
 }
 
 const YoutubePlayPart = (props) => {
+    const floatVideoCloseCookie = getCookie('float_video_close');
     const youtubeContainerRef = useRef();
     const player = useRef();
     const [myOffsetTop, setMyOffsetTop] = useState(0);
     const [floatingClose, setFloatingClose] = useState(false);
 
     useEffect(() => {
-        setFloatingClose(false);
+        // console.log(floatVideoCloseCookie);
+        if(floatVideoCloseCookie && floatVideoCloseCookie==1){
+            setFloatingClose(true);
+        }else{
+            setFloatingClose(false);
+        }
     }, [])
     useEffect(() => {
 
@@ -242,6 +250,7 @@ const YoutubePlayPart = (props) => {
     const handleFloatingClose = () => {
         player.current.getInternalPlayer().pauseVideo();
         setFloatingClose(true);
+        setCookie('float_video_close','1',24*60*60*1000);
     }
     return (
         <>

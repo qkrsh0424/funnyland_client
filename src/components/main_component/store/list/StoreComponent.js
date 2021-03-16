@@ -234,9 +234,9 @@ const StoreComponent = (props) => {
                     </MainTitle>
                     <MainTitleSub>오픈매장안내</MainTitleSub>
                     <LineBreaker1></LineBreaker1>
-                    <ExplainEl>
+                    {/* <ExplainEl>
                         {query.areaName ? query.areaName : '전체매장'}
-                    </ExplainEl>
+                    </ExplainEl> */}
                 </MainTitleBox>
                 <ProductListWrapper className='container'>
                     {props.storeList && props.storeList.map(r => {

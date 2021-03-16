@@ -1,7 +1,8 @@
 // **SET COOKIE**
 function setCookie(name, value, exp) {
     var date = new Date();
-    date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
+    // date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
+    date.setTime(date.getTime() + exp);
     document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
 }
 //   setCookie('pop', 'event0405', 7); /* pop=event0405, 7일 뒤 만료됨 */

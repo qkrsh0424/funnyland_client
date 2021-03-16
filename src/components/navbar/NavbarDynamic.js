@@ -31,19 +31,21 @@ const NavBrandTop = styled(Link)`
             color:white;
         }
         img{
-            height:50px;
+            height:60px;
             @media only screen and (max-width:320px){
-                height:30px;
+                height:50px;
             }
         }
     `;
 
 const NavItemEl = styled(Link)`
         color:${(props) => props.mobile_nav_open | props.scroll_y >= 60 ? '#333' : '#f1f1f1'};
-        font-size:17px;
+        font-size:19px;
         font-weight:600;
+        /* padding-top:10px;
         padding-left : 10px;
-        padding-right : 10px;
+        padding-right : 10px; */
+        padding:10px;
         border:1px solid #00000000;
         &:hover{
             color:#ee5470 !important;
@@ -52,7 +54,7 @@ const NavItemEl = styled(Link)`
         
 
         @media only screen and (max-width:320px){
-            font-size:14px;
+            font-size:16px;
         }
     `;
 

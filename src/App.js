@@ -15,6 +15,7 @@ const IntroduceIntro3Main = lazy(() => import('./components/main_component/intro
 // components - Foundation
 const FoundIntro1Main = lazy(()=>import('./components/main_component/found/intro1/FoundIntro1Main'));
 const FoundIntro2Main = lazy(()=>import('./components/main_component/found/intro2/FoundIntro2Main'));
+const FoundIntro3Main = lazy(()=>import('./components/main_component/found/intro3/FoundIntro3Main'));
 // components - Product
 const ProductListMain = lazy(()=>import('./components/main_component/product/list/ProductListMain'));
 const ProductDetailMain = lazy(()=>import('./components/main_component/product/detail/ProductDetailMain'));
@@ -36,6 +37,9 @@ const AdminCounselingMain = lazy(()=>import('./components/main_component/admin/a
 const AdminProductMain = lazy(()=>import('./components/main_component/admin/admin_product/AdminProductMain'));
 const AdminStoreMain = lazy(()=>import('./components/main_component/admin/admin_store/AdminStoreMain'));
 const AdminCSMain = lazy(()=>import('./components/main_component/admin/admin_cs/AdminCSMain'));
+
+// component - policy
+const PrivacyAgreement = lazy(()=>import('./components/policy/privacy/PrivacyAgreement'));
 
 const AppContainer = styled.div`
     animation: fadein 1.5s;
@@ -95,6 +99,7 @@ function App() {
                             {/* Foundation */}
                             <Route exact path='/found/intro1' component={FoundIntro1Main}></Route>
                             <Route exact path='/found/intro2' component={FoundIntro2Main}></Route>
+                            <Route exact path='/found/intro3' component={FoundIntro3Main}></Route>
                             {/* Product */}
                             <Route exact path='/product/list' component={ProductListMain}></Route>
                             <Route exact path='/product/detail' component={ProductDetailMain}></Route>
@@ -113,6 +118,8 @@ function App() {
                             <Route exact path='/admin/product' component={AdminProductMain}></Route>
                             <Route exact path='/admin/store' component={AdminStoreMain}></Route>
                             <Route exact path='/admin/cs' component={AdminCSMain}></Route>
+                            {/* Agreement */}
+                            <Route exact path='/policy/privacy' component={PrivacyAgreement}></Route>
                         </Switch>
                     </AppContainer>
                 </Suspense>

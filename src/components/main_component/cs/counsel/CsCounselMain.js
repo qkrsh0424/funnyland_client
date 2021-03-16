@@ -231,6 +231,7 @@ const CsCounselMain = () => {
                                     <ApplicationSelect value={counselingType} onChange={(e)=>setCounselingType(e.target.value)} required>
                                         <option value='' hidden>--선택--</option>
                                         <option value='counseling'>창업상담</option>
+                                        <option value='rental'>임대상담</option>
                                         <option value='purchase'>상품구매상담</option>
                                         <option value='closed'>폐업상담</option>
                                         <option value='renewal'>매장리뉴얼상담</option>
@@ -265,7 +266,7 @@ const CsCounselMain = () => {
                                 </div>
                             </div>
                             <div className='mt-2 mb-2 form-check'>
-                                <p>개인정보 수집 동의 <span className='text-danger'>*</span></p>
+                                <p>개인정보 수집 동의 <span className='text-danger'>*</span> <a href='/policy/privacy' target='_blank'>보기</a></p>
                                 <input type="checkbox" checked={privacyAgreement} name='privacyAgreement' onChange={(e)=>setPrivacyAgreement(!privacyAgreement)} required></input>
                                 <label className='pl-3'>동의합니다.</label>
                             </div>

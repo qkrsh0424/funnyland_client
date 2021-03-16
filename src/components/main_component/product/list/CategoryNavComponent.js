@@ -8,6 +8,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
     border-bottom:1px solid #f1f1f1;
+    /* background:#f8bac9; */
 `;
 
 const GridGroup = styled.div`

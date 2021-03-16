@@ -8,12 +8,15 @@ import { uuidv4 } from '../../../../handler/MyHandlers';
 // data connector
 import { bannerDataConnect } from '../../../data_connect/BannerDataConnect';
 import { videoDataConnect } from '../../../data_connect/VideoDataConnect';
+import { popupDataConnect } from '../../../data_connect/PopupDataConnect';
 
 // components
 import AdminNav from '../admin_nav/AdminNav';
 import AdminBannerManage from './AdminBannerManage';
 import AdminVideoManage from './AdminVideoManage';
 import AddVideoModal from './AddVideoModal';
+import AdminPopupManage from './AdminPopupManage';
+import AddPopupModal from './AddPopupModal';
 
 
 
@@ -239,15 +242,15 @@ const AdminHomeMain = ({ history }) => {
                 let data = addVideoData;
                 await videoDataConnect().insertVideoOne(data);
             },
-            updateVideoDisplay: async function(data){
+            updateVideoDisplay: async function (data) {
                 await videoDataConnect().updateVideoDisplay(data);
             },
-            deleteVideoOne: async function(data){
+            deleteVideoOne: async function (data) {
                 await videoDataConnect().deleteVideoOne(data)
-                    .then(data=>{
+                    .then(data => {
                         if (data && data.message == 'success') {
                             alert('삭제되었습니다.');
-                        }else{
+                        } else {
                             alert('error');
                         }
                     })
@@ -279,26 +282,126 @@ const AdminHomeMain = ({ history }) => {
                 await __handleVideoDataConnect().getVideoList();
                 this.addVideoModalClose();
             },
-            setVideoDisplay: function(){
-                return{
-                    view: async function(videoId){
-                        let selectedVideo = videoList.filter(r=>r.videoId==videoId)[0];
+            setVideoDisplay: function () {
+                return {
+                    view: async function (videoId) {
+                        let selectedVideo = videoList.filter(r => r.videoId == videoId)[0];
                         selectedVideo.videoDisplay = 1;
                         await __handleVideoDataConnect().updateVideoDisplay(selectedVideo);
                         await __handleVideoDataConnect().getVideoList();
                     },
-                    hide: async function(videoId){
-                        let selectedVideo = videoList.filter(r=>r.videoId==videoId)[0];
+                    hide: async function (videoId) {
+                        let selectedVideo = videoList.filter(r => r.videoId == videoId)[0];
                         selectedVideo.videoDisplay = 0;
                         await __handleVideoDataConnect().updateVideoDisplay(selectedVideo);
                         await __handleVideoDataConnect().getVideoList();
                     }
                 }
             },
-            deleteVideo: async function(videoId){
-                let selectedVideo = videoList.filter(r=>r.videoId==videoId)[0];
+            deleteVideo: async function (videoId) {
+                let selectedVideo = videoList.filter(r => r.videoId == videoId)[0];
                 await __handleVideoDataConnect().deleteVideoOne(selectedVideo);
                 await __handleVideoDataConnect().getVideoList();
+            }
+        }
+    }
+
+    const [popupList, setPopupList] = useState(null);
+    const [addPopupModalOpen, setAddPopupModalOpen] = useState(false);
+    const [addPopupData, setAddPopupData] = useState(null);
+    const [popupImageUpload, setPopupImageUpload] = useState([]);
+    useEffect(() => {
+        async function fetchInit() {
+            await __handlePopupDataConnect().getPopupList();
+        }
+        fetchInit();
+    }, [])
+    const __handlePopupDataConnect = () => {
+        return {
+            uploadImage: async function (fd) {
+                await popupDataConnect().uploadImageToLocal(fd)
+                    .then(data => {
+                        document.getElementById('i_popup_image_uploader').value = '';
+                        if (data && data.message == 'success') {
+                            setAddPopupData({ ...addPopupData, popupImageUrl: data.imageUrl });
+                            return;
+                        } else {
+                            alert('data access error');
+                        }
+                    })
+            },
+            getPopupList: async function () {
+                await popupDataConnect().searchPopupAll()
+                    .then(data => {
+                        if (data && data.message == 'success') {
+                            setPopupList(data.data);
+                        }
+                    })
+            },
+            insertPopupOne: async function (data) {
+                await popupDataConnect().insertPopupOne(data)
+                    .then(data => {
+                        if (data && data.message == 'success') {
+                            alert('등록되었습니다.');
+                        }
+                    })
+            },
+            deletePopupOne: async function(data){
+                await popupDataConnect().deletePopupOne(data)
+                .then(data => {
+                    if (data && data.message == 'success') {
+                        alert('삭제되었습니다.');
+                    } else {
+                        alert('error');
+                    }
+                })
+            }
+        }
+    }
+    const handlePopupEventControl = () => {
+        return {
+            addPopupModalOpen: function () {
+                setAddPopupData({
+                    popupName: '',
+                    popupUrl: '#',
+                    popupImageUrl: ''
+                })
+                setAddPopupModalOpen(true);
+            },
+            addPopupModalClose: function () {
+                setAddPopupData(null);
+                setAddPopupModalOpen(true);
+            },
+            addPopupDataSubmit: async function (e) {
+                e.preventDefault();
+                let data = addPopupData;
+                await __handlePopupDataConnect().insertPopupOne(data);
+                await __handlePopupDataConnect().getPopupList();
+                handlePopupEventControl().addPopupModalClose();
+            },
+            addPopupDataOnValueChange: function (e) {
+                setAddPopupData({ ...addPopupData, [e.target.name]: e.target.value })
+            },
+            uploadImage: async function (e) {
+                //빈파일이 아닌 경우 함수 진행
+                if (e.target.files !== null) {
+                    setFullPageLoading(true);
+                    //FormData 생성
+                    const fd = new FormData();
+                    //FormData에 key, value 추가하기
+                    fd.append('file', e.target.files[0]);
+                    // axios 사용해서 백엔드에게 파일 보내기
+                    await __handlePopupDataConnect().uploadImage(fd);
+                    setFullPageLoading(false);
+                }
+            },
+            addPopupDataOnValueChange: function (e) {
+                setAddPopupData({ ...addPopupData, [e.target.name]: e.target.value })
+            },
+            deletePopup: async function (popupId) {
+                let selectedPopup = popupList.filter(r => r.popupId == popupId)[0];
+                await __handlePopupDataConnect().deletePopupOne(selectedPopup);
+                await __handlePopupDataConnect().getPopupList();
             }
         }
     }
@@ -330,12 +433,21 @@ const AdminHomeMain = ({ history }) => {
 
                     {videoList ?
                         <AdminVideoManage
-                            videoList = {videoList}
+                            videoList={videoList}
 
                             handleVideoEventControl={handleVideoEventControl}
                         >
 
                         </AdminVideoManage>
+                        :
+                        <></>
+                    }
+                    {popupList ?
+                        <AdminPopupManage
+                            popupList = {popupList}
+
+                            handlePopupEventControl={handlePopupEventControl}
+                        ></AdminPopupManage>
                         :
                         <></>
                     }
@@ -352,6 +464,17 @@ const AdminHomeMain = ({ history }) => {
                         :
                         <></>
                     }
+                    {addPopupModalOpen && addPopupData ?
+                        <AddPopupModal
+                            addPopupData={addPopupData}
+                            modalOpen={addPopupModalOpen}
+
+                            handlePopupEventControl={handlePopupEventControl}
+                        ></AddPopupModal>
+                        :
+                        <></>
+                    }
+
 
                 </Container>
             ) :

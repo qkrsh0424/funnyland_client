@@ -240,18 +240,36 @@ const storeDataConnect = () => {
                     }
                 });
         },
+        // ============upload to s3=================
         imageUploadToS3: async function (fd) {
             return await axios.post('/api/fileupload/image', fd, {
                 headers: {
                     'X-XSRF-TOKEN': getCookie('XSTO')
                 }
             })
-                .then(res => res.data)
-                //에러가 날 경우 처리
-                .catch(error => {
-                    console.log(error.response);
-                });
+            .then(res=>res.data)
+            //에러가 날 경우 처리
+            .catch(error => {
+                console.log(error.response);
+            });
         },
+        // ==============upload to local===================
+        // imageUploadToS3: async function (fd) {
+        //     return await axios.post('/api/fileupload/external/image', fd, {
+        //         headers: {
+        //             'X-XSRF-TOKEN': getCookie('XSTO')
+        //         }
+        //     })
+        //     .then(res=>res.data)
+        //     //에러가 날 경우 처리
+        //     .catch(error => {
+        //         if(error.response.status==500){
+        //             alert('server 500 error.');
+        //         }else{
+        //             alert('server undefined error.');
+        //         }
+        //     });
+        // },
         searchStoreOne: async function (storeId) {
             return await axios.get('/api/search/store/one', {
                 params:{

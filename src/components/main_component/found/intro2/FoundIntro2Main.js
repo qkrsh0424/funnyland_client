@@ -207,7 +207,7 @@ const FoundIntro2Main = () => {
         <>
             <NavbarDynamic></NavbarDynamic>
             <FoundTopLayout
-                title={'창업상담신청'}
+                title={'상담신청'}
                 linkPage={'intro2'}
             ></FoundTopLayout>
             {/* BODY START */}
@@ -217,7 +217,7 @@ const FoundIntro2Main = () => {
                         <MainTitle>
                             FRANCHISE INQUIRY
                         </MainTitle>
-                        <MainTitleSub>창업상담신청</MainTitleSub>
+                        <MainTitleSub>상담신청</MainTitleSub>
                         <LineBreaker1></LineBreaker1>
                     </MainTitleBox>
                     <ApplicationContainer className='container'>
@@ -228,9 +228,9 @@ const FoundIntro2Main = () => {
                             <div className='row'>
                                 <div className='col-sm-12 mt-2 mb-2'>
                                     <label className='pl-1'>상담구분 <span className='text-danger'>*</span></label>
-                                    <ApplicationSelect defaultValue={counselingType} onChange={(e)=>setCounselingType(e.target.value)} disabled>
+                                    <ApplicationSelect defaultValue={counselingType} onChange={(e)=>setCounselingType(e.target.value)}>
                                         <option value='counseling'>창업상담</option>
-                                        <option value='purchase'>상품구매상담</option>
+                                        <option value='rental'>임대상담</option>
                                     </ApplicationSelect>
                                 </div>
                                 <div className='col-sm-6 mt-2 mb-2'>
@@ -266,7 +266,7 @@ const FoundIntro2Main = () => {
                                 </div>
                             </div>
                             <div className='mt-2 mb-2 form-check'>
-                                <p>개인정보 수집 동의 <span className='text-danger'>*</span></p>
+                                <p>개인정보 수집 동의 <span className='text-danger'>*</span> <a href='/policy/privacy' target='_blank'>보기</a></p>
                                 <input type="checkbox" checked={privacyAgreement} name='privacyAgreement' onChange={(e)=>setPrivacyAgreement(!privacyAgreement)} required></input>
                                 <label className='pl-3'>동의합니다.</label>
                             </div>
