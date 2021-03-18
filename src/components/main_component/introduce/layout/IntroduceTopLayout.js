@@ -101,7 +101,7 @@ const TopAreaSubNavWrapper = styled.div`
     display:grid;
     grid-template-columns:repeat(3,1fr);
     grid-auto-rows: minmax(auto, auto);
-    grid-gap:5px;
+    /* grid-gap:5px; */
     bottom:0;
     left: 50%;
     transform: translate(-50%);
@@ -110,17 +110,19 @@ const TopAreaSubNavWrapper = styled.div`
 const TopAreaSubNavItem = styled(Link)`
     /* background-color: ${(props)=>props.link_active && props.link_active ? '#e88a3e' : '#ffffff40'}; */
     background-color: ${(props)=>props.link_active && props.link_active ? '#ee5470' : '#ffffff40'};
-    padding:10px 0;
-    border:1px solid #ffffff80;
-    border-bottom:none;
-    border-radius:4px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    padding:15px 0;
+    /* border:1px solid #ffffff80; */
+    /* border-bottom:none; */
+    /* border-radius:4px; */
+    /* border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0; */
+    border:none;
     font-size:18px;
     color:white;
     font-weight:700;
     cursor: pointer;
     &:hover{
+        border:none;
         color:white;
         text-decoration:none;
         background-color:#ee5470;
@@ -128,6 +130,7 @@ const TopAreaSubNavItem = styled(Link)`
 
     @media only screen and (max-width:768px){
         &{
+            
             font-size:15px;
         }
     }

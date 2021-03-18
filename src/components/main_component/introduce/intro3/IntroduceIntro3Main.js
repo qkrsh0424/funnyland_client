@@ -1,4 +1,4 @@
-import { useEffect, useState, memo, useCallback } from 'react';
+import { useEffect, useState, memo, useCallback, useRef } from 'react';
 import styled from 'styled-components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -24,11 +24,13 @@ const containerStyle = {
 };
 
 const center = {
-    lat: 37.54927888427358,
-    lng: 126.9210000267195
+    name: '퍼니랜드',
+    lat: 37.54933842721005,
+    lng: 126.92096784021315
 };
 
 const center2 = {
+    name: '게임토피아',
     lat: 37.56701055743499,
     lng: 126.99542015596762
 }
@@ -98,8 +100,28 @@ const LineBreaker1 = styled.div`
     margin: 30px auto 45px;
     background-color: #ee5470;
 `;
-const IntroduceIntro3Main = () => {
 
+const KakaoMapContainer = styled.div`
+    /* border:3px double black; */
+`;
+
+const KakaoMapWapper = styled.div`
+    border:4px double #d1d1d1;
+`;
+
+const KakaoMapEl = styled.div`
+    width:100%;
+    height:450px;
+    @media only screen and (max-width:992px){
+        height:300px;
+    }
+`;
+
+const { kakao } = window;
+
+const IntroduceIntro3Main = () => {
+    let kakaoMapRef1 = useRef();
+    let kakaoMapRef2 = useRef();
     useEffect(() => {
         handleScrollToTop();
     }, []);
@@ -116,6 +138,78 @@ const IntroduceIntro3Main = () => {
         }
     }
 
+    useEffect(() => {
+        function initMap1() {
+            // if (storeData) {
+            // var container = document.getElementById('myMap'); //지도를 담을 영역의 DOM 레퍼런스
+            var container = kakaoMapRef1.current //지도를 담을 영역의 DOM 레퍼런스
+            var options = { //지도를 생성할 때 필요한 기본 옵션
+                // center: new kakao.maps.LatLng(35.157588, 129.058822), //지도의 중심좌표.
+                center: new kakao.maps.LatLng(center.lat, center.lng), //지도의 중심좌표.
+                level: 3 //지도의 레벨(확대, 축소 정도)
+            };
+            const map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+
+            // 마커가 표시될 위치입니다 
+            var markerPosition = new kakao.maps.LatLng(center.lat, center.lng);
+
+            // 마커를 생성합니다
+            var marker = new kakao.maps.Marker({
+                position: markerPosition
+            });
+
+            // 마커가 지도 위에 표시되도록 설정합니다
+            marker.setMap(map);
+
+            var iwContent = `<div style="padding:5px;"> ${center.name}<br><a href="https://map.kakao.com/link/map/${center.name},${center.lat},${center.lng}" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/${center.name},${center.lat},${center.lng}" style="color:blue" target="_blank">길찾기</a></div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다 
+                iwPosition = new kakao.maps.LatLng(center.lat, center.lng); //인포윈도우 표시 위치입니다
+
+            // 인포윈도우를 생성합니다
+            var infowindow = new kakao.maps.InfoWindow({
+                position: iwPosition,
+                content: iwContent
+            });
+
+            // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+            infowindow.open(map, marker);
+            // }
+            // if (storeData) {
+            // var container = document.getElementById('myMap'); //지도를 담을 영역의 DOM 레퍼런스
+            var container2 = kakaoMapRef2.current //지도를 담을 영역의 DOM 레퍼런스
+            var options2 = { //지도를 생성할 때 필요한 기본 옵션
+                // center: new kakao.maps.LatLng(35.157588, 129.058822), //지도의 중심좌표.
+                center: new kakao.maps.LatLng(center2.lat, center2.lng), //지도의 중심좌표.
+                level: 3 //지도의 레벨(확대, 축소 정도)
+            };
+            const map2 = new kakao.maps.Map(container2, options2); //지도 생성 및 객체 리턴
+
+            // 마커가 표시될 위치입니다 
+            var markerPosition2 = new kakao.maps.LatLng(center2.lat, center2.lng);
+
+            // 마커를 생성합니다
+            var marker2 = new kakao.maps.Marker({
+                position: markerPosition2
+            });
+
+            // 마커가 지도 위에 표시되도록 설정합니다
+            marker2.setMap(map2);
+
+            var iwContent2 = `<div style="padding:5px;"> ${center2.name}<br><a href="https://map.kakao.com/link/map/${center2.name},${center2.lat},${center2.lng}" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/${center2.name},${center2.lat},${center2.lng}" style="color:blue" target="_blank">길찾기</a></div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다 
+                iwPosition2 = new kakao.maps.LatLng(center2.lat, center2.lng); //인포윈도우 표시 위치입니다
+
+            // 인포윈도우를 생성합니다
+            var infowindow2 = new kakao.maps.InfoWindow({
+                position: iwPosition2,
+                content: iwContent2
+            });
+
+            // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+            infowindow2.open(map2, marker2);
+            // }
+        }
+        initMap1();
+        // initMap2();
+    }, [])
     return (
         <Container>
             <NavbarDynamic></NavbarDynamic>
@@ -138,18 +232,18 @@ const IntroduceIntro3Main = () => {
                     <div className='intro3-content-box'>
                         <h5>
                             <FontAwesomeIcon icon={faMapMarkedAlt} color='#ee5470'></FontAwesomeIcon>
-                            <span style={{marginLeft:'8px'}}>주소</span>
+                            <span style={{ marginLeft: '8px' }}>주소</span>
                         </h5>
-                        <div style={{paddingLeft:'16px', fontWeight:'600'}}>서울특별시 마포구 서교동 어울마당로 46-1</div>
+                        <div style={{ paddingLeft: '16px', fontWeight: '600' }}>서울특별시 마포구 서교동 어울마당로 46-1</div>
                     </div>
                     <div className='intro3-content-box'>
                         <h5>
                             <FontAwesomeIcon icon={faPhoneAlt} color='#ee5470'></FontAwesomeIcon>
-                            <span style={{marginLeft:'8px'}}>전화번호</span>
+                            <span style={{ marginLeft: '8px' }}>전화번호</span>
                         </h5>
-                        <div style={{paddingLeft:'16px', fontWeight:'600'}}>02-332-9074</div>
+                        <div style={{ paddingLeft: '16px', fontWeight: '600' }}>02-332-9074</div>
                     </div>
-                    <div style={{border:'4px double #f1f1f1'}}>
+                    {/* <div style={{ border: '4px double #f1f1f1' }}>
                         <LoadScript
                             googleMapsApiKey={process.env.REACT_APP_GOOGLEMAP_API}
                         >
@@ -158,7 +252,6 @@ const IntroduceIntro3Main = () => {
                                 center={center}
                                 zoom={18}
                             >
-                                { /* Child components, such as markers, info windows, etc. */}
                                 <>
                                     <Marker
                                         position={center}
@@ -168,8 +261,13 @@ const IntroduceIntro3Main = () => {
                                 </>
                             </GoogleMap>
                         </LoadScript>
-                    </div>
-                    
+                    </div> */}
+                    <KakaoMapContainer>
+                        <KakaoMapWapper>
+                            <KakaoMapEl ref={kakaoMapRef1}></KakaoMapEl>
+                        </KakaoMapWapper>
+                        
+                    </KakaoMapContainer>
                 </IntroduceBodyContentWrapper>
                 <IntroduceBodyContentWrapper>
                     <h4 className="intro3-title">
@@ -178,18 +276,18 @@ const IntroduceIntro3Main = () => {
                     <div className='intro3-content-box'>
                         <h5>
                             <FontAwesomeIcon icon={faMapMarkedAlt} color='#ee5470'></FontAwesomeIcon>
-                            <span style={{marginLeft:'8px'}}>주소</span>
+                            <span style={{ marginLeft: '8px' }}>주소</span>
                         </h5>
-                        <div style={{paddingLeft:'16px', fontWeight:'600'}}>서울특별시 중구 을지로 157 대림상가 2F 다열 265호</div>
+                        <div style={{ paddingLeft: '16px', fontWeight: '600' }}>서울특별시 중구 을지로 157 대림상가 2F 다열 265호</div>
                     </div>
                     <div className='intro3-content-box'>
                         <h5>
                             <FontAwesomeIcon icon={faPhoneAlt} color='#ee5470'></FontAwesomeIcon>
-                            <span style={{marginLeft:'8px'}}>전화번호 / 팩스</span>
+                            <span style={{ marginLeft: '8px' }}>전화번호 / 팩스</span>
                         </h5>
-                        <div style={{paddingLeft:'16px', fontWeight:'600'}}>02-2272-1244 / 02-2274-1244</div>
+                        <div style={{ paddingLeft: '16px', fontWeight: '600' }}>02-2272-1244 / 02-2274-1244</div>
                     </div>
-                    <div style={{border:'4px double #f1f1f1'}}>
+                    {/* <div style={{ border: '4px double #f1f1f1' }}>
                         <LoadScript
                             googleMapsApiKey={process.env.REACT_APP_GOOGLEMAP_API}
                         >
@@ -198,7 +296,6 @@ const IntroduceIntro3Main = () => {
                                 center={center2}
                                 zoom={18}
                             >
-                                { /* Child components, such as markers, info windows, etc. */}
                                 <>
                                     <Marker
                                         position={center2}
@@ -208,7 +305,13 @@ const IntroduceIntro3Main = () => {
                                 </>
                             </GoogleMap>
                         </LoadScript>
-                    </div>
+                    </div> */}
+                    <KakaoMapContainer>
+                        <KakaoMapWapper>
+                            <KakaoMapEl ref={kakaoMapRef2}></KakaoMapEl>
+                        </KakaoMapWapper>
+                        
+                    </KakaoMapContainer>
                 </IntroduceBodyContentWrapper>
             </IntroduceBodyWrapper>
             <FooterDefault></FooterDefault>

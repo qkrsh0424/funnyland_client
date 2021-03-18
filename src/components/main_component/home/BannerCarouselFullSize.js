@@ -29,14 +29,14 @@ const BannerCarouselFullSize = (props) => {
         <Container>
             <Carousel
                 autoPlay={true}
-                interval={4000}
+                interval={6000}
                 infiniteLoop={true}
                 dynamicHeight={true}
                 showIndicators={true}
                 showThumbs={false}
                 showStatus={true}
                 stopOnHover={false}
-                transitionTime={1000}
+                transitionTime={2500}
             >
                 {
                     banners.length>0 && banners.map((r)=>{

@@ -203,7 +203,7 @@ const OpenStore = (props) => {
     var settings = {
         dots: false,
         infinite: true,
-        speed: 500,
+        speed: 1000,
         slidesToShow: 3,
         autoplay: true,
         autoplaySpeed: 3000,
@@ -238,6 +238,7 @@ const OpenStore = (props) => {
         slidesToScroll: 1,
         asNavFor: slider1.current,
         // dots: true,
+        speed: 1000,
         centerMode: true,
         focusOnSelect: true,
         responsive: [

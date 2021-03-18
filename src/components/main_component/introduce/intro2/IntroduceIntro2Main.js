@@ -126,10 +126,8 @@ const IntroduceIntro2Main = () => {
                     <CompanyHistoryPresent
                         historyYear={'2020'}
                         historys={[
-                            'CGV 부산 센텀시티120평 규모 게임장 개설.',
-                            'CGV 수원광교 70평 규모 게임장 개설.',
-                            'CGV 일산고양 60평 규모 게임장 개설.',
-                            'CGV 인천학익 50평 규모 게임장 개설.',
+                            '부산 센텀시티 영화관 게임장 개설.',
+                            '수원광교, 일산고양, 인천학익 영화관 게임장 개설.'
                         ]}
                         lineBreak={true}
                     ></CompanyHistoryPresent>
@@ -137,19 +135,18 @@ const IntroduceIntro2Main = () => {
                         historyYear={'2019'}
                         historys={[
                             '홍대 퍼니랜드 직영 게임장으로 재오픈 및 운영.',
-                            'CGV 등촌 70평 규모 게임장 개설.',
-                            'CGV 부산동래,계양,연수,부천 게임장 개설.',
-                            'CGV 광주금남로 60평 규모 게임장 개설.',
+                            '등촌, 광주금남로 영화관 게임장 개설.',
+                            '몽골 올란바토르 게임장 개설.',
+                            '부산동래, 계양, 연수, 부천 영화관 게임장 개설.',
                         ]}
                         lineBreak={true}
                     ></CompanyHistoryPresent>
                     <CompanyHistoryPresent
                         historyYear={'2018'}
                         historys={[
-                            'CGV 구리,울산,평촌 게임장 개설.',
-                            'CGV 의정부 150평 규모 게임장 개설.',
-                            'CGV 대전 100평 규모 게임장 개설.',
-                            'CGV 수유리 70평 규모 게임장 개설.',
+                            '구리,울산,평촌 영화관 게임장 개설.',
+                            '의정부 영화관 게임장 개설.',
+                            '대전, 수유리 영화관 게임장 개설.',
                         ]}
                         lineBreak={true}
                     ></CompanyHistoryPresent>
@@ -169,7 +166,7 @@ const IntroduceIntro2Main = () => {
                             '대명 솔비치&리조트 게임장 개설.',
                             '홍대 퍼니랜드 게임장 개설 및 운영.',
                             '대명리조트 삼척 게임장 개설.',
-                            '화정 100평 규모 퍼니랜드 게임장 개설.',
+                            // '화정 100평 규모 퍼니랜드 게임장 개설.',
                             '강남 퍼니랜드 게임장 개설 및 운영.',
                             '강남 원플레이 게임장 개설 및 운영.',
                         ]}
@@ -207,11 +204,11 @@ const IntroduceIntro2Main = () => {
                         historys={[
                             '장원레져스포츠 야구 연습장 서울, 경기 총판 계약.',
                             '펏스원 제품 해외수출.',
-                            '광주 운암동 게임장 개설.',
+                            // '광주 운암동 게임장 개설.',
                             '의정부 게임클럽 내 야구장 개설.',
-                            '김포공항 롯데시네마점 내 게임기 설치.',
-                            '4D 맥스라이더 수출.',
-                            '영등포 롯데시네마 내 게임장 유지 보수.'
+                            // '김포공항 롯데시네마점 내 게임기 설치.',
+                            '몽골 올란바토르 4D 맥스 라이더 수출.',
+                            // '영등포 롯데시네마 내 게임장 유지 보수.'
                         ]}
                         lineBreak={true}
                     ></CompanyHistoryPresent>
@@ -219,57 +216,52 @@ const IntroduceIntro2Main = () => {
                         historyYear={'2011'}
                         historys={[
                             '대전둔산CGV 내 게임장 개설.',
-                            '성남 노리존 내 게임기기 임대 관리.',
-                            '광주 시너스 내 게임장 개설.',
+                            // '성남 노리존 내 게임기기 임대 관리.',
+                            // '광주 시너스 내 게임장 개설.',
                             '속초한화콘도 내 게임장 리모델링.',
-                            '노원 노리존 내 게임기기 임대 관리.',
-                            '노원 롯데시네마 내 게임기 설치.',
-                            '일산 이스턴 시티 락앤롤 게임기 설치.',
-                            '동수원 오션게임장 개설.'
+                            // '노원 노리존 내 게임기기 임대 관리.',
+                            // '노원 롯데시네마 내 게임기 설치.',
+                            // '일산 이스턴 시티 락앤롤 게임기 설치.',
+                            // '동수원 오션게임장 개설.'
                         ]}
                         lineBreak={true}
                     ></CompanyHistoryPresent>
                     <CompanyHistoryPresent
                         historyYear={'2010'}
                         historys={[
-                            '(주)펏스원 서울.경기 총판 계약.',
-                            '몽골팅기스 극장 맥스 라이더 수출.',
+                            '몽골팅기스 극장 4D 맥스 라이더 수출.',
                             '동수원CGV 내 게임장 개설.',
-                            '안산 메가 넥스 내 게임장 개설.',
-                            '제주도 4D 게임장 개설.',
-                            '울산 롯데시네마 내 게임장 개설.',
-                            '지행역 게임천국 게임장 개설.',
+                            '롯데시네마 내 게임장 개설.',
+                            '(주)펏스원 서울.경기 총판 계약.',
                             '한국 민속촌 내 게임장 리모델링 개설.',
                             '제주도 롯데시네마 내 게임장 개설.',
-                            '제주도 4D 게임장 2호점 개설.',
                             '하이원 리조트 내 게임장 개설.',
                             '역곡CGV 내 게임장 개설.',
+                            // '안산 메가 넥스 내 게임장 개설.',
+                            // '제주도 4D 게임장 개설.',
+                            // '지행역 게임천국 게임장 개설.',
+                            // '제주도 4D 게임장 2호점 개설.',
                         ]}
                         lineBreak={true}
                     ></CompanyHistoryPresent>
                     <CompanyHistoryPresent
                         historyYear={'2009'}
                         historys={[
-                            '일산 웨스턴 돔 CGV 내 게임장 개설, 250평 규모.',
-                            '부산 동래CGV, 경성대 CGV, 신림 포도몰, 성신여대 CGV 개설.',
                             '제주도 CGV 내 게임장 개설, 동대문 메가박스 게임장 개설.',
-                            '엣지 노래방 제작 판매.',
+                            '엣지 노래방 제작 판매.'
                         ]}
                         lineBreak={true}
                     ></CompanyHistoryPresent>
                     <CompanyHistoryPresent
                         historyYear={'2008'}
                         historys={[
-                            '몰골 물품 납품',
-                            '성남 스타트랙 80평 게임장 개설.',
-                            '신도림 테크노마트 CGV 내 150평 게임장 개설.',
+                            '몽골 올란바토르 게임장 개설.'
                         ]}
                         lineBreak={true}
                     ></CompanyHistoryPresent>
                     <CompanyHistoryPresent
                         historyYear={'2007'}
                         historys={[
-                            '일산 라페스타 게임장 개설.',
                             '통신판매업신고(중구06547호)',
                             '게임배급업자등록증(재교부)(게제 제2006-08호)',
                             '게임제작업자등록증(재교부)(게제 제2006-26호)',
@@ -287,22 +279,19 @@ const IntroduceIntro2Main = () => {
                         historyYear={'2005'}
                         historys={[
                             '(재)서울산업통상진흥원 애니메이션 센터와 물품 공급.',
-                            '부산 화명동 게임장 개설.',
                             '한화리조트(주) 용인, 한화리조트(주) 수안보 게임장개설.',
-                            '군산 대학 게임장 개설.',
                         ]}
                         lineBreak={true}
                     ></CompanyHistoryPresent>
                     <CompanyHistoryPresent
                         historyYear={'2004'}
                         historys={[
-                            '대명콘도(홍천) 리모델링 물품 공급.',
                             '양지 리조트 게임장 개설.',
 
                         ]}
                         lineBreak={true}
                     ></CompanyHistoryPresent>
-                    <CompanyHistoryPresent
+                    {/* <CompanyHistoryPresent
                         historyYear={'2003'}
                         historys={[
                             '오사모(오락실을 사랑하는 모임) www.osamo.co.kr 사이트 운영.',
@@ -310,12 +299,11 @@ const IntroduceIntro2Main = () => {
                             '수원 베레슈트 게임장 임대 운영.',
                         ]}
                         lineBreak={true}
-                    ></CompanyHistoryPresent>
+                    ></CompanyHistoryPresent> */}
                     <CompanyHistoryPresent
                         historyYear={'2002'}
                         historys={[
-                            '게임물 제작업자 등록.',
-                            '게임물 배급업자 등록.',
+                            '게임물 제작업자,배급업자 등록.',
                             '대명콘도(단양) 150평 게임장 개설 및 다수 개설.',
                             '대명콘도(홍천) 리모델링 물품 공급.',
                         ]}
