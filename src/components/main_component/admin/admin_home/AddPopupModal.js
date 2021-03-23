@@ -42,13 +42,32 @@ const Image = styled.img`
     object-fit: cover;
 `;
 
+const PopupImageRightWrapper = styled.div`
+    width:100%;
+    height:auto;
+    border:1px solid #f1f1f1;
+    cursor:pointer;
+`;
+
+const PopupImageRightBox = styled.div`
+    position: relative;
+    padding-bottom: 42.9%;
+`;
+const PopupImageRightEl = styled.img`
+    position: absolute;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    transition: .5s;
+`;
+
 const AddVideoModal = (props) => {
     return (
         <>
             <Dialog
                 fullWidth={true}
                 open={props.modalOpen}
-                // onClose={() => props.handlePopupEventControl().addPopupModalClose()}
+            // onClose={() => props.handlePopupEventControl().addPopupModalClose()}
             >
                 <DialogTitle className='text-center'>{"팝업 추가"}</DialogTitle>
                 <form onSubmit={(e) => props.handlePopupEventControl().addPopupDataSubmit(e)}>
@@ -62,22 +81,35 @@ const AddVideoModal = (props) => {
                             <input type="text" className="form-control" name='popupUrl' value={props.addPopupData.popupUrl} onChange={(e) => props.handlePopupEventControl().addPopupDataOnValueChange(e)} placeholder="팝업 클릭시 이동시킬 url을 등록해주세요." required="required" />
                         </div>
                         <div className="form-group">
-
+                            <label>팝업 배치 상태</label>
+                            <select name='popupType' value={props.addPopupData.popupType} onChange={(e) => props.handlePopupEventControl().addPopupDataOnValueChange(e)}>
+                                <option value='TYPE_LEFT'>왼쪽</option>
+                                <option value='TYPE_RIGHT'>오른쪽</option>
+                            </select>
                         </div>
                         <div className="form-group">
-                            <label>팝업 이미지 (4:3 권장)</label>
+                            <label>팝업 이미지 (왼쪽 4:3 | 오른쪽 21:9 권장)</label>
                             <input hidden id='i_popup_image_uploader' name='popupImageUrl' type="file" className="form-control" accept="image/*" onChange={(e) => props.handlePopupEventControl().uploadImage(e)} placeholder="팝업에 보여주실 이미지를 등록해주세요." />
                             {props.addPopupData.popupImageUrl ?
                                 <>
-                                    <ImageBox>
-                                        <ImageEl>
-                                            <Image src={props.addPopupData.popupImageUrl} style={{cursor:'pointer'}} onClick={()=>document.getElementById('i_popup_image_uploader').click()}></Image>
-                                        </ImageEl>
-                                    </ImageBox>
+                                    {props.addPopupData.popupType && props.addPopupData.popupType == 'TYPE_LEFT' ?
+                                        <ImageBox>
+                                            <ImageEl>
+                                                <Image src={props.addPopupData.popupImageUrl} style={{ cursor: 'pointer' }} onClick={() => document.getElementById('i_popup_image_uploader').click()}></Image>
+                                            </ImageEl>
+                                        </ImageBox>
+                                        :
+                                        <PopupImageRightWrapper>
+                                            <PopupImageRightBox>
+                                                <PopupImageRightEl src={props.addPopupData.popupImageUrl} style={{ cursor: 'pointer' }} onClick={() => document.getElementById('i_popup_image_uploader').click()}></PopupImageRightEl>
+                                            </PopupImageRightBox>
+                                        </PopupImageRightWrapper>
+                                    }
+
                                 </>
                                 :
                                 <div>
-                                    <button type='button' className='btn btn-lg' style={{border:'1px solid #a1a1a1'}} onClick={()=>document.getElementById('i_popup_image_uploader').click()}>팝업 이미지 등록</button>
+                                    <button type='button' className='btn btn-lg' style={{ border: '1px solid #a1a1a1' }} onClick={() => document.getElementById('i_popup_image_uploader').click()}>팝업 이미지 등록</button>
                                 </div>
                             }
                         </div>

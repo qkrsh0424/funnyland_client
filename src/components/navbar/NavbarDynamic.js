@@ -21,7 +21,7 @@ const NavContainer = styled.nav`
         background-color: ${(props) => props.mobile_nav_open | props.scroll_y >= 60 ? '#f1f1f1' : 'none'};
         border-bottom: 2px solid ${(props) => props.mobile_nav_open | props.scroll_y >= 60 ? '#ee5470' : 'none'};
         transition: background-color 1s;
-        z-index:30;
+        z-index:${(props) => props.mobile_nav_open | props.scroll_y >= 60 ? 100 : 30};
 `;
 
 const NavBrandTop = styled(Link)`

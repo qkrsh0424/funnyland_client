@@ -12,10 +12,12 @@ const TopAreaWrapper = styled.div`
     position: relative;
     text-align: center;
     width:100%;
-    height:60vh;
+    /* height:60vh; */
+    height:300px;
     @media only screen and (max-width:768px){
         &{
-            height: 35vh;
+            /* height: 35vh; */
+            height: 250px;
         }
     }
 `;
@@ -88,8 +90,8 @@ const TopAreaImageWrapper = styled.div`
         height:100%;
         object-fit:cover;
         /* Safari 6.0 - 9.0 */
-        -webkit-filter: blur(10px); 
-        filter: blur(10px);
+        -webkit-filter: blur(8px); 
+        filter: blur(8px);
         transform: scale(1.1);
     }
 `;
@@ -100,7 +102,7 @@ const TopAreaSubNavWrapper = styled.div`
     display:grid;
     grid-template-columns:repeat(3,1fr);
     grid-auto-rows: minmax(auto, auto);
-    /* grid-gap:5px; */
+    grid-gap:5px;
     bottom:0;
     left: 50%;
     transform: translate(-50%);
@@ -110,12 +112,12 @@ const TopAreaSubNavItem = styled(Link)`
     /* background-color: ${(props) => props.link_active && props.link_active ? '#e88a3e' : '#ffffff40'}; */
     background-color: ${(props) => props.link_active && props.link_active ? '#ee5470' : '#ffffff40'};
     padding:15px 0;
-    /* border:1px solid #ffffff80;
+    border:1px solid #ffffff80;
     border-bottom:none;
     border-radius:4px;
     border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0; */
-    border:none;
+    border-bottom-right-radius: 0;
+    /* border:none; */
     font-size:18px;
     color:white;
     font-weight:600;
@@ -153,7 +155,7 @@ const FoundTopLayout = (props) => {
 
                 </TopAreaNavgatorFiled>
                 <TopAreaImageWrapper>
-                    <img src='/images/funnyland/bg/funnyland-bg1.png'></img>
+                    <img src='/images/funnyland/bg/funnyland-bg7.png'></img>
                 </TopAreaImageWrapper>
                 <TopAreaSubNavWrapper>
                     <TopAreaSubNavItem

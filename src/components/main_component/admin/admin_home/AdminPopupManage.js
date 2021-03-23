@@ -55,6 +55,25 @@ const TableTd = styled.td`
     vertical-align: middle!important;
 `;
 
+const PopupImageRightWrapper = styled.div`
+    width:100%;
+    height:auto;
+    border:1px solid #f1f1f1;
+    cursor:pointer;
+`;
+
+const PopupImageRightBox = styled.div`
+    position: relative;
+    padding-bottom: 42.9%;
+`;
+const PopupImageRightEl = styled.img`
+    position: absolute;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    transition: .5s;
+`;
+
 const AdminPopupManage = (props) => {
     return (
         <>
@@ -65,7 +84,7 @@ const AdminPopupManage = (props) => {
                         <h4>팝업 리스트</h4>
                     </TopWrapper>
                     <BodyWrapper>
-                        <div className='table-responsive text-center'>
+                        <div className='table-responsive'>
                             <table className="table" style={{ tableLayout: 'fixed' }}>
                                 <thead>
                                     <tr>
@@ -83,11 +102,20 @@ const AdminPopupManage = (props) => {
                                                 <TableTh scope="row">{index + 1}</TableTh>
                                                 <TableTd>{r.popupName}</TableTd>
                                                 <TableTd>
-                                                <ImageBox>
-                                                    <ImageEl>
-                                                        <Image src={r.popupImageUrl}></Image>
-                                                    </ImageEl>
-                                                </ImageBox>
+                                                    {r.popupType && r.popupType == 'TYPE_LEFT' ?
+                                                        <ImageBox>
+                                                            <ImageEl>
+                                                                <Image src={r.popupImageUrl}></Image>
+                                                            </ImageEl>
+                                                        </ImageBox>
+                                                        :
+                                                        <PopupImageRightWrapper>
+                                                            <PopupImageRightBox>
+                                                                <PopupImageRightEl src={r.popupImageUrl}></PopupImageRightEl>
+                                                            </PopupImageRightBox>
+                                                        </PopupImageRightWrapper>
+                                                    }
+
                                                 </TableTd>
                                                 <TableTd>{r.popupUrl}</TableTd>
                                                 <TableTd><button type='button' className='btn btn-outline-danger' onClick={() => props.handlePopupEventControl().deletePopup(r.popupId)}>삭제</button></TableTd>
@@ -97,7 +125,7 @@ const AdminPopupManage = (props) => {
                                 </tbody>
                             </table>
                         </div>
-
+                        
                     </BodyWrapper>
                 </Wrapper>
             </Container>

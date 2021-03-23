@@ -364,7 +364,8 @@ const AdminHomeMain = ({ history }) => {
                 setAddPopupData({
                     popupName: '',
                     popupUrl: '#',
-                    popupImageUrl: ''
+                    popupImageUrl: '',
+                    popupType:'TYPE_LEFT'
                 })
                 setAddPopupModalOpen(true);
             },
