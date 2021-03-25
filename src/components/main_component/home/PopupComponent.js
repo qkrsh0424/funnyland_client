@@ -9,10 +9,11 @@ const Container = styled.div`
 
 const PopupBox = styled.div`
     position:absolute;
-    width:40%;
+    width:450px;
     z-index:99;
-    /* top:100px; */
-    @media only screen and (max-width:768px){
+    top:90px;
+    left:0;
+    @media only screen and (max-width:1200px){
         width:100%;
         padding:10px;
     }
@@ -20,13 +21,14 @@ const PopupBox = styled.div`
 
 const PopupBoxRight = styled.div`
     position:absolute;
-    width:55%;
+    width:450px;
     z-index:99;
-    right:0;
-    /* top:100px; */
-    @media only screen and (max-width:768px){
+    left:450px;
+    top:90px;
+    @media only screen and (max-width:1200px){
         width:100%;
         padding:10px;
+        left:0;
     }
 `;
 
@@ -45,46 +47,53 @@ const ButtonEl = styled.button`
 `;
 
 const PopupImageBox = styled.div`
-    position: relative;
+    /* position: relative;
     width: 100%;
     padding-top: 100%;
-    border:1px solid #f1f1f1;
-    
+    border:3px solid #ee5470;
+     */
+    width:100%;
+    height:auto;
+    border:3px solid #ee5470;
+    cursor:pointer;
 `;
 
 const PopupImageEl = styled.div`
-    position: absolute;
+    /* position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-    /* background: linear-gradient(to bottom right, #ee5470, #f8bac9); */
-    
-    border-radius:15px;
+    border-radius:15px; */
+
+    position: relative;
+    /* padding-bottom: 42.9%; */
+    padding-bottom: 100%;
 `;
 
 const PopupImage = styled.img`
-    width:100%;
+    /* width:100%;
     height:100%;
-    /* border: 1px solid black; */
-    /* border-radius:15px; */
     object-fit: cover;
-    cursor:pointer;
+    cursor:pointer; */
+    position: absolute;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    transition: .5s;
 `;
 
 const PopupImageRightWrapper = styled.div`
     width:100%;
     height:auto;
-    border:1px solid #f1f1f1;
+    border:3px solid #ee5470;
     cursor:pointer;
 `;
 
 const PopupImageRightBox = styled.div`
     position: relative;
-    padding-bottom: 42.9%;
-    @media only screen and (max-width:768px){
-        padding-bottom: 56.2%;
-    }
+    /* padding-bottom: 42.9%; */
+    padding-bottom: 100%;
 `;
 const PopupImageRightEl = styled.img`
     position: absolute;

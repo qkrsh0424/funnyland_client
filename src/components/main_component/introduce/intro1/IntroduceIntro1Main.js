@@ -1,7 +1,7 @@
 
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // components
 import NavbarDynamic from '../../../navbar/NavbarDynamic';
 import IntroduceTopLayout from '../layout/IntroduceTopLayout';
@@ -73,15 +73,19 @@ const IntroduceBodyTitle = styled.div`
 const IntroduceBodyContentWrapper = styled.div`
     width:80%;
     margin:5px 10%;
-    padding:15px;
+    /* padding:15px; */
+    padding:15px 20%;
+    @media only screen and (max-width:992px){
+        padding:0;
+    }
 `;
 
 const ContentImageWrapper = styled.div`
-    text-align:center;
+    /* text-align:center; */
 `;
 
 const ContentImageEl = styled.img`
-    width:50%;
+    width:100%;
     border-right:4px solid #ee547060;
     border-bottom:4px solid #ee547060;
     border-radius:10px;
@@ -93,16 +97,21 @@ const ContentImageEl = styled.img`
     }
 `;
 
-const ContentTextWrapper  =styled.div`
-
+const ContentTextWrapper = styled.div`
+    position:relative;
 `;
 
 const ContentTextEl = styled.div`
     /* padding: 40px; */
-    font-size:22px;
+    /* width:50%; */
+    font-size:30px;
     font-weight:600;
-    line-height:2.5;
+    line-height:1.8;
     text-align:center;
+    font-family: 'Nanum Pen Script', cursive;
+    @media only screen and (max-width:768px){
+        font-size:25px;
+    }
 `;
 const LineBreaker1 = styled.div`
     width: 55px;
@@ -111,10 +120,10 @@ const LineBreaker1 = styled.div`
     background-color: #ee5470;
 `;
 const IntroduceIntro1Main = () => {
-    useEffect(()=>{
+    useEffect(() => {
         handleScrollToTop();
-    },[]);
-    
+    }, []);
+
     const [dialogOpen, setDialogOpen] = useState(false);
     const mainHandleDialogControl = () => {
         return {
@@ -135,11 +144,11 @@ const IntroduceIntro1Main = () => {
             ></IntroduceTopLayout>
             <MainTitleBox>
                 <MainTitle>
-                    GREETING 
+                    GREETING
                 </MainTitle>
                 <MainTitleSub>인사말</MainTitleSub>
                 <LineBreaker1></LineBreaker1>
-                <ExplainEl>퍼니랜드는 대한민국의 건전한 <br/>게임문화를 선도하는 기업입니다.</ExplainEl>
+                <ExplainEl>퍼니랜드는 대한민국의 건전한 <br />게임문화를 선도하는 기업입니다.</ExplainEl>
             </MainTitleBox>
             <IntroduceBodyWrapper>
                 <IntroduceBodyContentWrapper>
@@ -150,12 +159,12 @@ const IntroduceIntro1Main = () => {
                     <ContentTextWrapper>
                         <ContentTextEl>
                             게임산업 발전과 건전한 게임문화를 위해 항상 노력하며 다양한 컨텐츠와 우수한 제품 공급에 앞장서는 게임토피아 입니다. 20년간의 창업 노하우와 기술력을 바탕으로 성공적인 창업이 될 수 있도록 고객님의 눈높이에서 항상 최선을 다하겠습니다.
-                            <br/>
-                            <br/>
+                            <br />
+                            <br />
                             감사합니다.
                         </ContentTextEl>
                     </ContentTextWrapper>
-                    
+
                 </IntroduceBodyContentWrapper>
             </IntroduceBodyWrapper>
             <FooterDefault></FooterDefault>

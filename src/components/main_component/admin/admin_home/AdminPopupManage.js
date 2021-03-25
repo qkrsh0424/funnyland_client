@@ -22,30 +22,37 @@ const BodyWrapper = styled.div`
 `;
 
 const ImageBox = styled.div`
-    position: relative;
+    /* position: relative;
     width: 100%;
     padding-top: 100%;
-    border-bottom:1px solid #f1f1f1;
+    border-bottom:1px solid #f1f1f1; */
+    width:100%;
+    height:auto;
+    border:1px solid #f1f1f1;
+    cursor:pointer;
     
 `;
 
 const ImageEl = styled.div`
-    position: absolute;
+    /* position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-    /* background: linear-gradient(to bottom right, #ee5470, #f8bac9); */
-    
-    border-radius:15px;
+    border-radius:15px; */
+    position: relative;
+    padding-bottom: 100%;
 `;
 
 const Image = styled.img`
-    width:100%;
+    /* width:100%;
     height:100%;
-    /* border: 1px solid black; */
-    /* border-radius:15px; */
+    object-fit: cover; */
+    position: absolute;
     object-fit: cover;
+    width: 100%;
+    height: 100%;
+    transition: .5s;
 `;
 
 const TableTh = styled.th`
@@ -64,7 +71,7 @@ const PopupImageRightWrapper = styled.div`
 
 const PopupImageRightBox = styled.div`
     position: relative;
-    padding-bottom: 42.9%;
+    padding-bottom: 100%;
 `;
 const PopupImageRightEl = styled.img`
     position: absolute;

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {css} from 'styled-components';
 import {Link} from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
@@ -13,7 +14,7 @@ const TopAreaWrapper = styled.div`
     text-align: center;
     width:100%;
     /* height:40vh; */
-    height:300px;
+    height:350px;
     @media only screen and (max-width:768px){
         &{
             /* height:35vh; */
@@ -109,30 +110,78 @@ const TopAreaSubNavWrapper = styled.div`
     transform: translate(-50%);
 `;
 
+// const TopAreaSubNavItem = styled(Link)`
+//     /* background-color: ${(props)=>props.link_active && props.link_active ? '#e88a3e' : '#ffffff40'}; */
+//     background-color: ${(props)=>props.link_active && props.link_active ? '#ee5470' : '#ffffff40'};
+//     padding:15px 0;
+//     border:1px solid #ffffff80;
+//     border-bottom:none;
+//     border-radius:4px;
+//     border-bottom-left-radius: 0;
+//     border-bottom-right-radius: 0;
+//     /* border:none; */
+//     font-size:18px;
+//     color:white;
+//     font-weight:700;
+//     cursor: pointer;
+//     &:hover{
+//         /* border:1px solid white; */
+//         color:white;
+//         text-decoration:none;
+//         background-color:#ee5470;
+//     }
+
+//     @media only screen and (max-width:768px){
+//         &{
+            
+//             font-size:15px;
+//         }
+//     }
+//     @media only screen and (max-width:320px){
+//         &{
+//             font-size:13px;
+//         }
+//     }
+// `;
+
 const TopAreaSubNavItem = styled(Link)`
     /* background-color: ${(props)=>props.link_active && props.link_active ? '#e88a3e' : '#ffffff40'}; */
-    background-color: ${(props)=>props.link_active && props.link_active ? '#ee5470' : '#ffffff40'};
-    padding:15px 0;
-    border:1px solid #ffffff80;
+    /* background-color: ${(props)=>props.link_active && props.link_active ? '#ffffff' : '#ffffff40'}; */
+    padding:10px 0;
+    
+    ${(props)=>props.link_active && props.link_active ? css `
+        color:#ee5470;
+        background-color:white;
+        border-top:5px solid #ee5470;
+        &:hover{
+            color:#ee5470;
+            text-decoration:none;
+            /* background-color:#ee5470; */
+        }
+    `:
+    css `
+        color:white;
+        background-color:#ffffff40;
+        border:1px solid #ffffff80;
+        &:hover{
+            color:white;
+            text-decoration:none;
+            /* background-color:#ee5470; */
+        }
+    `
+    }
     border-bottom:none;
-    border-radius:4px;
+    border-radius:2px;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-    /* border:none; */
     font-size:18px;
-    color:white;
-    font-weight:700;
+    
+    font-weight:600;
     cursor: pointer;
-    &:hover{
-        /* border:1px solid white; */
-        color:white;
-        text-decoration:none;
-        background-color:#ee5470;
-    }
+    
 
     @media only screen and (max-width:768px){
         &{
-            
             font-size:15px;
         }
     }

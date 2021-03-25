@@ -124,7 +124,7 @@ const AdminBannerManage = (props) =>{
         <Container>
             <div>
                 <h4>배너 등록</h4>
-                <input type='file' id='i_banner_uploadfile' accept="image/*" onChange={(e)=>handleBannerImage().upToServer(e)} hidden/>
+                <input type='file' id='i_banner_uploadfile' accept="" onChange={(e)=>handleBannerImage().upToServer(e)} hidden/>
                 <ImageButton type="button" onClick={()=>handleBannerImage().uploaderOpen()}>이미지 업로드<br/>1920x850 권장</ImageButton>
                 <ImageListWrapper>
                     {uploadFile.map(data=>{

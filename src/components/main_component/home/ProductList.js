@@ -19,7 +19,7 @@ const Container = styled.div`
 `;
 
 const ProductListContainer = styled.div`
-    padding:20px 0;
+    padding:50px 0;
 `;
 
 const ProductListTitle = styled.div`
@@ -255,8 +255,8 @@ const ProductList = (props) => {
                 <div>
                     <ProductListContainer className='row'>
                         <h3 className='col-12 text-center'>
-                            <p style={{ color: 'white', fontSize: '18px' }}><span style={{ color: '#ee5470' }}>NEW</span> PRODUCT</p>
-                            <p style={{ color: 'white',fontWeight:'800'}}>퍼니랜드 신상품</p>
+                            <p style={{ color: 'white', fontSize: '23px' }}><span style={{ color: '#ee5470' }}>NEW</span> PRODUCT</p>
+                            <p style={{ color: 'white',fontWeight:'800', fontSize:'30px'}}>퍼니랜드 신상품</p>
                         </h3>
                         {props.productNewList && props.productNewList.map((r, index) => {
                             if (index < 6) {
@@ -283,8 +283,8 @@ const ProductList = (props) => {
                 <div>
                     <ProductListContainer className='row'>
                         <h3 className='col-12 text-center'>
-                            <p style={{ color: 'white', fontSize: '18px' }}><span style={{ color: '#ee5470' }}>HIT</span> PRODUCT</p>
-                            <p style={{ color: 'white',fontWeight:'800'}}>퍼니랜드 히트상품</p>
+                            <p style={{ color: 'white', fontSize: '23px' }}><span style={{ color: '#ee5470' }}>HIT</span> PRODUCT</p>
+                            <p style={{ color: 'white',fontWeight:'800', fontSize:'30px'}}>퍼니랜드 히트상품</p>
                         </h3>
                         {props.productHitList && props.productHitList.map((r, index) => {
                             if (index < 6) {
@@ -311,8 +311,8 @@ const ProductList = (props) => {
                 <div>
                     <ProductListContainer className='row'>
                         <h3 className='col-12 text-center'>
-                            <p style={{ color: 'white', fontSize: '18px' }}><span style={{ color: '#ee5470' }}>EVENT</span> PRODUCT</p>
-                            <p style={{ color: 'white',fontWeight:'800'}}>퍼니랜드 이벤트렌탈</p>
+                            <p style={{ color: 'white', fontSize: '23px' }}><span style={{ color: '#ee5470' }}>EVENT</span> PRODUCT</p>
+                            <p style={{ color: 'white',fontWeight:'800', fontSize:'30px'}}>퍼니랜드 이벤트렌탈</p>
                         </h3>
                         {props.productEventList && props.productEventList.map((r, index) => {
                             if (index < 6) {
