@@ -93,9 +93,9 @@ const TopAreaImageWrapper = styled.div`
         height:100%;
         object-fit:cover;
         /* Safari 6.0 - 9.0 */
-        -webkit-filter: blur(8px); 
+        /* -webkit-filter: blur(8px); 
         filter: blur(8px);
-        transform: scale(1.1);
+        transform: scale(1.1); */
     }
 `;
 
@@ -205,7 +205,7 @@ const CsTopLayout = (props) => {
                     
                 </TopAreaNavgatorFiled>
                 <TopAreaImageWrapper>
-                    <img src='/images/funnyland/bg/funnyland-bg7.png'></img>
+                    <img src='/images/funnyland/bg/funnyland-bg8.png'></img>
                 </TopAreaImageWrapper>
                 <TopAreaSubNavWrapper>
                     <TopAreaSubNavItem

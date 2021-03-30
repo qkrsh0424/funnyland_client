@@ -4,30 +4,8 @@ import {getCookie} from '../../handler/CookieHandler';
 const popupDataConnect = () => {
     return {
         // ============upload to s3=================
-        uploadImageToLocal: async function (fd) {
-            return await axios.post('/api/fileupload/image', fd, {
-                headers: {
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
-            })
-                .then(res => {
-                    if(res && res.data){
-                        return res.data;
-                    }else{
-                        return null;
-                    }
-                })
-                .catch(err=>{
-                    if(err.response.status==500){
-                        alert('server 500 error.');
-                    }else{
-                        alert('undefined error.');
-                    }
-                })
-        },
-        // ============upload to local=================
         // uploadImageToLocal: async function (fd) {
-        //     return await axios.post('/api/fileupload/external/image', fd, {
+        //     return await axios.post('/api/fileupload/image', fd, {
         //         headers: {
         //             'X-XSRF-TOKEN': getCookie('XSTO')
         //         }
@@ -47,6 +25,28 @@ const popupDataConnect = () => {
         //             }
         //         })
         // },
+        // ============upload to local=================
+        uploadImageToLocal: async function (fd) {
+            return await axios.post('/api/fileupload/external/image', fd, {
+                headers: {
+                    'X-XSRF-TOKEN': getCookie('XSTO')
+                }
+            })
+                .then(res => {
+                    if(res && res.data){
+                        return res.data;
+                    }else{
+                        return null;
+                    }
+                })
+                .catch(err=>{
+                    if(err.response.status==500){
+                        alert('server 500 error.');
+                    }else{
+                        alert('undefined error.');
+                    }
+                })
+        },
         searchPopupAll: async function () {
             return await axios.get('/api/search/popup/all', {})
                 .then(res => {
