@@ -176,14 +176,14 @@ const NavbarDynamic = (props) => {
                                 );
                             })
                         }
-                        <NavItemEl
+                        {/* <NavItemEl
                             mobile_nav_open={mobileNavOpen ? 1 : 0}
                             scroll_y={props.scrollY? props.scrollY : scrollY}
                             className={`navbar-brand`}
                             to={'/admin'}
                         >
                             관리자 페이지
-                        </NavItemEl>
+                        </NavItemEl> */}
                     </ul>
                 </div>
             </NavContainer>

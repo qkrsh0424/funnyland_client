@@ -74,6 +74,35 @@ const SlickSliderWrapper = styled.div`
         right:20px;
     }
 `;
+
+const SlickSliderOverlay = styled.div`
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #008CBA00;
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+    /* transition: 2s ease; */
+    transition-delay: 1s;
+    transition-duration: 2s;
+    .slick-active &{
+        height:100%;
+    }
+`;
+
+const SlickSliderText = styled.div`
+    /* .slick-active &{ */
+        position:absolute;
+        top:50%;
+        left:50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform:translate(-50%,-50%);
+        color:white;
+    /* } */
+`;
 const BannerCarouselFullSize = (props) => {
     var SlickSliderSettings = {
         dots: true,
@@ -138,8 +167,11 @@ const BannerCarouselFullSize = (props) => {
                     {
                         banners.length > 0 && banners.map((r) => {
                             return (
-                                <div key={r.id}>
+                                <div key={r.id} style={{ position: 'relative' }}>
                                     <img className="pcy-banner-image" src={r.imageUrl} />
+                                    {/* <SlickSliderOverlay>
+                                        <img className="pcy-banner-image" src={'/images/sample/test.png'}></img>
+                                    </SlickSliderOverlay> */}
                                 </div>
                             )
                         })

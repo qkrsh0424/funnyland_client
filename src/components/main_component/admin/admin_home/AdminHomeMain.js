@@ -422,7 +422,7 @@ const AdminHomeMain = ({ history }) => {
                         ""
                     }
                     <AdminNav></AdminNav>
-                    <button onClick={testConsole}>con</button>
+                    {/* <button onClick={testConsole}>con</button> */}
                     <AdminBannerManage
                         uploadFile={uploadFile}
                         bannerListLoading={bannerListLoading}
