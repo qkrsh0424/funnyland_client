@@ -200,7 +200,7 @@ const FoundIntro3Main = () => {
                                     <ProcessDescBox>선정된 렌탈 상품 및 제안서 제출</ProcessDescBox>
                                 </ProcessContent>
                             </ProcessBox>
-                            <ProcessBox style={{borderColor:'#ee5470c0'}}>
+                            <ProcessBox style={{borderColor:'#ee5470c0', background:'#ee547020'}}>
                                 <ProcessContent>
                                     <div>
                                         <LogoImage src='/images/funnyland/icon/icon_step8.png'></LogoImage>

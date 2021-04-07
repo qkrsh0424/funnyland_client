@@ -132,7 +132,7 @@ const NavbarBottomFixed = (props) => {
             </div> */}
             <div className='row'>
                 <div className='col-9' style={{paddingRight:'0'}}>
-                    <TextEl className="text-center">성공적인 오락실 창업은 <b className='text-strong'>퍼니랜드</b>와 함께 !</TextEl>
+                    <TextEl className="text-center">오락실 창업은 최고의 파트너 <b className='text-strong'>퍼니랜드</b>와 함께 !</TextEl>
                     <TextEl className='text-center'><b className='text-strong'>무료상담</b> : <b>02-2272-1244 <TelLink href='tel:02-2272-1244'><FontAwesomeIcon icon={faPhone}></FontAwesomeIcon></TelLink></b></TextEl>
                 </div>
                 <div className='col-3' style={{paddingLeft:'0', textAlign:'center', position:'relative'}}>

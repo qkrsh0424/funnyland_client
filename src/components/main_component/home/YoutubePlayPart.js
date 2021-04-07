@@ -255,7 +255,7 @@ const YoutubePlayPart = (props) => {
     return (
         <>
             <Container ref={youtubeContainerRef}>
-                <ContainerTitle><span style={{color:'#ee5470', fontWeight:'800'}}>VIDEOS</span></ContainerTitle>
+                <ContainerTitle><span style={{color:'#ee5470', fontWeight:'800'}}>소개 영상</span></ContainerTitle>
                 <div className='container-fluid'>
                     <div className='row'>
                         {/* <ItemBox className='col-sm-6'>
@@ -268,7 +268,7 @@ const YoutubePlayPart = (props) => {
                                 return (
                                     <YoutubeBox
                                         key={r.videoId}
-                                        className='col-sm-6'
+                                        className='col-sm-4'
                                         scroll_y={props.scrollY}
                                         offset_top={myOffsetTop}
                                         floating_close={floatingClose}
@@ -296,7 +296,7 @@ const YoutubePlayPart = (props) => {
                                 return (
                                     <VideoPlayerBox
                                         key={r.videoId}
-                                        className='col-sm-6'
+                                        className='col-sm-4'
                                     >
                                         <YouTube 
                                             ref={player} 

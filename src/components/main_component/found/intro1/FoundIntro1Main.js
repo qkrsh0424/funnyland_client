@@ -129,6 +129,25 @@ const ProcessDescBox = styled.div`
     }
 `;
 
+const ProcessDescLastBox = styled.div`
+    font-size:28px;
+    font-weight:800;
+    padding:8px 0;
+    line-height:1.5;
+    @media only screen and (max-width:992px){
+        font-size:22px;
+    }
+    @media only screen and (max-width:768px){
+        font-size:18px;
+    }
+    @media only screen and (max-width:576px){
+        font-size:15px;
+    }
+    @media only screen and (max-width:320px){
+        font-size:12px;
+    }
+`;
+
 const LogoImage = styled.img`
     max-height:65px;
     @media only screen and (max-width:992px){
@@ -232,7 +251,7 @@ const FoundIntro1Main = () =>{
                                         <LogoImage src='/images/funnyland/icon/icon_step6.png'></LogoImage>
                                     </div>
                                     <ProcessTitleBox>06. 인허가 준비</ProcessTitleBox>
-                                    <ProcessDescBox>영업을 위한 각종 인허가 및 서류발급 완비</ProcessDescBox>
+                                    <ProcessDescBox>영업을 위한 각종 인허가 및 서류발급 준비</ProcessDescBox>
                                 </ProcessContent>
                             </ProcessBox>
                             <ProcessBox style={{borderColor:'#ee5470b0'}}>
@@ -250,7 +269,7 @@ const FoundIntro1Main = () =>{
                                         <LogoImage src='/images/funnyland/icon/icon_step8.png'></LogoImage>
                                     </div>
                                     <ProcessTitleBox>08. 최종점검</ProcessTitleBox>
-                                    <ProcessDescBox>오픈매니저 파견하에 설비 및 물품 입고, 최종 마무리 </ProcessDescBox>
+                                    <ProcessDescBox>오픈매니저 파견하에 설비 및 물품 입고 최종 마무리 </ProcessDescBox>
                                 </ProcessContent>
                             </ProcessBox>
                             <ProcessBox style={{borderColor:'#ee5470', background:'#ee547030'}}>
@@ -258,8 +277,8 @@ const FoundIntro1Main = () =>{
                                     <div>
                                         <LogoImage src='/images/funnyland/logo/logo3.png'></LogoImage>
                                     </div>
-                                    <ProcessTitleBox>09. 그랜드 오픈</ProcessTitleBox>
-                                    <ProcessDescBox>매장 그랜드 오픈</ProcessDescBox>
+                                    <ProcessTitleBox> </ProcessTitleBox>
+                                    <ProcessDescLastBox>매장 그랜드 오픈</ProcessDescLastBox>
                                 </ProcessContent>
                             </ProcessBox>
                         </ProcessWrapper>

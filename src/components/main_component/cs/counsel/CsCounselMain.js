@@ -233,7 +233,7 @@ const CsCounselMain = () => {
                                         <option value='counseling'>창업상담</option>
                                         <option value='rental'>임대상담</option>
                                         <option value='purchase'>상품구매상담</option>
-                                        <option value='closed'>폐업상담</option>
+                                        <option value='etc'>기타상담</option>
                                         <option value='renewal'>매장리뉴얼상담</option>
                                     </ApplicationSelect>
                                 </div>

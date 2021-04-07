@@ -24,7 +24,7 @@ const Container = styled.div`
 const SlickContainer = styled.div`
     & .pcy-banner-image{
         width:100%;
-        max-height:900px;
+        height:80vh;
         object-fit: cover;
         /* transform:scale(1.02); */
     }
@@ -43,10 +43,10 @@ const SlickContainer = styled.div`
         color:#ee5470;
     }
 
-    & .slick-prev:before, .slick-next:before{
+    /* & .slick-prev:before, .slick-next:before{
         font-size:25px;
         color:gray;
-    }
+    } */
 
     // 이미지 크기 최적화 사이즈 1920x850
     @media only screen and (max-width: 768px){
@@ -54,25 +54,64 @@ const SlickContainer = styled.div`
             height:45vh;
             object-fit: cover;
         }
-        & .slick-prev:before, .slick-next:before{
+        /* & .slick-prev:before, .slick-next:before{
             font-size:20px;
-        }
+        } */
     }
 `;
 
 const SlickSliderWrapper = styled.div`
     overflow:hidden;
     position:relative;
+    
     & .slick-arrow{
         z-index:1;
         
     }
+
     & .slick-prev{
+        background: url('/images/funnyland/icon/prev_arrow.png') no-repeat center top;
         left:20px;
+        width: 35px;
+        height: 69px;
+    }
+
+    & .slick-prev::before{
+        content:'';
     }
     & .slick-next{
+        background: url('/images/funnyland/icon/next_arrow.png') no-repeat center top;
+        color:red;
         right:20px;
+        width: 35px;
+        height: 69px;
     }
+    & .slick-next::before{
+        content:'';
+    }
+
+    & .slick-prev:hover, .slick-prev:focus {
+        background: url('/images/funnyland/icon/prev_arrow.png') no-repeat center top;
+    }
+
+    & .slick-next:hover, .slick-next:focus {
+        background: url('/images/funnyland/icon/next_arrow.png') no-repeat center top;
+    }
+`;
+
+const ImageBox = styled.div`
+    position: relative;
+    padding-bottom: 44.3%;
+    @media only screen and (max-width:768px){
+        padding-bottom: 75%;
+    }
+`;
+const ImageEl = styled.img`
+    position: absolute;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    transition: .5s;
 `;
 
 const SlickSliderOverlay = styled.div`
@@ -103,6 +142,32 @@ const SlickSliderText = styled.div`
         color:white;
     /* } */
 `;
+
+// function SampleNextArrow(props) {
+//     const { className, style, onClick } = props;
+//     return (
+//         <div
+//             className={className}
+//             style={{ ...style, display: "block", background: "red" }}
+//             onClick={onClick}
+//         />
+//     );
+// }
+
+// function SamplePrevArrow(props) {
+//     const { className, style, onClick } = props;
+//     return (
+//         <div
+//             // src='/logo.192.png'
+//             className={className}
+//             style={{ ...style, display: "block", background: "green" }}
+//             onClick={onClick}
+//         >
+            
+//         </div>
+//     );
+// }
+
 const BannerCarouselFullSize = (props) => {
     var SlickSliderSettings = {
         dots: true,
@@ -114,7 +179,7 @@ const BannerCarouselFullSize = (props) => {
         autoplaySpeed: 5000,
         speed: 1500,
         pauseOnHover: false,
-        fade: true
+        fade: true,
         // responsive: [
         //     {
         //         breakpoint: 992,
@@ -168,7 +233,10 @@ const BannerCarouselFullSize = (props) => {
                         banners.length > 0 && banners.map((r) => {
                             return (
                                 <div key={r.id} style={{ position: 'relative' }}>
-                                    <img className="pcy-banner-image" src={r.imageUrl} />
+                                    {/* <img className="pcy-banner-image" src={r.imageUrl} /> */}
+                                    <ImageBox>
+                                        <ImageEl src={r.imageUrl}></ImageEl>
+                                    </ImageBox>
                                     {/* <SlickSliderOverlay>
                                         <img className="pcy-banner-image" src={'/images/sample/test.png'}></img>
                                     </SlickSliderOverlay> */}
