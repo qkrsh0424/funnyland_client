@@ -207,7 +207,7 @@ const IntroduceTopLayout = (props) => {
                     
                 </TopAreaNavgatorFiled>
                 <TopAreaImageWrapper>
-                    <img src='/images/funnyland/bg/funnyland-bg8.png'></img>
+                    <img src='/images/funnyland/bg/category-bg2.jpeg'></img>
                 </TopAreaImageWrapper>
                 <TopAreaSubNavWrapper>
                     <TopAreaSubNavItem
