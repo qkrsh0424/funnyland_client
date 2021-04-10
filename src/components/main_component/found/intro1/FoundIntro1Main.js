@@ -130,7 +130,7 @@ const ProcessDescBox = styled.div`
 `;
 
 const ProcessDescLastBox = styled.div`
-    font-size:28px;
+    font-size:26px;
     font-weight:800;
     padding:8px 0;
     line-height:1.5;

@@ -135,6 +135,25 @@ const LogoImage = styled.img`
     }
 `;
 
+const ProcessDescLastBox = styled.div`
+    font-size:26px;
+    font-weight:800;
+    padding:8px 0;
+    line-height:1.5;
+    @media only screen and (max-width:992px){
+        font-size:22px;
+    }
+    @media only screen and (max-width:768px){
+        font-size:18px;
+    }
+    @media only screen and (max-width:576px){
+        font-size:15px;
+    }
+    @media only screen and (max-width:320px){
+        font-size:12px;
+    }
+`;
+
 const FoundIntro3Main = () => {
     useEffect(() => {
         handleScrollToTop();
@@ -203,10 +222,13 @@ const FoundIntro3Main = () => {
                             <ProcessBox style={{borderColor:'#ee5470c0', background:'#ee547020'}}>
                                 <ProcessContent>
                                     <div>
-                                        <LogoImage src='/images/funnyland/icon/icon_step8.png'></LogoImage>
+                                        {/* <LogoImage src='/images/funnyland/icon/icon_step8.png'></LogoImage> */}
+                                        <LogoImage src='/images/funnyland/logo/logo3.png'></LogoImage>
                                     </div>
-                                    <ProcessTitleBox>04. 출고</ProcessTitleBox>
-                                    <ProcessDescBox>일정에 맞춰 배송 및 설치 완료</ProcessDescBox>
+                                    {/* <ProcessTitleBox>04. 출고</ProcessTitleBox> */}
+                                    {/* <ProcessDescBox>일정에 맞춰 배송 및 설치 완료</ProcessDescBox> */}
+                                    <ProcessTitleBox> </ProcessTitleBox>
+                                    <ProcessDescLastBox>출고 및 설치 완료</ProcessDescLastBox>
                                 </ProcessContent>
                             </ProcessBox>
                         </ProcessWrapper>
