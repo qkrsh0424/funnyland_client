@@ -79,6 +79,17 @@ const IntroduceBodyContentWrapper = styled.div`
         padding:0;
     }
 `;
+const IntroduceBodyContentWrapper2 = styled.div`
+    width:80%;
+    margin:5px 10%;
+    padding:15px;
+    /* padding:15px 20%; */
+    @media only screen and (max-width:992px){
+        margin:5px 0;
+        width:100%;
+        padding:0;
+    }
+`;
 
 const ContentImageWrapper = styled.div`
     /* text-align:center; */
@@ -95,6 +106,10 @@ const ContentImageEl = styled.img`
     @media only screen and (max-width:768px){
         width:100%;
     }
+`;
+
+const ContentImageEl2 = styled.img`
+    width:100%;
 `;
 
 const ContentTextWrapper = styled.div`
@@ -151,7 +166,7 @@ const IntroduceIntro1Main = () => {
                 <ExplainEl>퍼니랜드는 대한민국의 건전한 <br />게임문화를 선도하는 기업입니다.</ExplainEl>
             </MainTitleBox>
             <IntroduceBodyWrapper>
-                <IntroduceBodyContentWrapper>
+                {/* <IntroduceBodyContentWrapper>
                     <ContentImageWrapper>
                         <ContentImageEl src='/images/funnyland/bg/funnyland-bg4.jpg'></ContentImageEl>
                     </ContentImageWrapper>
@@ -165,7 +180,13 @@ const IntroduceIntro1Main = () => {
                         </ContentTextEl>
                     </ContentTextWrapper>
 
-                </IntroduceBodyContentWrapper>
+                </IntroduceBodyContentWrapper> */}
+                <IntroduceBodyContentWrapper2>
+                    <ContentImageWrapper>
+                        <ContentImageEl2 src='/images/funnyland/introduce/funnyland_introduce1.jpeg'></ContentImageEl2>
+                    </ContentImageWrapper>
+                </IntroduceBodyContentWrapper2>
+                
             </IntroduceBodyWrapper>
             <FooterDefault></FooterDefault>
             <NavbarBottomFixed
