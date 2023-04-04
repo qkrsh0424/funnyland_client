@@ -1,54 +1,41 @@
 import axios from 'axios';
-import {getCookie} from '../../handler/CookieHandler';
+import { getCookie } from '../../handler/CookieHandler';
+import { axiosAuthInterceptor } from './axiosInterceptors';
+import { csrfDataConnect } from './CsrfDataConnect';
+
+const API_ADDRESS = process.env.REACT_APP_MAIN_API_ADDRESS;
 
 const popupDataConnect = () => {
     return {
         // ============upload to s3=================
-        // uploadImageToLocal: async function (fd) {
-        //     return await axios.post('/api/fileupload/image', fd, {
-        //         headers: {
-        //             'X-XSRF-TOKEN': getCookie('XSTO')
-        //         }
-        //     })
-        //         .then(res => {
-        //             if(res && res.data){
-        //                 return res.data;
-        //             }else{
-        //                 return null;
-        //             }
-        //         })
-        //         .catch(err=>{
-        //             if(err.response.status==500){
-        //                 alert('server 500 error.');
-        //             }else{
-        //                 alert('undefined error.');
-        //             }
-        //         })
-        // },
-        // ============upload to local=================
         uploadImageToLocal: async function (fd) {
-            return await axios.post('/api/fileupload/external/image', fd, {
-                headers: {
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
+            await csrfDataConnect().getApiCsrf();
+            return await axiosAuthInterceptor.post(`${API_ADDRESS}/api/fileupload/image`, fd, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
                 .then(res => {
-                    if(res && res.data){
+                    if (res && res.data) {
                         return res.data;
-                    }else{
+                    } else {
                         return null;
                     }
                 })
-                .catch(err=>{
-                    if(err.response.status==500){
+                .catch(err => {
+                    if (err.response.status == 500) {
                         alert('server 500 error.');
-                    }else{
+                    } else {
                         alert('undefined error.');
                     }
                 })
         },
         searchPopupAll: async function () {
-            return await axios.get('/api/search/popup/all', {})
+            return await axios.get(`${API_ADDRESS}/api/search/popup/all`, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
+            })
                 .then(res => {
                     if (res && res.data) {
                         return res.data
@@ -70,10 +57,11 @@ const popupDataConnect = () => {
                 })
         },
         insertPopupOne: async function (data) {
-            return await axios.post('/api/insert/popup/one', data, {
-                headers: {
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
+            await csrfDataConnect().getApiCsrf();
+            return await axiosAuthInterceptor.post(`${API_ADDRESS}/api/insert/popup/one`, data, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
                 .then(res => {
                     if (res && res.data) {
@@ -101,11 +89,11 @@ const popupDataConnect = () => {
                 })
         },
         deletePopupOne: async function (data) {
-            // console.log(data);
-            return await axios.post('/api/delete/popup/one',data,{
-                headers: {
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
+            await csrfDataConnect().getApiCsrf();
+            return await axiosAuthInterceptor.post(`${API_ADDRESS}/api/delete/popup/one`, data, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
                 .then(res => {
                     if (res && res.data) {

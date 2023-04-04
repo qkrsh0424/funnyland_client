@@ -18,6 +18,7 @@ import FixCategoryModal from './FixCategoryModal';
 import ProductComponent from './ProductComponent';
 import AddProductModal from './AddProductModal';
 import UpdateProductModal from './UpdateProductModal';
+import { authDataConnect } from "../../../data_connect/AuthDataConnect";
 
 const Container = styled.div`
     margin-bottom:150px;
@@ -34,15 +35,17 @@ const AdminProductMain = ({ history, match, location }) => {
     }, []);
 
     const handleCheckLoged = async () => {
-        await axios.get('/api/auth/check/loged')
+        await authDataConnect().checkLoged()
             .then(res => {
-                if (res.data.message == 'success') {
+                if (res.status === 200) {
                     setIsLoged(true);
                     return;
-                } else {
-                    history.push('/login')
                 }
-            });
+            })
+            .catch(err => {
+                history.push('/login')
+            })
+            ;
     }
     // Login Check End
     const addProductImageUploaderRef = useRef();
@@ -75,9 +78,9 @@ const AdminProductMain = ({ history, match, location }) => {
         introduce: '',
         summary: '',
         editorData: '',
-        newChecked:false,
-        hitChecked:false,
-        eventChecked:false,
+        newChecked: false,
+        hitChecked: false,
+        eventChecked: false,
         imageUrl: '/images/sample/imageNo.png'
     });
 
@@ -132,7 +135,7 @@ const AdminProductMain = ({ history, match, location }) => {
                         if (data) {
                             if (data.message == 'success') {
                                 alert('상품이 등록되었습니다.');
-                            }else{
+                            } else {
                                 alert('error')
                             }
                         }
@@ -256,43 +259,43 @@ const AdminProductMain = ({ history, match, location }) => {
                 await __handleDataConnect().getProductList();
             },
             categoryOnChange: async function (e) {
-                
+
                 let categoryId = e.target.value;
-                
-                let queryData = queryString.stringify({...query, categoryId: categoryId });
+
+                let queryData = queryString.stringify({ ...query, categoryId: categoryId });
                 let newUrl = `/admin/product?${queryData}`;
                 history.push(newUrl);
             },
-            newCheckedOnChange: async function(e){
-                
-                if(e.target.checked){
-                    query.newChecked=true;
-                }else{
+            newCheckedOnChange: async function (e) {
+
+                if (e.target.checked) {
+                    query.newChecked = true;
+                } else {
                     delete query.newChecked;
                 }
-                let queryData = queryString.stringify({...query});
+                let queryData = queryString.stringify({ ...query });
                 let newUrl = `/admin/product?${queryData}`;
                 history.push(newUrl);
             },
-            hitCheckedOnChange: async function(e){
-                
-                if(e.target.checked){
-                    query.hitChecked=true;
-                }else{
+            hitCheckedOnChange: async function (e) {
+
+                if (e.target.checked) {
+                    query.hitChecked = true;
+                } else {
                     delete query.hitChecked;
                 }
-                let queryData = queryString.stringify({...query});
+                let queryData = queryString.stringify({ ...query });
                 let newUrl = `/admin/product?${queryData}`;
                 history.push(newUrl);
             },
-            eventCheckedOnChange: async function(e){
-                
-                if(e.target.checked){
-                    query.eventChecked=true;
-                }else{
+            eventCheckedOnChange: async function (e) {
+
+                if (e.target.checked) {
+                    query.eventChecked = true;
+                } else {
                     delete query.eventChecked;
                 }
-                let queryData = queryString.stringify({...query});
+                let queryData = queryString.stringify({ ...query });
                 let newUrl = `/admin/product?${queryData}`;
                 history.push(newUrl);
             },
@@ -342,17 +345,17 @@ const AdminProductMain = ({ history, match, location }) => {
                     summary: '',
                     editorData: '',
                     imageUrl: '/images/sample/imageNo.png',
-                    newChecked:false,
-                    hitChecked:false,
-                    eventChecked:false
+                    newChecked: false,
+                    hitChecked: false,
+                    eventChecked: false
                 });
             },
             onValueChange: function (e) {
                 setAddProductItemData({ ...addProductItemData, [e.target.name]: e.target.value })
             },
-            onValueCheckedChange: function(e){
+            onValueCheckedChange: function (e) {
                 // console.log(e.target.checked);
-                setAddProductItemData({...addProductItemData,[e.target.name]: e.target.checked})
+                setAddProductItemData({ ...addProductItemData, [e.target.name]: e.target.checked })
             },
             imageUploadToS3: async function (event) {
                 //빈파일이 아닌 경우 함수 진행
@@ -408,9 +411,9 @@ const AdminProductMain = ({ history, match, location }) => {
             onValueChange: function (e) {
                 setUpdateProductItemData({ ...updateProductItemData, [e.target.name]: e.target.value })
             },
-            onValueCheckedChange: function(e){
+            onValueCheckedChange: function (e) {
                 // console.log(e.target.checked);
-                setUpdateProductItemData({...updateProductItemData,[e.target.name]: e.target.checked})
+                setUpdateProductItemData({ ...updateProductItemData, [e.target.name]: e.target.checked })
             },
             imageUploadToS3: async function (event) {
                 //빈파일이 아닌 경우 함수 진행

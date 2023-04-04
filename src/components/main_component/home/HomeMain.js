@@ -99,7 +99,7 @@ const HomeMain = () => {
             getVideoList: async function () {
                 await videoDataConnect().searchVideoAll()
                     .then(data => {
-                        if (data && data.message == 'success') {
+                        if (data && data.message === 'success') {
                             setVideoList(data.data);
                         }
                     })
@@ -112,7 +112,7 @@ const HomeMain = () => {
                     new: async function () {
                         await productDataConnect().searchProductAllByCondition(true, false, false)
                             .then(data => {
-                                if (data && data.message == 'success') {
+                                if (data && data.message === 'success') {
                                     setProductNewList(data.data);
                                 }
                             });
@@ -120,7 +120,7 @@ const HomeMain = () => {
                     hit: async function () {
                         await productDataConnect().searchProductAllByCondition(false, true, false)
                             .then(data => {
-                                if (data && data.message == 'success') {
+                                if (data && data.message === 'success') {
                                     setProductHitList(data.data);
                                 }
                             });
@@ -128,7 +128,7 @@ const HomeMain = () => {
                     event: async function () {
                         await productDataConnect().searchProductAllByCondition(false, false, true)
                             .then(data => {
-                                if (data && data.message == 'success') {
+                                if (data && data.message === 'success') {
                                     setProductEventList(data.data);
                                 }
                             });

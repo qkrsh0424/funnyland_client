@@ -1,6 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 
 // material
 import DialogActions from '@material-ui/core/DialogActions';
@@ -13,6 +11,7 @@ import CkeditorModules from '../../../modules/CkeditorModules';
 
 // handler
 import { getCookie } from '../../../../handler/CookieHandler';
+import { csrfDataConnect } from '../../../data_connect/CsrfDataConnect';
 
 const editorConfiguration = {
     plugins: CkeditorModules,
@@ -68,6 +67,7 @@ const DialogTitle = styled.div`
     border-bottom:1px solid #f1f1f1;
     margin-bottom:8px;
 `;
+const API_ADDRESS = process.env.REACT_APP_MAIN_API_ADDRESS;
 
 const AddCsModal = (props) => {
     return (
@@ -80,7 +80,7 @@ const AddCsModal = (props) => {
                             <div className="form-group">
                                 <label>게시물 타입</label>
                                 <div className="form-check">
-                                    <input type="radio" className="form-check-input" name='csType' value={'TYPE_NOTICE'} checked={props.addCsData.csType == 'TYPE_NOTICE' ? true : false} onChange={(e) => props.handleCsEventControl().addCsOnValueChange(e)} required disabled/>
+                                    <input type="radio" className="form-check-input" name='csType' value={'TYPE_NOTICE'} checked={props.addCsData.csType == 'TYPE_NOTICE' ? true : false} onChange={(e) => props.handleCsEventControl().addCsOnValueChange(e)} required disabled />
                                     <label>공지사항</label>
                                 </div>
                             </div>
@@ -116,7 +116,6 @@ const AddCsModal = (props) => {
                                     // console.log('Focus.', editor);
                                 }}
                                 config={editorConfiguration}
-
                             />
                             <DialogActions>
                                 <Button type='button' color="secondary" onClick={() => props.handleCsEventControl().addCsModalClose()}>
@@ -148,11 +147,12 @@ class MyUploadAdapter {
         // upload to s3
         // this.url = `/api/fileupload/image`;
         // upload to local
-        this.url = `/api/fileupload/external/image`;
+        this.url = `${API_ADDRESS}/api/fileupload/image`;
     }
 
     // Starts the upload process.
-    upload() {
+    async upload() {
+        await csrfDataConnect().getApiCsrf();
         return new Promise((resolve, reject) => {
             this._initRequest();
             this._initListeners(resolve, reject);
@@ -169,27 +169,29 @@ class MyUploadAdapter {
 
     // Example implementation using XMLHttpRequest.
     _initRequest() {
+
         const xhr = this.xhr = new XMLHttpRequest();
 
         xhr.open('POST', this.url, true);
+        xhr.withCredentials = true;
         xhr.responseType = 'json';
         xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
-        xhr.setRequestHeader('X-XSRF-TOKEN', getCookie('XSTO'))
+        xhr.setRequestHeader('X-XSRF-TOKEN', getCookie('x_auth_csrf_token'))
     }
 
     // Initializes XMLHttpRequest listeners.
     _initListeners(resolve, reject) {
         const xhr = this.xhr;
         const loader = this.loader;
-        const genericErrorText = 'Couldn\'t upload file:' + ` ${loader.file.name}.`;
+        const genericErrorText = `Couldn't upload file: ${loader.file.name}.`;
 
         xhr.addEventListener('error', () => reject(genericErrorText));
         xhr.addEventListener('abort', () => reject());
         xhr.addEventListener('load', () => {
             const response = xhr.response;
             // console.log(response)
-            if (!response || response.error || response.message == 'failure') {
-                return reject(response && (response.error || response.message == 'failure') ? response.message : genericErrorText);
+            if (!response || response.error || response.message === 'failure') {
+                return reject(response && (response.error || response.message === 'failure') ? response.message : genericErrorText);
             }
 
             // If the upload is successful, resolve the upload promise with an object containing

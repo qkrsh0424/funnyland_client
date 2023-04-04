@@ -1,21 +1,24 @@
 import axios from 'axios';
-import {getCookie} from '../../../../handler/CookieHandler';
-const counselingDataConnect = () =>{
-    return{
-        insertCounselingOne: async function(data){
-            return await axios.post('/api/insert/counseling/one',data,{
-                headers:{
-                    'X-XSRF-TOKEN':getCookie('XSTO')
-                }
+import { csrfDataConnect } from '../../../data_connect/CsrfDataConnect';
+const API_ADDRESS = process.env.REACT_APP_MAIN_API_ADDRESS;
+
+const counselingDataConnect = () => {
+    return {
+        insertCounselingOne: async function (data) {
+            await csrfDataConnect().getApiCsrf();
+            return await axios.post(`${API_ADDRESS}/api/insert/counseling/one`, data, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
-            .then(res=>res.data)
-            .catch(err=>{
-                if(err){
-                    alert('Errer code : 405');
-                }
-            })
+                .then(res => res.data)
+                .catch(err => {
+                    if (err) {
+                        alert('Errer code : 405');
+                    }
+                })
         }
     }
 }
 
-export {counselingDataConnect};
+export { counselingDataConnect };

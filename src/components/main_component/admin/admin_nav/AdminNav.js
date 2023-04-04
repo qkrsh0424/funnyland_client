@@ -1,25 +1,17 @@
-import axios from 'axios';
-import styled from 'styled-components';
-import { getCookie } from '../../../../handler/CookieHandler';
 import { Link } from 'react-router-dom';
-const AdminNav = () =>{
+import { authDataConnect } from '../../../data_connect/AuthDataConnect';
+const AdminNav = () => {
     const handleLogoutSubmit = (e) => {
         e.preventDefault();
-        axios.post('/api/auth/logout', {},
-            {
-                headers: {
-                    "X-XSRF-TOKEN": getCookie('XSTO')
-                }
-            }
-        )
+        authDataConnect().logout()
             .then(res => {
-                if (res.data.message == 'success') {
-                    window.location.href='/'
+                if (res.data.message === 'success') {
+                    window.location.href = '/'
                 }
             })
     }
 
-    return(
+    return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <Link className="navbar-brand" to="/admin">관리자 페이지</Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

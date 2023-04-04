@@ -17,6 +17,7 @@ import AdminVideoManage from './AdminVideoManage';
 import AddVideoModal from './AddVideoModal';
 import AdminPopupManage from './AdminPopupManage';
 import AddPopupModal from './AddPopupModal';
+import { authDataConnect } from '../../../data_connect/AuthDataConnect';
 
 
 
@@ -50,15 +51,17 @@ const AdminHomeMain = ({ history }) => {
     }, []);
 
     const handleCheckLoged = async () => {
-        await axios.get('/api/auth/check/loged')
+        await authDataConnect().checkLoged()
             .then(res => {
-                if (res.data.message == 'success') {
+                if (res.status === 200) {
                     setIsLoged(true);
                     return;
-                } else {
-                    history.push('/login')
                 }
-            });
+            })
+            .catch(err => {
+                history.push('/login')
+            })
+            ;
     }
     // Login Check End
 
@@ -77,22 +80,6 @@ const AdminHomeMain = ({ history }) => {
 
     const [uploadFile, setUploadFile] = useState([]);
     const [fullPageLoading, setFullPageLoading] = useState(false);
-
-    const handleLogoutSubmit = (e) => {
-        e.preventDefault();
-        axios.post('/api/auth/logout', {},
-            {
-                headers: {
-                    "X-XSRF-TOKEN": getCookie('XSTO')
-                }
-            }
-        )
-            .then(res => {
-                if (res.data.message == 'success') {
-                    // history.push('/');
-                }
-            })
-    }
 
     const handleGetBanners = async () => {
         await bannerDataConnect().searchBanners()
@@ -346,15 +333,15 @@ const AdminHomeMain = ({ history }) => {
                         }
                     })
             },
-            deletePopupOne: async function(data){
+            deletePopupOne: async function (data) {
                 await popupDataConnect().deletePopupOne(data)
-                .then(data => {
-                    if (data && data.message == 'success') {
-                        alert('삭제되었습니다.');
-                    } else {
-                        alert('error');
-                    }
-                })
+                    .then(data => {
+                        if (data && data.message == 'success') {
+                            alert('삭제되었습니다.');
+                        } else {
+                            alert('error');
+                        }
+                    })
             }
         }
     }
@@ -365,7 +352,7 @@ const AdminHomeMain = ({ history }) => {
                     popupName: '',
                     popupUrl: '#',
                     popupImageUrl: '',
-                    popupType:'TYPE_LEFT'
+                    popupType: 'TYPE_LEFT'
                 })
                 setAddPopupModalOpen(true);
             },
@@ -445,7 +432,7 @@ const AdminHomeMain = ({ history }) => {
                     }
                     {popupList ?
                         <AdminPopupManage
-                            popupList = {popupList}
+                            popupList={popupList}
 
                             handlePopupEventControl={handlePopupEventControl}
                         ></AdminPopupManage>

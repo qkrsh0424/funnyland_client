@@ -1,17 +1,18 @@
-import { useEffect ,useState } from "react";
+import { useEffect, useState } from "react";
 import axios from 'axios';
 import styled from 'styled-components';
 
 // data connect
-import {counselingDataConnect} from '../../../data_connect/CounselingDataConnect';
+import { counselingDataConnect } from '../../../data_connect/CounselingDataConnect';
 
 // handler
-import {dateToYYYYMMDD,dateToYYYYMMDD_hhmmss} from '../../../../handler/MyHandlers';
+import { dateToYYYYMMDD, dateToYYYYMMDD_hhmmss } from '../../../../handler/MyHandlers';
 import { handleScrollToTop } from '../../../../handler/ScrollHandler';
 
 // components
 import AdminNav from '../admin_nav/AdminNav';
 import PageableComponent from './PageableComponent';
+import { authDataConnect } from "../../../data_connect/AuthDataConnect";
 const Container = styled.div`
 
 `;
@@ -47,8 +48,8 @@ const ListTextField = styled.div`
     /* border-radius:3px; */
 `;
 
-const AdminCounselingMain = ({match,location,history}) =>{
-    
+const AdminCounselingMain = ({ match, location, history }) => {
+
     // Login Check Start
     const [isLoged, setIsLoged] = useState(false);
     useEffect(() => {
@@ -57,26 +58,28 @@ const AdminCounselingMain = ({match,location,history}) =>{
         }
         effectInit();
     }, []);
-    
+
     const handleCheckLoged = async () => {
-        await axios.get('/api/auth/check/loged')
+        await authDataConnect().checkLoged()
             .then(res => {
-                if (res.data.message == 'success') {
+                if (res.status === 200) {
                     setIsLoged(true);
                     return;
-                } else {
-                    history.push('/login')
                 }
-            });
+            })
+            .catch(err => {
+                history.push('/login')
+            })
+            ;
     }
     // Login Check End
 
     const [counselingData, setCounselingData] = useState(null);
     const [counselingPage, setCounselingPage] = useState(null);
 
-    useEffect(()=>{
+    useEffect(() => {
         async function fetchInit() {
-            if(isLoged){
+            if (isLoged) {
                 await __handleDataConnect().getCounselingList();
                 handleScrollToTop();
                 // console.log('heoo')
@@ -84,53 +87,54 @@ const AdminCounselingMain = ({match,location,history}) =>{
         }
 
         fetchInit();
-        
-    },[isLoged, location])
 
-    const __handleDataConnect = () =>{
+    }, [isLoged, location])
+
+    const __handleDataConnect = () => {
         return {
-            getCounselingList : async function(){
+            getCounselingList: async function () {
                 let data = await counselingDataConnect().searchCounselingAll();
-                // console.log(data);
-                if(data){
-                    if(data.message == 'success'){
+                console.log(data);
+
+                if (data) {
+                    if (data.message == 'success') {
                         setCounselingData(data.data);
                         setCounselingPage(data.page);
-                    }else if(data.message == 'not_auth'){
+                    } else if (data.message == 'not_auth') {
                         alert('관리자 권한이 없습니다.');
                         history.push('/');
-                    }else if(data.message == 'user_invalid'){
+                    } else if (data.message == 'user_invalid') {
                         alert('로그인 세션이 만료되었습니다.');
                         history.push('/admin');
                     }
-                }else{
+                } else {
                     alert('undefined error');
                 }
             },
-            setCounselingAdminCheck: function(){
+            setCounselingAdminCheck: function () {
                 return {
-                    setCheck: async function(id){
-                        let data = counselingData.filter(r=>r.id==id)[0];
+                    setCheck: async function (id) {
+                        let data = counselingData.filter(r => r.id == id)[0];
                         data.adminChecked = 1;
                         let resData = await counselingDataConnect().updateCounselingOne(data);
-                        if(resData){
+                        if (resData) {
                             await __handleDataConnect().getCounselingList();
                         }
                     },
-                    setUnCheck: async function(id){
-                        let data = counselingData.filter(r=>r.id==id)[0];
+                    setUnCheck: async function (id) {
+                        let data = counselingData.filter(r => r.id == id)[0];
                         data.adminChecked = 0;
                         let resData = await counselingDataConnect().updateCounselingOne(data);
-                        if(resData){
+                        if (resData) {
                             await __handleDataConnect().getCounselingList();
                         }
                     }
                 }
             },
-            deleteCounselingOne: async function(id){
-                let data = counselingData.filter(r=>r.id==id)[0];
+            deleteCounselingOne: async function (id) {
+                let data = counselingData.filter(r => r.id == id)[0];
                 let resData = await counselingDataConnect().deleteCounselingOne(data);
-                if(resData && resData.message == 'success'){
+                if (resData && resData.message == 'success') {
                     alert('삭제되었습니다.');
                     await __handleDataConnect().getCounselingList();
                 }
@@ -138,94 +142,94 @@ const AdminCounselingMain = ({match,location,history}) =>{
         }
     }
 
-    const AdminCheckBtnProp = (props) =>{
-        if(props.checked==0){
-            return <button className='btn btn-sm btn-outline-danger' onClick={()=>__handleDataConnect().setCounselingAdminCheck().setCheck(props.id)}>미확인</button>
-        }else{
-            return <button className='btn btn-sm btn-outline-primary' onClick={()=>__handleDataConnect().setCounselingAdminCheck().setUnCheck(props.id)}>확인됨</button>
+    const AdminCheckBtnProp = (props) => {
+        if (props.checked == 0) {
+            return <button className='btn btn-sm btn-outline-danger' onClick={() => __handleDataConnect().setCounselingAdminCheck().setCheck(props.id)}>미확인</button>
+        } else {
+            return <button className='btn btn-sm btn-outline-primary' onClick={() => __handleDataConnect().setCounselingAdminCheck().setUnCheck(props.id)}>확인됨</button>
         }
     }
 
-    return(
-        isLoged? 
-        <>
-            <Container>
-                <AdminNav></AdminNav>
-                <ListContainer className='container-fluid'>
-                    {counselingPage && counselingData ? counselingData.map((r,index)=>{
-                        let itemIndex = counselingPage.displaySize*(counselingPage.curr-1)+index+1;
-                        return(
-                            <ListWrapper key={`${r.id}-${itemIndex}`}>
-                                {r.adminChecked == 1 ? <ListWrapperBlind></ListWrapperBlind> : ''}
-                                <ListTextField>
-                                    <span style={{padding:'0 5px'}}>
-                                        {itemIndex}-{r.id}
-                                    </span>
-                                    {r.counselingType=='counseling'?
-                                        <span style={{padding:'0 5px', color:'#6060d4'}}>가맹상담</span>
-                                    :''}
-                                    {r.counselingType=='rental'?
-                                        <span style={{padding:'0 5px', color:'#0d88f5'}}>임대상담</span>
-                                    :''}
-                                    {r.counselingType=='purchase'?
-                                        <span style={{padding:'0 5px', color:'#29b529'}}>상품상담</span>
-                                    :''}
-                                    {r.counselingType=='etc'?
-                                        <span style={{padding:'0 5px', color:'#e25555'}}>기타상담</span>
-                                    :''}
-                                    {r.counselingType=='renewal'?
-                                        <span style={{padding:'0 5px', color:'#c31ec3'}}>리뉴얼상담</span>
-                                    :''}
-                                    <span style={{padding:'0 5px'}}>
-                                        <AdminCheckBtnProp 
-                                            id={r.id}
-                                            checked={r.adminChecked}
-                                        >
-                                        </AdminCheckBtnProp>
-                                    </span>
-                                    {r.adminChecked ? <span style={{padding:'0 5px'}}><button className='btn btn-sm btn-danger' onClick={()=>__handleDataConnect().deleteCounselingOne(r.id)}>삭제</button></span> :''}
-                                </ListTextField>
-                                <div className='row'>
-                                    <div className='col-sm-12'>
-                                        <ListTextField>상담 등록일 : {dateToYYYYMMDD_hhmmss(r.createdAt)}</ListTextField>
+    return (
+        isLoged ?
+            <>
+                <Container>
+                    <AdminNav></AdminNav>
+                    <ListContainer className='container-fluid'>
+                        {counselingPage && counselingData ? counselingData.map((r, index) => {
+                            let itemIndex = counselingPage.displaySize * (counselingPage.curr - 1) + index + 1;
+                            return (
+                                <ListWrapper key={`${r.id}-${itemIndex}`}>
+                                    {r.adminChecked == 1 ? <ListWrapperBlind></ListWrapperBlind> : ''}
+                                    <ListTextField>
+                                        <span style={{ padding: '0 5px' }}>
+                                            {itemIndex}-{r.id}
+                                        </span>
+                                        {r.counselingType == 'counseling' ?
+                                            <span style={{ padding: '0 5px', color: '#6060d4' }}>가맹상담</span>
+                                            : ''}
+                                        {r.counselingType == 'rental' ?
+                                            <span style={{ padding: '0 5px', color: '#0d88f5' }}>임대상담</span>
+                                            : ''}
+                                        {r.counselingType == 'purchase' ?
+                                            <span style={{ padding: '0 5px', color: '#29b529' }}>상품상담</span>
+                                            : ''}
+                                        {r.counselingType == 'etc' ?
+                                            <span style={{ padding: '0 5px', color: '#e25555' }}>기타상담</span>
+                                            : ''}
+                                        {r.counselingType == 'renewal' ?
+                                            <span style={{ padding: '0 5px', color: '#c31ec3' }}>리뉴얼상담</span>
+                                            : ''}
+                                        <span style={{ padding: '0 5px' }}>
+                                            <AdminCheckBtnProp
+                                                id={r.id}
+                                                checked={r.adminChecked}
+                                            >
+                                            </AdminCheckBtnProp>
+                                        </span>
+                                        {r.adminChecked ? <span style={{ padding: '0 5px' }}><button className='btn btn-sm btn-danger' onClick={() => __handleDataConnect().deleteCounselingOne(r.id)}>삭제</button></span> : ''}
+                                    </ListTextField>
+                                    <div className='row'>
+                                        <div className='col-sm-12'>
+                                            <ListTextField>상담 등록일 : {dateToYYYYMMDD_hhmmss(r.createdAt)}</ListTextField>
+                                        </div>
+                                        <div className='col-sm-4'>
+                                            <ListTextField>신청자 : {r.applierName}</ListTextField>
+                                            <ListTextField>전화번호 : {r.applierPhone}</ListTextField>
+                                        </div>
+                                        <div className='col-sm-4'>
+                                            <ListTextField>희망지역 : {r.applierArea}</ListTextField>
+                                            {/* <ListTextField>주소 : {r.address}</ListTextField> */}
+                                            <ListTextField>점포층수 : {r.floor}</ListTextField>
+                                        </div>
+                                        <div className='col-sm-4'>
+                                            <ListTextField>오픈예정일 : {r.openDate == null ? '' : dateToYYYYMMDD(r.openDate)}</ListTextField>
+                                        </div>
+                                        <div className='col-sm-12'>
+                                            <ListTextField>
+                                                <div>기타문의내용</div>
+                                                <div>{r.desc}</div>
+                                            </ListTextField>
+                                        </div>
                                     </div>
-                                    <div className='col-sm-4'>
-                                        <ListTextField>신청자 : {r.applierName}</ListTextField>
-                                        <ListTextField>전화번호 : {r.applierPhone}</ListTextField>
-                                    </div>
-                                    <div className='col-sm-4'>
-                                        <ListTextField>희망지역 : {r.applierArea}</ListTextField>
-                                        {/* <ListTextField>주소 : {r.address}</ListTextField> */}
-                                        <ListTextField>점포층수 : {r.floor}</ListTextField>
-                                    </div>
-                                    <div className='col-sm-4'>
-                                        <ListTextField>오픈예정일 : {r.openDate == null? '' : dateToYYYYMMDD(r.openDate)}</ListTextField>
-                                    </div>
-                                    <div className='col-sm-12'>
-                                        <ListTextField>
-                                            <div>기타문의내용</div>
-                                            <div>{r.desc}</div>
-                                        </ListTextField>
-                                    </div>
-                                </div>
-                                
-                            </ListWrapper>
-                        )
-                    })
-                    :
-                    <></>
-                    }
-                </ListContainer>
-                {counselingPage ? <PageableComponent
-                    defaultUrl={'/admin/counseling'}
-                    pageData={counselingPage}
-                ></PageableComponent>
-                :<></>}
-                
-            </Container>
-        </>
-        :
-        <></>
+
+                                </ListWrapper>
+                            )
+                        })
+                            :
+                            <></>
+                        }
+                    </ListContainer>
+                    {counselingPage ? <PageableComponent
+                        defaultUrl={'/admin/counseling'}
+                        pageData={counselingPage}
+                    ></PageableComponent>
+                        : <></>}
+
+                </Container>
+            </>
+            :
+            <></>
     );
 }
 

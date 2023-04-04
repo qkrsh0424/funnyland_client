@@ -1,16 +1,23 @@
 import axios from 'axios';
 import queryString from 'query-string';
 import { getCookie } from '../../handler/CookieHandler';
+import { axiosAuthInterceptor } from './axiosInterceptors';
+import { csrfDataConnect } from './CsrfDataConnect';
+
+const API_ADDRESS = process.env.REACT_APP_MAIN_API_ADDRESS;
 
 const csDataConnect = () => {
     return {
         searchCsAll: async function () {
             let query = queryString.parse(window.location.search);
-            return await axios.get('/api/search/cs/all', {
+            return await axios.get(`${API_ADDRESS}/api/search/cs/all`, {
                 params: {
                     csType: query.csType,
                     pageIndex: query.pageIndex ? query.pageIndex - 1 : 0,
-                }
+                },
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
                 .then(res => {
                     if (res && res.data) {
@@ -34,10 +41,13 @@ const csDataConnect = () => {
                 })
         },
         searchCsOne: async function (csId) {
-            return await axios.get('/api/search/cs/one', {
+            return await axios.get(`${API_ADDRESS}/api/search/cs/one`, {
                 params: {
                     csId: csId
-                }
+                },
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
                 .then(res => {
                     if (res && res.data) {
@@ -60,11 +70,11 @@ const csDataConnect = () => {
                 })
         },
         insertCsOne: async function (data) {
-            // console.log(data);
-            return await axios.post('/api/insert/cs/one', data, {
-                headers: {
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
+            await csrfDataConnect().getApiCsrf();
+            return await axiosAuthInterceptor.post(`${API_ADDRESS}/api/insert/cs/one`, data, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
                 .then(res => {
                     if (res && res.data) {
@@ -92,10 +102,11 @@ const csDataConnect = () => {
                 })
         },
         deleteCsOne: async function (data) {
-            return await axios.post('/api/delete/cs/one', data, {
-                headers: {
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
+            await csrfDataConnect().getApiCsrf();
+            return await axiosAuthInterceptor.post(`${API_ADDRESS}/api/delete/cs/one`, data, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
                 .then(res => {
                     if (res && res.data) {
@@ -123,11 +134,11 @@ const csDataConnect = () => {
                 });
         },
         updateCsOne: async function (data) {
-            // console.log(data);
-            return await axios.post('/api/update/cs/one', data, {
-                headers: {
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
+            await csrfDataConnect().getApiCsrf();
+            return await axiosAuthInterceptor.post(`${API_ADDRESS}/api/update/cs/one`, data, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
                 .then(res => {
                     if (res && res.data) {

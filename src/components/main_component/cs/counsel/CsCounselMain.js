@@ -6,7 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 // data connector
-import {counselingDataConnect} from '../../../data_connect/CounselingDataConnect';
+import { counselingDataConnect } from '../../../data_connect/CounselingDataConnect';
 
 // components
 import NavbarDynamic from '../../../navbar/NavbarDynamic';
@@ -180,26 +180,26 @@ const CsCounselMain = () => {
     const [desc, setDesc] = useState('');
     const [privacyAgreement, setPrivacyAgreement] = useState(false);
 
-    const handleApplicationSubmit = async (event) =>{
+    const handleApplicationSubmit = async (event) => {
         event.preventDefault();
         let json = {
-            'counselingType':counselingType,
-            'applierName':applierName,
-            'applierPhone':applierPhone,
-            'applierArea':applierArea,
-            'address':address,
-            'floor':floor,
-            'openDate':openDate,
-            'desc':desc,
-            'privacyAgreement':privacyAgreement ? '동의' : '비동의'
+            'counselingType': counselingType,
+            'applierName': applierName,
+            'applierPhone': applierPhone,
+            'applierArea': applierArea,
+            'address': address,
+            'floor': floor,
+            'openDate': openDate,
+            'desc': desc,
+            'privacyAgreement': privacyAgreement ? '동의' : '비동의'
         }
         await counselingDataConnect().insertCounselingOne(json)
-        .then(data=>{
-            if(data.message=='success'){
-                alert('상담이 신청되었습니다.');
-                window.location.reload();
-            }
-        })
+            .then(data => {
+                if (data?.message === 'success') {
+                    alert('상담이 신청되었습니다.');
+                    window.location.reload();
+                }
+            })
         console.log(json);
     }
 
@@ -221,14 +221,14 @@ const CsCounselMain = () => {
                         <LineBreaker1></LineBreaker1>
                     </MainTitleBox>
                     <ApplicationContainer className='container'>
-                        <form onSubmit={(e)=>handleApplicationSubmit(e)}>
+                        <form onSubmit={(e) => handleApplicationSubmit(e)}>
                             <div className='clearfix'>
                                 <p className='float-right'><span className='text-danger'>*</span> 는 필수 선택입니다.</p>
                             </div>
                             <div className='row'>
                                 <div className='col-sm-12 mt-2 mb-2'>
                                     <label className='pl-1'>상담구분 <span className='text-danger'>*</span></label>
-                                    <ApplicationSelect value={counselingType} onChange={(e)=>setCounselingType(e.target.value)} required>
+                                    <ApplicationSelect value={counselingType} onChange={(e) => setCounselingType(e.target.value)} required>
                                         <option value='' hidden>--선택--</option>
                                         <option value='counseling'>창업상담</option>
                                         <option value='rental'>임대상담</option>
@@ -239,41 +239,41 @@ const CsCounselMain = () => {
                                 </div>
                                 <div className='col-sm-6 mt-2 mb-2'>
                                     <label className='pl-1'>이름 <span className='text-danger'>*</span></label>
-                                    <ApplicationInput type='text' name='applierName' placeholder='이름을 입력해주세요.' value={applierName} onChange={(e)=>setApplierName(e.target.value)} required></ApplicationInput>
+                                    <ApplicationInput type='text' name='applierName' placeholder='이름을 입력해주세요.' value={applierName} onChange={(e) => setApplierName(e.target.value)} required></ApplicationInput>
                                 </div>
                                 <div className='col-sm-6 mt-2 mb-2'>
                                     <label className='pl-1'>연락처 <span className='text-danger'>*</span></label>
-                                    <ApplicationInput type='text' name='applierPhone' placeholder="'-'를 제외한 연락처를 입력해주세요." value={applierPhone} onChange={(e)=>setApplierPhone(e.target.value)} required></ApplicationInput>
+                                    <ApplicationInput type='text' name='applierPhone' placeholder="'-'를 제외한 연락처를 입력해주세요." value={applierPhone} onChange={(e) => setApplierPhone(e.target.value)} required></ApplicationInput>
                                 </div>
                                 <div className='col-sm-4 mt-2 mb-2'>
                                     <label className='pl-1'>희망지역 <span className='text-danger'>*</span></label>
-                                    <ApplicationInput type='text' name='applierArea' placeholder='희망지역을 입력해주세요.' value={applierArea} onChange={(e)=>setApplierArea(e.target.value)} required></ApplicationInput>
+                                    <ApplicationInput type='text' name='applierArea' placeholder='희망지역을 입력해주세요.' value={applierArea} onChange={(e) => setApplierArea(e.target.value)} required></ApplicationInput>
                                 </div>
                                 <div className='col-sm-4 mt-2 mb-2'>
                                     <label className='pl-1'>층수</label>
-                                    <ApplicationInput type='text' name='floor' placeholder='점포 층수를 입력해주세요.' value={floor} onChange={(e)=>setFloor(e.target.value)}></ApplicationInput>
+                                    <ApplicationInput type='text' name='floor' placeholder='점포 층수를 입력해주세요.' value={floor} onChange={(e) => setFloor(e.target.value)}></ApplicationInput>
                                 </div>
                                 <div className='col-sm-4 mt-2 mb-2'>
                                     <label className='pl-1'>희망오픈일</label>
-                                    <ApplicationDatePicker 
+                                    <ApplicationDatePicker
                                         dateFormat="yyyy년 MM월 dd일"
                                         placeholderText="희망오픈일 선택"
-                                        selected={openDate} onChange={date=>setOpenDate(date)} strictParsing></ApplicationDatePicker>
+                                        selected={openDate} onChange={date => setOpenDate(date)} strictParsing></ApplicationDatePicker>
                                 </div>
                                 <div className='col-sm-12 mt-2 mb-2'>
                                     <label className='pl-1'>내용</label>
-                                    <ApplicationTextarea placeholder='기타 전하실 말씀을 입력해주시면 원할한 상담에 도움이 됩니다.' name='desc' value={desc} onChange={(e)=>setDesc(e.target.value)}></ApplicationTextarea>
+                                    <ApplicationTextarea placeholder='기타 전하실 말씀을 입력해주시면 원할한 상담에 도움이 됩니다.' name='desc' value={desc} onChange={(e) => setDesc(e.target.value)}></ApplicationTextarea>
                                 </div>
                             </div>
                             <div className='mt-2 mb-2 form-check'>
                                 <p>개인정보 수집 동의 <span className='text-danger'>*</span> <a href='/policy/privacy' target='_blank'>보기</a></p>
-                                <input type="checkbox" checked={privacyAgreement} name='privacyAgreement' onChange={(e)=>setPrivacyAgreement(!privacyAgreement)} required></input>
+                                <input type="checkbox" checked={privacyAgreement} name='privacyAgreement' onChange={(e) => setPrivacyAgreement(!privacyAgreement)} required></input>
                                 <label className='pl-3'>동의합니다.</label>
                             </div>
                             <div className='text-center mt-3'>
                                 <ApplicationSubmitBtn type='submit'>신청하기</ApplicationSubmitBtn>
                             </div>
-                            
+
                         </form>
                     </ApplicationContainer>
                 </Container>

@@ -13,6 +13,7 @@ import FixAreaModal from './FixAreaModal';
 import StoreComponent from './StoreComponent';
 import AddStoreModal from './AddStoreModal';
 import FixStoreModal from './FixStoreModal';
+import { authDataConnect } from '../../../data_connect/AuthDataConnect';
 
 const AdminStoreMain = ({ history, match, location }) => {
     let query = queryString.parse(window.location.search);
@@ -30,15 +31,17 @@ const AdminStoreMain = ({ history, match, location }) => {
     }, []);
 
     const handleCheckLoged = async () => {
-        await axios.get('/api/auth/check/loged')
+        await authDataConnect().checkLoged()
             .then(res => {
-                if (res.data.message == 'success') {
+                if (res.status === 200) {
                     setIsLoged(true);
                     return;
-                } else {
-                    history.push('/login')
                 }
-            });
+            })
+            .catch(err => {
+                history.push('/login')
+            })
+            ;
     }
     // Login Check End
 

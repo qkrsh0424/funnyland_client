@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 
 // handler
 import { getCookie } from '../../../../handler/CookieHandler';
+import { csrfDataConnect } from '../../../data_connect/CsrfDataConnect';
 
 const editorConfiguration = {
     plugins: CkeditorModules,
@@ -67,20 +68,6 @@ const DialogTitle = styled.div`
     margin-bottom:8px;
 `;
 
-const custom_config = {
-    extraPlugins: [MyCustomUploadAdapterPlugin],
-    toolbar: {
-        items: [
-            'heading', '|',
-            'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
-            'outdent', 'indent', '|',
-            'imageUpload', 'mediaEmbed', 'blockQuote', '|',
-            'undo', 'redo'
-        ],
-        shouldNotGroupWhenFull: true
-    }
-}
-
 const ImageWrapper = styled.div`
     width:25%;
     height:auto;
@@ -100,6 +87,8 @@ const ImageEl = styled.img`
     width: 100%;
     height: 100%;
 `;
+
+const API_ADDRESS = process.env.REACT_APP_MAIN_API_ADDRESS;
 
 const AddStoreModal = (props) => {
     return (
@@ -221,11 +210,12 @@ class MyUploadAdapter {
         // upload to s3
         // this.url = `/api/fileupload/image`;
         // upload to local
-        this.url = `/api/fileupload/external/image`;
+        this.url = `${API_ADDRESS}/api/fileupload/image`;
     }
 
     // Starts the upload process.
-    upload() {
+    async upload() {
+        await csrfDataConnect().getApiCsrf();
         return new Promise((resolve, reject) => {
             this._initRequest();
             this._initListeners(resolve, reject);
@@ -245,9 +235,10 @@ class MyUploadAdapter {
         const xhr = this.xhr = new XMLHttpRequest();
 
         xhr.open('POST', this.url, true);
+        xhr.withCredentials = true;
         xhr.responseType = 'json';
         xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
-        xhr.setRequestHeader('X-XSRF-TOKEN', getCookie('XSTO'))
+        xhr.setRequestHeader('X-XSRF-TOKEN', getCookie('x_auth_csrf_token'))
     }
 
     // Initializes XMLHttpRequest listeners.

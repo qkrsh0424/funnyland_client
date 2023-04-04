@@ -1,4 +1,4 @@
-import { useEffect, useState,useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -13,6 +13,7 @@ import AdminNav from '../admin_nav/AdminNav';
 import CsComponent from './CsComponent';
 import AddCsModal from './AddCsModal';
 import FixCsModal from './FixCsModal';
+import { authDataConnect } from '../../../data_connect/AuthDataConnect';
 
 const AdminCSMain = ({ history, match, location }) => {
     let modalRef = useRef();
@@ -26,15 +27,18 @@ const AdminCSMain = ({ history, match, location }) => {
     }, [location]);
 
     const handleCheckLoged = async () => {
-        await axios.get('/api/auth/check/loged')
+        await authDataConnect().checkLoged()
             .then(res => {
-                if (res.data.message == 'success') {
+                console.log(res);
+                if (res.status === 200) {
                     setIsLoged(true);
                     return;
-                } else {
-                    history.push('/login')
                 }
-            });
+            })
+            .catch(err => {
+                history.push('/login')
+            })
+            ;
     }
     // Login Check End
 
@@ -59,7 +63,7 @@ const AdminCSMain = ({ history, match, location }) => {
                 await csDataConnect().searchCsAll()
                     .then(data => {
                         // console.log(data);
-                        if (data && data.message == 'success') {
+                        if (data && data.message === 'success') {
                             setCsList(data.data);
                             setCsPage(data.page);
                         }
@@ -122,9 +126,9 @@ const AdminCSMain = ({ history, match, location }) => {
                 let data = csList.filter(r => r.csId == csId)[0];
                 setTimeout(() => {
                     setFixCsData(data);
-                    setFixCsModalOpen(true);    
+                    setFixCsModalOpen(true);
                 }, 10);
-                
+
                 setTimeout(() => {
                     modalRef.current.scrollIntoView();
                 }, 100);

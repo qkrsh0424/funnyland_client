@@ -1,10 +1,19 @@
 import axios from 'axios';
 import queryString from 'query-string';
 import { getCookie } from '../../handler/CookieHandler';
+import { axiosAuthInterceptor } from './axiosInterceptors';
+import { csrfDataConnect } from './CsrfDataConnect';
+
+const API_ADDRESS = process.env.REACT_APP_MAIN_API_ADDRESS;
+
 const productDataConnect = () => {
     return {
         searchProductCategoryAll: async function () {
-            return await axios.get('/api/search/product_category/all', {})
+            return await axios.get(`${API_ADDRESS}/api/search/product_category/all`, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
+            })
                 .then(res => {
                     if (res && res.data) {
                         return res.data
@@ -26,10 +35,11 @@ const productDataConnect = () => {
                 })
         },
         insertProductCategoryOne: async function (data) {
-            return await axios.post('/api/insert/product_category/one', data, {
-                headers: {
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
+            await csrfDataConnect().getApiCsrf();
+            return await axiosAuthInterceptor.post(`${API_ADDRESS}/api/insert/product_category/one`, data, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
                 .then(res => {
                     if (res && res.data) {
@@ -57,10 +67,11 @@ const productDataConnect = () => {
                 })
         },
         deleteProductCategoryOne: async function (data) {
-            return await axios.post('/api/delete/product_category/one', data, {
-                headers: {
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
+            await csrfDataConnect().getApiCsrf();
+            return await axiosAuthInterceptor.post(`${API_ADDRESS}/api/delete/product_category/one`, data, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
                 .then(res => {
                     if (res && res.data) {
@@ -88,46 +99,33 @@ const productDataConnect = () => {
                 });
         },
         // ============upload to s3=================
-        // imageUploadToS3: async function (fd) {
-        //     return await axios.post('/api/fileupload/image', fd, {
-        //         headers: {
-        //             'X-XSRF-TOKEN': getCookie('XSTO')
-        //         }
-        //     })
-        //     .then(res=>res.data)
-        //     //에러가 날 경우 처리
-        //     .catch(error => {
-        //         console.log(error.response);
-        //     });
-        // },
-        // ==============upload to local===================
         imageUploadToS3: async function (fd) {
-            return await axios.post('/api/fileupload/external/image', fd, {
-                headers: {
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
+            await csrfDataConnect().getApiCsrf();
+            return await axiosAuthInterceptor.post(`${API_ADDRESS}/api/fileupload/image`, fd, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
-            .then(res=>res.data)
-            //에러가 날 경우 처리
-            .catch(error => {
-                if(error.response.status==500){
-                    alert('server 500 error.');
-                }else{
-                    alert('server undefined error.');
-                }
-            });
+                .then(res => res.data)
+                //에러가 날 경우 처리
+                .catch(error => {
+                    console.log(error.response);
+                });
         },
         searchProductAll: async function () {
             let query = queryString.parse(window.location.search);
 
-            return await axios.get('/api/search/product/all', {
+            return await axios.get(`${API_ADDRESS}/api/search/product/all`, {
                 params: {
                     categoryId: query.categoryId,
                     pageIndex: query.pageIndex ? query.pageIndex - 1 : 0,
-                    newChecked:query.newChecked && query.newChecked=='true' ? true : false,
-                    hitChecked:query.hitChecked && query.hitChecked=='true'? true : false,
-                    eventChecked:query.eventChecked && query.eventChecked=='true' ? true : false,
-                }
+                    newChecked: query.newChecked && query.newChecked == 'true' ? true : false,
+                    hitChecked: query.hitChecked && query.hitChecked == 'true' ? true : false,
+                    eventChecked: query.eventChecked && query.eventChecked == 'true' ? true : false,
+                },
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
                 .then(res => {
                     if (res && res.data) {
@@ -158,12 +156,15 @@ const productDataConnect = () => {
          */
         searchProductAllByCondition: async function (newChecked, hitChecked, eventChecked) {
 
-            return await axios.get('/api/search/product/all', {
+            return await axiosAuthInterceptor.get(`${API_ADDRESS}/api/search/product/all`, {
                 params: {
-                    newChecked:newChecked ? true : false,
-                    hitChecked:hitChecked ? true : false,
-                    eventChecked:eventChecked ? true : false,
-                }
+                    newChecked: newChecked ? true : false,
+                    hitChecked: hitChecked ? true : false,
+                    eventChecked: eventChecked ? true : false,
+                },
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
                 .then(res => {
                     if (res && res.data) {
@@ -187,10 +188,11 @@ const productDataConnect = () => {
                 })
         },
         insertProductOne: async function (data) {
-            return await axios.post('/api/insert/product/one', data, {
-                headers: {
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
+            await csrfDataConnect().getApiCsrf();
+            return await axiosAuthInterceptor.post(`${API_ADDRESS}/api/insert/product/one`, data, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
                 .then(res => {
                     if (res && res.data) {
@@ -218,10 +220,11 @@ const productDataConnect = () => {
                 })
         },
         updateProductOne: async function (data) {
-            return await axios.post('/api/update/product/one', data, {
-                headers: {
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
+            await csrfDataConnect().getApiCsrf();
+            return await axiosAuthInterceptor.post(`${API_ADDRESS}/api/update/product/one`, data, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
                 .then(res => {
                     if (res && res.data) {
@@ -249,10 +252,11 @@ const productDataConnect = () => {
                 })
         },
         deleteProductOne: async function (data) {
-            return await axios.post('/api/delete/product/one', data, {
-                headers: {
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
+            await csrfDataConnect().getApiCsrf();
+            return await axiosAuthInterceptor.post(`${API_ADDRESS}/api/delete/product/one`, data, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
                 .then(res => {
                     if (res && res.data) {
@@ -280,10 +284,11 @@ const productDataConnect = () => {
                 });
         },
         updateCategoryOne: async function (data) {
-            return await axios.post('/api/update/category/one', data, {
-                headers: {
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
+            await csrfDataConnect().getApiCsrf();
+            return await axiosAuthInterceptor.post(`${API_ADDRESS}/api/update/category/one`, data, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
                 .then(res => {
                     if (res && res.data) {
@@ -311,10 +316,13 @@ const productDataConnect = () => {
                 })
         },
         searchProductOne: async function (productId) {
-            return await axios.get('/api/search/product/one', {
+            return await axios.get(`${API_ADDRESS}/api/search/product/one`, {
                 params: {
-                    productId:productId
-                }
+                    productId: productId
+                },
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
                 .then(res => {
                     if (res && res.data) {

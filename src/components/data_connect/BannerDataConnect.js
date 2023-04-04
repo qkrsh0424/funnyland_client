@@ -1,73 +1,67 @@
-import {getCookie} from '../../handler/CookieHandler';
 import axios from 'axios';
+import { axiosAuthInterceptor } from './axiosInterceptors';
+import { csrfDataConnect } from './CsrfDataConnect';
+
+const API_ADDRESS = process.env.REACT_APP_MAIN_API_ADDRESS;
 
 const bannerDataConnect = () => {
     return {
-        searchBanners: async function(){
-            return await axios.get('/api/search/banner/all/byorder')
-            .then(res=>res.data)
-            .catch(err=>console.log(err));
+        searchBanners: async function () {
+            return await axios.get(`${API_ADDRESS}/api/search/banner/all/byorder`, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
+            })
+                .then(res => res.data)
+                .catch(err => console.log(err));
         },
         // ============upload to s3=================
-        // imageUploadToS3: async function (fd) {
-        //     return await axios.post('/api/fileupload/image', fd, {
-        //         headers: {
-        //             'X-XSRF-TOKEN': getCookie('XSTO')
-        //         }
-        //     })
-        //     .then(res=>res.data)
-        //     //에러가 날 경우 처리
-        //     .catch(error => {
-        //         console.log(error.response);
-        //     });
-        // },
-        // ==============upload to local===================
         imageUploadToS3: async function (fd) {
-            return await axios.post('/api/fileupload/external/image', fd, {
-                headers: {
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
+            await csrfDataConnect().getApiCsrf();
+            return await axiosAuthInterceptor.post(`${API_ADDRESS}/api/fileupload/image`, fd, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
-            .then(res=>res.data)
-            //에러가 날 경우 처리
-            .catch(error => {
-                if(error.response.status==500){
-                    alert('server 500 error.');
-                }else{
-                    alert('server undefined error.');
-                }
-            });
+                .then(res => res.data)
+                //에러가 날 경우 처리
+                .catch(error => {
+                    console.log(error.response);
+                });
         },
-        insertBanners: async function(files){
-            return await axios.post('/api/insert/banner/multiple',files,{
-                headers:{
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
+        insertBanners: async function (files) {
+            await csrfDataConnect().getApiCsrf();
+            return await axiosAuthInterceptor.post(`${API_ADDRESS}/api/insert/banner/multiple`, files, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
-            .then(res=>res.data)
-            .catch(error=>{
-                console.log(error);
-            })
+                .then(res => res.data)
+                .catch(error => {
+                    console.log(error);
+                })
         },
-        updateBanners: async function(banners){
-            return await axios.post('/api/update/banner/all', banners,{
-                headers:{
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }   
+        updateBanners: async function (banners) {
+            await csrfDataConnect().getApiCsrf();
+            return await axiosAuthInterceptor.post(`${API_ADDRESS}/api/update/banner/all`, banners, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
-            .then(res=>res.data)
-            .catch(error=>{
-                console.log(error);
-            })
+                .then(res => res.data)
+                .catch(error => {
+                    console.log(error);
+                })
         },
-        deleteBanner: async function(banner){
-            return await axios.post('/api/delete/banner/one',banner,{
-                headers:{
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
+        deleteBanner: async function (banner) {
+            await csrfDataConnect().getApiCsrf();
+            return await axiosAuthInterceptor.post(`${API_ADDRESS}/api/delete/banner/one`, banner, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
-            .then(res=>res.data)
-            .catch(err=>console.log(err));
+                .then(res => res.data)
+                .catch(err => console.log(err));
         }
     }
 }

@@ -1,10 +1,18 @@
 import axios from 'axios';
 import { getCookie } from '../../handler/CookieHandler';
+import { axiosAuthInterceptor } from './axiosInterceptors';
+import { csrfDataConnect } from './CsrfDataConnect';
+
+const API_ADDRESS = process.env.REACT_APP_MAIN_API_ADDRESS;
 
 const videoDataConnect = () => {
     return {
         searchVideoAll: async function () {
-            return await axios.get('/api/search/video/all', {})
+            return await axios.get(`${API_ADDRESS}/api/search/video/all`, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
+            })
                 .then(res => {
                     if (res && res.data) {
                         return res.data
@@ -26,10 +34,11 @@ const videoDataConnect = () => {
                 })
         },
         insertVideoOne: async function (data) {
-            return await axios.post('/api/insert/video/one', data, {
-                headers: {
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
+            await csrfDataConnect().getApiCsrf();
+            return await axiosAuthInterceptor.post(`${API_ADDRESS}/api/insert/video/one`, data, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
                 .then(res => {
                     if (res && res.data) {
@@ -57,10 +66,11 @@ const videoDataConnect = () => {
                 })
         },
         updateVideoDisplay: async function (data) {
-            return await axios.post('/api/update/video/one/display', data, {
-                headers: {
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
+            await csrfDataConnect().getApiCsrf();
+            return await axiosAuthInterceptor.post(`${API_ADDRESS}/api/update/video/one/display`, data, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
                 .then(res => {
                     if (res && res.data) {
@@ -88,11 +98,11 @@ const videoDataConnect = () => {
                 })
         },
         deleteVideoOne: async function (data) {
-            // console.log(data);
-            return await axios.post('/api/delete/video/one',data,{
-                headers: {
-                    'X-XSRF-TOKEN': getCookie('XSTO')
-                }
+            await csrfDataConnect().getApiCsrf();
+            return await axiosAuthInterceptor.post(`${API_ADDRESS}/api/delete/video/one`, data, {
+                withCredentials: true,
+                xsrfCookieName: 'x_auth_csrf_token',
+                xsrfHeaderName: 'X-XSRF-TOKEN'
             })
                 .then(res => {
                     if (res && res.data) {

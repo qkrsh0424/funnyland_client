@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
@@ -6,6 +5,7 @@ import styled from 'styled-components';
 
 // components
 import FullPageLoading from './components/loading/FullPageLoading';
+import { csrfDataConnect } from './components/data_connect/CsrfDataConnect';
 // components - Home
 const HomeMain = lazy(() => import('./components/main_component/home/HomeMain'));
 // components - Introduce
@@ -13,33 +13,33 @@ const IntroduceIntro1Main = lazy(() => import('./components/main_component/intro
 const IntroduceIntro2Main = lazy(() => import('./components/main_component/introduce/intro2/IntroduceIntro2Main'));
 const IntroduceIntro3Main = lazy(() => import('./components/main_component/introduce/intro3/IntroduceIntro3Main'));
 // components - Foundation
-const FoundIntro1Main = lazy(()=>import('./components/main_component/found/intro1/FoundIntro1Main'));
-const FoundIntro2Main = lazy(()=>import('./components/main_component/found/intro2/FoundIntro2Main'));
-const FoundIntro3Main = lazy(()=>import('./components/main_component/found/intro3/FoundIntro3Main'));
+const FoundIntro1Main = lazy(() => import('./components/main_component/found/intro1/FoundIntro1Main'));
+const FoundIntro2Main = lazy(() => import('./components/main_component/found/intro2/FoundIntro2Main'));
+const FoundIntro3Main = lazy(() => import('./components/main_component/found/intro3/FoundIntro3Main'));
 // components - Product
-const ProductListMain = lazy(()=>import('./components/main_component/product/list/ProductListMain'));
-const ProductDetailMain = lazy(()=>import('./components/main_component/product/detail/ProductDetailMain'));
-const ProductCounselMain = lazy(()=>import('./components/main_component/product/counsel/ProductCounselMain'));
+const ProductListMain = lazy(() => import('./components/main_component/product/list/ProductListMain'));
+const ProductDetailMain = lazy(() => import('./components/main_component/product/detail/ProductDetailMain'));
+const ProductCounselMain = lazy(() => import('./components/main_component/product/counsel/ProductCounselMain'));
 
 // components - Store
-const StoreListMain = lazy(()=>import('./components/main_component/store/list/StoreListMain'));
-const StoreDetailMain = lazy(()=>import('./components/main_component/store/detail/StoreDetailMain'));
+const StoreListMain = lazy(() => import('./components/main_component/store/list/StoreListMain'));
+const StoreDetailMain = lazy(() => import('./components/main_component/store/detail/StoreDetailMain'));
 
 // components - Cs
-const CsNoticeMain = lazy(()=>import('./components/main_component/cs/notice/CsNoticeMain'));
-const CsDetailMain = lazy(()=>import('./components/main_component/cs/detail/CsDetailMain'));
-const CsCounselMain = lazy(()=>import('./components/main_component/cs/counsel/CsCounselMain'));
+const CsNoticeMain = lazy(() => import('./components/main_component/cs/notice/CsNoticeMain'));
+const CsDetailMain = lazy(() => import('./components/main_component/cs/detail/CsDetailMain'));
+const CsCounselMain = lazy(() => import('./components/main_component/cs/counsel/CsCounselMain'));
 
 // components - Admin
 const LoginMain = lazy(() => import('./components/main_component/login/LoginMain'));
-const AdminHomeMain = lazy(()=>import('./components/main_component/admin/admin_home/AdminHomeMain'));
-const AdminCounselingMain = lazy(()=>import('./components/main_component/admin/admin_counseling/AdminCounselingMain'));
-const AdminProductMain = lazy(()=>import('./components/main_component/admin/admin_product/AdminProductMain'));
-const AdminStoreMain = lazy(()=>import('./components/main_component/admin/admin_store/AdminStoreMain'));
-const AdminCSMain = lazy(()=>import('./components/main_component/admin/admin_cs/AdminCSMain'));
+const AdminHomeMain = lazy(() => import('./components/main_component/admin/admin_home/AdminHomeMain'));
+const AdminCounselingMain = lazy(() => import('./components/main_component/admin/admin_counseling/AdminCounselingMain'));
+const AdminProductMain = lazy(() => import('./components/main_component/admin/admin_product/AdminProductMain'));
+const AdminStoreMain = lazy(() => import('./components/main_component/admin/admin_store/AdminStoreMain'));
+const AdminCSMain = lazy(() => import('./components/main_component/admin/admin_cs/AdminCSMain'));
 
 // component - policy
-const PrivacyAgreement = lazy(()=>import('./components/policy/privacy/PrivacyAgreement'));
+const PrivacyAgreement = lazy(() => import('./components/policy/privacy/PrivacyAgreement'));
 
 const AppContainer = styled.div`
     animation: fadein 1.5s;
@@ -81,8 +81,7 @@ const AppContainer = styled.div`
 `;
 function App() {
     useEffect(() => {
-        axios.get('/api/token/get/csrf').then(res => {
-        })
+        // csrfDataConnect().getApiCsrf();
     }, [])
     return (
         <CookiesProvider>
