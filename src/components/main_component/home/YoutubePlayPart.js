@@ -3,7 +3,7 @@ import styled, { css, keyframes } from 'styled-components';
 import YouTube from 'react-youtube';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-import {getCookie,setCookie} from '../../../handler/CookieHandler';
+import { getCookie, setCookie } from '../../../handler/CookieHandler';
 
 const floatingPlayerTitleAnimation = () => {
     return keyframes`
@@ -236,9 +236,9 @@ const YoutubePlayPart = (props) => {
 
     useEffect(() => {
         // console.log(floatVideoCloseCookie);
-        if(floatVideoCloseCookie && floatVideoCloseCookie==1){
+        if (floatVideoCloseCookie && floatVideoCloseCookie === 1) {
             setFloatingClose(true);
-        }else{
+        } else {
             setFloatingClose(false);
         }
     }, [])
@@ -250,12 +250,12 @@ const YoutubePlayPart = (props) => {
     const handleFloatingClose = () => {
         player.current.getInternalPlayer().pauseVideo();
         setFloatingClose(true);
-        setCookie('float_video_close','1',24*60*60*1000);
+        setCookie('float_video_close', '1', 24 * 60 * 60 * 1000);
     }
     return (
         <>
             <Container ref={youtubeContainerRef}>
-                <ContainerTitle><span style={{color:'#ee5470', fontWeight:'800'}}>소개 영상</span></ContainerTitle>
+                <ContainerTitle><span style={{ color: '#ee5470', fontWeight: '800' }}>소개 영상</span></ContainerTitle>
                 <div className='container-fluid'>
                     <div className='row'>
                         {/* <ItemBox className='col-sm-6'>
@@ -264,7 +264,7 @@ const YoutubePlayPart = (props) => {
                             </ItemTitle>            
                         </ItemBox> */}
                         {props.videoList.map(r => {
-                            if (r.videoDisplay == 1) {
+                            if (r?.videoDisplay === 1) {
                                 return (
                                     <YoutubeBox
                                         key={r.videoId}
@@ -276,20 +276,20 @@ const YoutubePlayPart = (props) => {
                                         {props.scrollY && myOffsetTop && props.scrollY >= myOffsetTop - document.documentElement.clientHeight ? '' :
                                             <div className='clearfix'>
                                                 <span className='titleEl'><b className='funnyland-gradient'>Funnyland</b> x {r.videoName}</span>
-                                                <button type='button' className='float-right' style={{ border: 'none', background: 'none', color: 'gray', fontSize:'25px' }} onClick={() => handleFloatingClose()}><FontAwesomeIcon icon={faTimesCircle}></FontAwesomeIcon></button>
+                                                <button type='button' className='float-right' style={{ border: 'none', background: 'none', color: 'gray', fontSize: '25px' }} onClick={() => handleFloatingClose()}><FontAwesomeIcon icon={faTimesCircle}></FontAwesomeIcon></button>
                                             </div>
                                         }
-                                        <YouTube 
-                                            ref={player} 
-                                            // videoId="-F28Byn1bbU" 
-                                            videoId={r.videoKey}
-                                            opts={opts} onReady={_onReady} className='youtube-player-el' containerClassName='youtube-player-box' />
-                                            {props.scrollY && myOffsetTop && props.scrollY >= myOffsetTop - document.documentElement.clientHeight ? 
-                                                <VideoBottomTitle>{r.videoName}</VideoBottomTitle>
-                                                :
-                                                ''
-                                            }
-                                            
+                                        <YouTube
+                                            ref={player}
+                                            videoId={r?.videoKey}
+                                            opts={opts} onReady={_onReady} className='youtube-player-el' containerClassName='youtube-player-box'
+                                        />
+                                        {props.scrollY && myOffsetTop && props.scrollY >= myOffsetTop - document.documentElement.clientHeight ?
+                                            <VideoBottomTitle>{r.videoName}</VideoBottomTitle>
+                                            :
+                                            ''
+                                        }
+
                                     </YoutubeBox>
                                 );
                             } else {
@@ -298,12 +298,12 @@ const YoutubePlayPart = (props) => {
                                         key={r.videoId}
                                         className='col-sm-4'
                                     >
-                                        <YouTube 
-                                            ref={player} 
-                                            // videoId="-F28Byn1bbU" 
+                                        <YouTube
+                                            ref={player}
                                             videoId={r.videoKey}
-                                            opts={opts} onReady={_onReady} className='youtube-player-el' containerClassName='youtube-player-box' />
-                                            <VideoBottomTitle>{r.videoName}</VideoBottomTitle>
+                                            opts={opts} onReady={_onReady} className='youtube-player-el' containerClassName='youtube-player-box'
+                                        />
+                                        <VideoBottomTitle>{r.videoName}</VideoBottomTitle>
                                     </VideoPlayerBox>
                                 )
                             }

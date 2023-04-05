@@ -69,6 +69,7 @@ const HomeMain = () => {
     const [storeList, setStoreList] = useState(null);
     const [csList, setCsList] = useState(null);
     const [popupList, setPopupList] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         handleScrollToTop();
@@ -84,6 +85,7 @@ const HomeMain = () => {
             await loadDataConnect().getStoreList();
             await loadDataConnect().getCsList();
             await loadDataConnect().getPopupList();
+            setIsLoading(false);
         }
         loadInit();
     }, [])
@@ -161,7 +163,7 @@ const HomeMain = () => {
                             popupData.forEach(r => {
                                 let popupCookie = getCookie(`popup${r.popupId}`);
                                 if (popupCookie && popupCookie == 1) {
-                                }else{
+                                } else {
                                     newPopupList.push(r);
                                 }
                             })
@@ -181,6 +183,10 @@ const HomeMain = () => {
             }
         }
     }
+
+    if(isLoading){
+        return null; 
+    }
     return (
         <MainContainer>
             <NavbarDynamic
@@ -188,7 +194,7 @@ const HomeMain = () => {
             ></NavbarDynamic>
             {popupList ?
                 <PopupComponent
-                    popupList = {popupList}
+                    popupList={popupList}
                 ></PopupComponent>
                 :
                 <></>
