@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+    <channel>
+        <title>퍼니랜드 / FUNNYLAND</title>
+        <link>http://www.funnyland.co.kr/</link>
+        <description>
+            게임산업 발전과 건전한 게임문화를 위해 항상 노력하며 다양한 컨텐츠와 우수한 제품 공급에 앞장서는 퍼니랜드 입니다.
+        </description>
+        <item>
+            <title>메인</title>
+            <link>http://www.funnyland.co.kr/</link>
+            <description>
+                게임산업 발전과 건전한 게임문화를 위해 항상 노력하며 다양한 컨텐츠와 우수한 제품 공급에 앞장서는 퍼니랜드 입니다.
+            </description>
+            <pubDate>2023-04-08T00:00:00+00:00</pubDate>
+            <guid>http://www.funnyland.co.kr/</guid>
+        </item>
+        <item>
+            <title>회사소개</title>
+            <link>http://www.funnyland.co.kr/introduce/intro1</link>
+            <description>
+                퍼니랜드는 대한민국의 건전한 게임문화를 선도하는 기업입니다.
+            </description>
+            <pubDate>2023-04-08T00:00:00+00:00</pubDate>
+            <guid>http://www.funnyland.co.kr/introduce/intro1</guid>
+        </item>
+        <item>
+            <title>창업안내</title>
+            <link>http://www.funnyland.co.kr/found/intro1</link>
+            <description>
+                퍼니랜드의 비전과 함께할 소중한 가맹점주님들을 모십니다.
+            </description>
+            <pubDate>2023-04-08T00:00:00+00:00</pubDate>
+            <guid>http://www.funnyland.co.kr/found/intro1</guid>
+        </item>
+        <item>
+            <title>오픈매장안내</title>
+            <link>http://www.funnyland.co.kr/store/list</link>
+            <description>
+                오픈매장안내
+            </description>
+            <pubDate>2023-04-08T00:00:00+00:00</pubDate>
+            <guid>http://www.funnyland.co.kr/store/list</guid>
+        </item>
+        <item>
+            <title>제품안내</title>
+            <link>http://www.funnyland.co.kr/product/list</link>
+            <description>
+                제품안내
+            </description>
+            <pubDate>2023-04-08T00:00:00+00:00</pubDate>
+            <guid>http://www.funnyland.co.kr/product/list</guid>
+        </item>
+    </channel>
+</rss>
